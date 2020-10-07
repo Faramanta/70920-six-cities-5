@@ -27,10 +27,4 @@ module.exports = {
         extensions: ['.js', '.jsx']
     },
     devtool: 'source-map',
-    plugins: [
-        // new webpack.ProvidePlugin({
-        //     React: 'react',
-        //     PropTypes: 'prop-types',
-        // })
-    ]
 };
