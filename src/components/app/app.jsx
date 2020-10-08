@@ -1,19 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {BrowserRouter, Switch, Route} from "react-router-dom";
+import {BrowserRouter, Switch, Route, Link} from "react-router-dom";
 import Main from "../main/main";
 import SignIn from "../sign-in/sign-in";
 import Favorites from "../favorites/favorites";
 import Room from "../room/room";
 
 const App = (props) => {
-  const {offersCount} = props;
+  const {offers, reviews} = props;
 
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/">
-          <Main offersCount={offersCount} />
+          <Main offers={offers} />
         </Route>
         <Route exact path="/login">
           <SignIn />
@@ -22,7 +22,13 @@ const App = (props) => {
           <Favorites />
         </Route>
         <Route exact path="/offer/:id">
-          <Room />
+          <Room offers={offers} reviews={reviews} />
+        </Route>
+        <Route>
+          <React.Fragment>
+            <h1 style={{display: `block`, textAlign: `center`}}>Page not found</h1>
+            <Link to="/" style={{display: `block`, textAlign: `center`, marginTop: `30px`}}>Go to home</Link>
+          </React.Fragment>
         </Route>
       </Switch>
     </BrowserRouter>
@@ -30,7 +36,8 @@ const App = (props) => {
 };
 
 App.propTypes = {
-  offersCount: PropTypes.number.isRequired,
+  offers: PropTypes.array.isRequired,
+  reviews: PropTypes.array.isRequired,
 };
 
 export default App;
