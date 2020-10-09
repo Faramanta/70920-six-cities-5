@@ -10,16 +10,26 @@ class ReviewList extends PureComponent {
   render() {
     const {reviews, offer} = this.props;
     const filteredReviews = reviews.filter((review) => review.offerId === offer.id);
+    const reviewcCount = filteredReviews.length;
 
     return (
-      <ul className="reviews__list">
-        {filteredReviews.map((filteredReview) => (
-          <ReviewItem
-            key={filteredReview.id}
-            review={filteredReview}
-          />
-        ))}
-      </ul>
+      <React.Fragment>
+        {reviewcCount
+          ?
+          <React.Fragment>
+            <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviewcCount}</span></h2>
+            <ul className="reviews__list">
+              {filteredReviews.map((filteredReview) => (
+                <ReviewItem
+                  key={filteredReview.id}
+                  review={filteredReview}
+                />
+              ))}
+            </ul>
+          </React.Fragment>
+          : null
+        }
+      </React.Fragment>
     );
   }
 }

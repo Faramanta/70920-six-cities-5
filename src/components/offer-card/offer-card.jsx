@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 
 const OfferCard = (props) => {
-  const {offer, onHover, offerPathname} = props;
+  const {offer, offerPathname, onOfferCardHover} = props;
   const roomUrl = `offer/` + offerPathname;
 
   return (
@@ -11,7 +11,7 @@ const OfferCard = (props) => {
       className="cities__place-card place-card"
       onMouseOver={(evt) => {
         evt.preventDefault();
-        onHover();
+        onOfferCardHover(offer);
       }}
     >
       {offer.isPremium
@@ -69,7 +69,7 @@ const OfferCard = (props) => {
 
 OfferCard.propTypes = {
   offerPathname: PropTypes.number,
-  onHover: PropTypes.func.isRequired,
+  onOfferCardHover: PropTypes.func.isRequired,
   offer: PropTypes.shape({
     id: PropTypes.number.isRequired,
     isPremium: PropTypes.bool.isRequired,

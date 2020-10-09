@@ -2,14 +2,13 @@ import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import OfferCard from "../offer-card/offer-card";
 
-class OfferList extends PureComponent {
+class OfferNearList extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       offerActive: null,
     };
     this._handleOfferCardHover = this._handleOfferCardHover.bind(this);
-
   }
 
   _handleOfferCardHover(offer) {
@@ -22,8 +21,8 @@ class OfferList extends PureComponent {
     const {offers} = this.props;
 
     return (
-      <div className="cities__places-list places__list tabs__content">
-        {offers.map((offer) => (
+      <div className="near-places__list places__list">
+        {offers.slice(0, 3).map((offer) => (
           <OfferCard
             key={offer.id}
             offer={offer}
@@ -36,8 +35,8 @@ class OfferList extends PureComponent {
   }
 }
 
-OfferList.propTypes = {
+OfferNearList.propTypes = {
   offers: PropTypes.array.isRequired,
 };
 
-export default OfferList;
+export default OfferNearList;
