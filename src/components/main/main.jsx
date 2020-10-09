@@ -1,5 +1,3 @@
-import React from "react";
-import PropTypes from "prop-types";
 import OfferList from "../offer-list/offer-list";
 
 const Main = (props) => {

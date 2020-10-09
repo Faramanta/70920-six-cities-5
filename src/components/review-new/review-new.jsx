@@ -1,5 +1,4 @@
-import React, {PureComponent} from "react";
-import PropTypes from "prop-types";
+import {PureComponent} from "react";
 
 class ReviewNew extends PureComponent {
   constructor(props) {

@@ -1,5 +1,4 @@
-import React, {PureComponent} from "react";
-import PropTypes from "prop-types";
+import {Fragment, PureComponent} from "react";
 import ReviewItem from "../review-item/review-item";
 
 class ReviewList extends PureComponent {
@@ -13,10 +12,10 @@ class ReviewList extends PureComponent {
     const reviewcCount = filteredReviews.length;
 
     return (
-      <React.Fragment>
+      <Fragment>
         {reviewcCount
           ?
-          <React.Fragment>
+          <Fragment>
             <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviewcCount}</span></h2>
             <ul className="reviews__list">
               {filteredReviews.map((filteredReview) => (
@@ -26,10 +25,10 @@ class ReviewList extends PureComponent {
                 />
               ))}
             </ul>
-          </React.Fragment>
+          </Fragment>
           : null
         }
-      </React.Fragment>
+      </Fragment>
     );
   }
 }
