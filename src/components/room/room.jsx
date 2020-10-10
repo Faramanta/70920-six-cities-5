@@ -1,12 +1,14 @@
 import {Link} from "react-router-dom";
 import ReviewList from "../review-list/review-list";
 import ReviewNew from "../review-new/review-new";
-import OfferNearList from "../offer-near-list/offer-near-list";
+import OfferList from "../offer-list/offer-list";
+import {OffersPropTypes, ReviewsPropTypes} from "../../utils/prop-types";
 
 const Room = (props) => {
   const {offers, reviews} = props;
   const offerPathname = window.location.pathname.replace(`/offer/`, ``);
   const offer = offers[offerPathname];
+  const superBtnClass = offer.isSuper ? `property__avatar-wrapper--pro user__avatar` : ``;
 
   return (
     <div className="page">
@@ -46,12 +48,10 @@ const Room = (props) => {
           </div>
           <div className="property__container container">
             <div className="property__wrapper">
-              {offer.isPremium
-                ?
+              {offer.isPremium &&
                 <div className="property__mark">
                   <span>Premium</span>
                 </div>
-                : null
               }
               <div className="property__name-wrapper">
                 <h1 className="property__name">
@@ -100,16 +100,9 @@ const Room = (props) => {
               <div className="property__host">
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
-                  {offer.isSuper
-                    ?
-                    <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                      <img className="property__avatar user__avatar" src={offer.ownerAvatar} width="74" height="74" alt="Host avatar" />
-                    </div>
-                    :
-                    <div className="property__avatar-wrapper user__avatar-wrapper">
-                      <img className="property__avatar user__avatar" src={offer.ownerAvatar} width="74" height="74" alt="Host avatar" />
-                    </div>
-                  }
+                  <div className={`property__avatar-wrapper ${superBtnClass} user__avatar-wrapper`}>
+                    <img className="property__avatar user__avatar" src={offer.ownerAvatar} width="74" height="74" alt="Host avatar" />
+                  </div>
                   <span className="property__user-name">
                     {offer.ownerName}
                   </span>
@@ -138,7 +131,7 @@ const Room = (props) => {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
 
-            <OfferNearList offers={offers}/>
+            <OfferList offers={offers.slice(0, 3)} className={`near-places__list`} />
 
           </section>
         </div>
@@ -148,8 +141,8 @@ const Room = (props) => {
 };
 
 Room.propTypes = {
-  offers: PropTypes.array.isRequired,
-  reviews: PropTypes.array.isRequired,
+  offers: PropTypes.arrayOf(OffersPropTypes).isRequired,
+  reviews: PropTypes.arrayOf(ReviewsPropTypes).isRequired,
 };
 
 export default Room;

@@ -1,8 +1,10 @@
 import {Link} from "react-router-dom";
+import {OffersPropTypes} from "../../utils/prop-types";
 
 const OfferCard = (props) => {
   const {offer, offerPathname, onOfferCardHover} = props;
-  const roomUrl = `offer/` + offerPathname;
+  const roomUrl = `/offer/` + offerPathname;
+  const favoriteBtnClass = offer.isFavorite ? `place-card__bookmark-button--active` : ``;
 
   return (
     <article
@@ -12,12 +14,12 @@ const OfferCard = (props) => {
         onOfferCardHover(offer);
       }}
     >
-      {offer.isPremium
-        ?
+      {offer.isPremium &&
+        <>
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
-        : null
+        </>
       }
 
       <div className="cities__image-wrapper place-card__image-wrapper">
@@ -31,24 +33,12 @@ const OfferCard = (props) => {
             <b className="place-card__price-value">&euro;{offer.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-
-          {offer.isFavorite
-            ?
-            <button className="place-card__bookmark-button place-card__bookmark-button--active button" type="button">
-              <svg className="place-card__bookmark-icon" width="18" height="19">
-                <use xlinkHref="#icon-bookmark"></use>
-              </svg>
-              <span className="visually-hidden">To bookmarks</span>
-            </button>
-            :
-            <button className="place-card__bookmark-button button" type="button">
-              <svg className="place-card__bookmark-icon" width="18" height="19">
-                <use xlinkHref="#icon-bookmark"></use>
-              </svg>
-              <span className="visually-hidden">To bookmarks</span>
-            </button>
-          }
-
+          <button className={`place-card__bookmark-button ${favoriteBtnClass} button`} type="button">
+            <svg className="place-card__bookmark-icon" width="18" height="19">
+              <use xlinkHref="#icon-bookmark"></use>
+            </svg>
+            <span className="visually-hidden">To bookmarks</span>
+          </button>
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
@@ -68,16 +58,7 @@ const OfferCard = (props) => {
 OfferCard.propTypes = {
   offerPathname: PropTypes.number,
   onOfferCardHover: PropTypes.func.isRequired,
-  offer: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    isPremium: PropTypes.bool.isRequired,
-    isFavorite: PropTypes.bool.isRequired,
-    price: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    pictures: PropTypes.array.isRequired,
-
-  }).isRequired
+  offer: OffersPropTypes
 };
 
 export default OfferCard;
