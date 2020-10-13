@@ -4,6 +4,7 @@ import Main from "../main/main";
 import SignIn from "../sign-in/sign-in";
 import Favorites from "../favorites/favorites";
 import Room from "../room/room";
+import {OffersPropTypes, ReviewsPropTypes} from "../../utils/prop-types";
 
 const App = (props) => {
   const {offers, reviews} = props;
@@ -35,8 +36,8 @@ const App = (props) => {
 };
 
 App.propTypes = {
-  offers: PropTypes.array.isRequired,
-  reviews: PropTypes.array.isRequired,
+  offers: PropTypes.arrayOf(OffersPropTypes).isRequired,
+  reviews: PropTypes.arrayOf(ReviewsPropTypes).isRequired,
 };
 
 export default App;

@@ -1,7 +1,7 @@
-import {Fragment, PureComponent} from "react";
 import ReviewItem from "../review-item/review-item";
+import {OffersPropTypes, ReviewsPropTypes} from "../../utils/prop-types";
 
-class ReviewList extends PureComponent {
+export default class ReviewList extends React.PureComponent {
   constructor(props) {
     super(props);
   }
@@ -12,10 +12,9 @@ class ReviewList extends PureComponent {
     const reviewcCount = filteredReviews.length;
 
     return (
-      <Fragment>
-        {reviewcCount
-          ?
-          <Fragment>
+      <>
+        {reviewcCount > 0 &&
+          <>
             <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviewcCount}</span></h2>
             <ul className="reviews__list">
               {filteredReviews.map((filteredReview) => (
@@ -25,26 +24,14 @@ class ReviewList extends PureComponent {
                 />
               ))}
             </ul>
-          </Fragment>
-          : null
+          </>
         }
-      </Fragment>
+      </>
     );
   }
 }
 
 ReviewList.propTypes = {
-  reviews: PropTypes.array.isRequired,
-  offer: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    isPremium: PropTypes.bool.isRequired,
-    isFavorite: PropTypes.bool.isRequired,
-    price: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    pictures: PropTypes.array.isRequired,
-
-  }).isRequired
+  offer: OffersPropTypes,
+  reviews: PropTypes.arrayOf(ReviewsPropTypes).isRequired
 };
-
-export default ReviewList;

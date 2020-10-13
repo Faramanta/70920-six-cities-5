@@ -34,6 +34,7 @@ export default [
     ownerName: `Angelina`,
     ownerAvatar: `https://picsum.photos/seed/1/74/74`,
     isSuper: true,
+    coordinates: [52.3909553943508, 4.85309666406198]
   }, {
     id: 1,
     city: `Cologne`,
@@ -62,6 +63,7 @@ export default [
     ownerName: `Mary`,
     ownerAvatar: `https://picsum.photos/seed/2/74/74`,
     isSuper: false,
+    coordinates: [52.369553943508, 4.85309666406198]
   }, {
     id: 2,
     city: `Brussels`,
@@ -90,6 +92,7 @@ export default [
     ownerName: `John`,
     ownerAvatar: `https://picsum.photos/seed/3/74/74`,
     isSuper: true,
+    coordinates: [52.3909553943508, 4.929309666406198]
   }, {
     id: 3,
     city: `Amsterdam`,
@@ -118,6 +121,7 @@ export default [
     ownerName: `Irina`,
     ownerAvatar: `https://picsum.photos/seed/4/74/74`,
     isSuper: true,
+    coordinates: [52.3809553943508, 4.939309666406198]
   }, {
     id: 4,
     city: `Hamburg`,
@@ -142,6 +146,7 @@ export default [
     ownerName: `Oleg`,
     ownerAvatar: `https://picsum.photos/seed/5/74/74`,
     isSuper: true,
+    coordinates: [52.3809553943508, 4.949309666406198]
   }, {
     id: 5,
     city: `Dusseldorf`,
@@ -170,5 +175,6 @@ export default [
     ownerName: `Irina`,
     ownerAvatar: `https://picsum.photos/seed/6/74/74`,
     isSuper: true,
+    coordinates: [52.3709553943508, 4.939309666406198]
   }
 ];

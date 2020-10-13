@@ -1,3 +1,5 @@
+import {ReviewsPropTypes} from "../../utils/prop-types";
+
 const ReviewItem = (props) => {
   const {review} = props;
 
@@ -28,7 +30,7 @@ const ReviewItem = (props) => {
 };
 
 ReviewItem.propTypes = {
-  review: PropTypes.shape()
+  review: ReviewsPropTypes
 };
 
 export default ReviewItem;

@@ -1,4 +1,6 @@
 import OfferList from "../offer-list/offer-list";
+import Map from "../map/map";
+import {OffersPropTypes} from "../../utils/prop-types";
 
 const Main = (props) => {
   const {offers} = props;
@@ -87,11 +89,11 @@ const Main = (props) => {
                 </ul>
               </form>
 
-              <OfferList offers={offers} />
+              <OfferList offers={offers} className={`cities__places-list tabs__content`} />
 
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <Map offers={offers} className={`cities__map`} />
             </div>
           </div>
         </div>
@@ -101,7 +103,7 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
-  offers: PropTypes.array.isRequired,
+  offers: PropTypes.arrayOf(OffersPropTypes).isRequired,
 };
 
 export default Main;

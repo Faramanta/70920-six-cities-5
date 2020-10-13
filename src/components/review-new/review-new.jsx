@@ -1,6 +1,6 @@
-import {PureComponent} from "react";
+import {OffersPropTypes, ReviewsPropTypes} from "../../utils/prop-types";
 
-class ReviewNew extends PureComponent {
+export default class ReviewNew extends React.PureComponent {
   constructor(props) {
     super(props);
     this._handleSubmit = this._handleSubmit.bind(this);
@@ -140,10 +140,6 @@ class ReviewNew extends PureComponent {
 }
 
 ReviewNew.propTypes = {
-  reviews: PropTypes.array.isRequired,
-  offer: PropTypes.shape({
-    id: PropTypes.number.isRequired
-  })
+  reviews: PropTypes.arrayOf(ReviewsPropTypes).isRequired,
+  offer: OffersPropTypes
 };
-
-export default ReviewNew;
