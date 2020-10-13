@@ -2,6 +2,7 @@ import {Link} from "react-router-dom";
 import ReviewList from "../review-list/review-list";
 import ReviewNew from "../review-new/review-new";
 import OfferList from "../offer-list/offer-list";
+import Map from "../map/map";
 import {OffersPropTypes, ReviewsPropTypes} from "../../utils/prop-types";
 
 const Room = (props) => {
@@ -125,7 +126,7 @@ const Room = (props) => {
               </section>
             </div>
           </div>
-          <section className="property__map map"></section>
+          <Map offers={offers} className={`property__map`} />
         </section>
         <div className="container">
           <section className="near-places places">

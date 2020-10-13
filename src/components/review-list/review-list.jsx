@@ -1,7 +1,7 @@
 import ReviewItem from "../review-item/review-item";
 import {OffersPropTypes, ReviewsPropTypes} from "../../utils/prop-types";
 
-class ReviewList extends React.PureComponent {
+export default class ReviewList extends React.PureComponent {
   constructor(props) {
     super(props);
   }
@@ -35,5 +35,3 @@ ReviewList.propTypes = {
   offer: OffersPropTypes,
   reviews: PropTypes.arrayOf(ReviewsPropTypes).isRequired
 };
-
-export default ReviewList;

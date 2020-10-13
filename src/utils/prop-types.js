@@ -14,7 +14,8 @@ export const OffersPropTypes = PropTypes.shape({
   facilities: PropTypes.array.isRequired,
   ownerName: PropTypes.string.isRequired,
   ownerAvatar: PropTypes.string.isRequired,
-  isSuper: PropTypes.bool.isRequired
+  isSuper: PropTypes.bool.isRequired,
+  coordinates: PropTypes.array.isRequired
 }).isRequired;
 
 export const ReviewsPropTypes = PropTypes.shape({
