@@ -5,13 +5,13 @@ export default class ReviewList extends React.PureComponent {
   render() {
     const {reviews, offer} = this.props;
     const filteredReviews = reviews.filter((review) => review.offerId === offer.id);
-    const reviewcCount = filteredReviews.length;
+    const reviewsCount = filteredReviews.length;
 
     return (
       <>
-        {reviewcCount > 0 &&
+        {reviewsCount > 0 &&
           <>
-            <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviewcCount}</span></h2>
+            <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviewsCount}</span></h2>
             <ul className="reviews__list">
               {filteredReviews.map((filteredReview) => (
                 <ReviewItem

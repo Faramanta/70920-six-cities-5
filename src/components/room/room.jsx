@@ -10,6 +10,7 @@ const Room = (props) => {
   const offerPathname = window.location.pathname.replace(`/offer/`, ``);
   const offer = offers[offerPathname];
   const superBtnClass = offer.isSuper ? `property__avatar-wrapper--pro user__avatar` : ``;
+  const offersNear = offers.filter((offerItem) => offerItem.id !== offer.id).slice(0, 3);
 
   return (
     <div className="page">
@@ -126,13 +127,13 @@ const Room = (props) => {
               </section>
             </div>
           </div>
-          <Map offers={offers} className={`property__map`} />
+          <Map offers={offersNear} className={`property__map`} />
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
 
-            <OfferList offers={offers.slice(0, 3)} className={`near-places__list`} />
+            <OfferList offers={offersNear} className={`near-places__list`} />
 
           </section>
         </div>
