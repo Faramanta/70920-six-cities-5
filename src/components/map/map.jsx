@@ -4,10 +4,6 @@ import {OffersPropTypes} from "../../utils/prop-types";
 import {DEFAULT_CITY, ICON_URL, MAP_CONTAINER_ID} from "../../const";
 
 export default class Map extends React.PureComponent {
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
     const {offers} = this.props;
     const offersCords = offers.map((offer) => offer.coordinates);

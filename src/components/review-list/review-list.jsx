@@ -2,10 +2,6 @@ import ReviewItem from "../review-item/review-item";
 import {OffersPropTypes, ReviewsPropTypes} from "../../utils/prop-types";
 
 export default class ReviewList extends React.PureComponent {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const {reviews, offer} = this.props;
     const filteredReviews = reviews.filter((review) => review.offerId === offer.id);

@@ -1,4 +1,3 @@
-import {Fragment} from 'react';
 import {BrowserRouter, Switch, Route, Link} from "react-router-dom";
 import Main from "../main/main";
 import SignIn from "../sign-in/sign-in";
@@ -24,12 +23,14 @@ const App = (props) => {
         <Route exact path="/offer/:id">
           <Room offers={offers} reviews={reviews} />
         </Route>
-        <Route>
-          <Fragment>
-            <h1 style={{display: `block`, textAlign: `center`}}>Page not found</h1>
-            <Link to="/" style={{display: `block`, textAlign: `center`, marginTop: `30px`}}>Go to home</Link>
-          </Fragment>
-        </Route>
+        <Route
+          render={() => (
+            <>
+              <h1 style={{display: `block`, textAlign: `center`}}>Page not found</h1>
+              <Link to="/" style={{display: `block`, textAlign: `center`, marginTop: `30px`}}>Go to home</Link>
+            </>
+          )}
+        />
       </Switch>
     </BrowserRouter>
   );
