@@ -1,4 +1,4 @@
-import {OffersPropTypes, ReviewsPropTypes} from "../../utils/prop-types";
+import {OffersPropTypes, ReviewsPropTypes} from "Props";
 
 export default class ReviewNew extends React.PureComponent {
   constructor(props) {

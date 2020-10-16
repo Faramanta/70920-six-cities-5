@@ -1,6 +1,6 @@
 import OfferList from "../offer-list/offer-list";
 import Map from "../map/map";
-import {OffersPropTypes} from "../../utils/prop-types";
+import {OffersPropTypes} from "Props";
 
 const Main = (props) => {
   const {offers} = props;

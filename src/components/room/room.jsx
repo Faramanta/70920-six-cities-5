@@ -1,9 +1,9 @@
 import {Link} from "react-router-dom";
-import ReviewList from "../review-list/review-list";
-import ReviewNew from "../review-new/review-new";
+import ReviewList from "Review/review-list/review-list";
+import ReviewNew from "Review/components/review-new/review-new";
 import OfferList from "../offer-list/offer-list";
 import Map from "../map/map";
-import {OffersPropTypes, ReviewsPropTypes} from "../../utils/prop-types";
+import {OffersPropTypes, ReviewsPropTypes} from "Props";
 
 const Room = (props) => {
   const {offers, reviews} = props;

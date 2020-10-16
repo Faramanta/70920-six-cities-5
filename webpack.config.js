@@ -31,7 +31,11 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx'],
+    alias: {
+      Review: path.resolve(__dirname, './src/components/review/'),
+      Props: path.resolve(__dirname, './src/utils/prop-types/')
+    }
   },
   devtool: 'source-map',
   plugins: [

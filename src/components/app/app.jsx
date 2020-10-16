@@ -3,7 +3,7 @@ import Main from "../main/main";
 import SignIn from "../sign-in/sign-in";
 import Favorites from "../favorites/favorites";
 import Room from "../room/room";
-import {OffersPropTypes, ReviewsPropTypes} from "../../utils/prop-types";
+import {OffersPropTypes, ReviewsPropTypes} from "Props";
 
 const App = (props) => {
   const {offers, reviews} = props;

@@ -1,6 +1,6 @@
 import leaflet from "leaflet";
 import "leaflet/dist/leaflet.css";
-import {OffersPropTypes} from "../../utils/prop-types";
+import {OffersPropTypes} from "Props";
 import {DEFAULT_CITY, ICON_URL, MAP_CONTAINER_ID} from "../../const";
 
 export default class Map extends React.PureComponent {
