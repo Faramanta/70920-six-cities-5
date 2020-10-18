@@ -3,16 +3,16 @@ import Main from "../main/main";
 import SignIn from "../sign-in/sign-in";
 import Favorites from "../favorites/favorites";
 import Room from "../room/room";
-import {OffersPropTypes, ReviewsPropTypes} from "Props";
+import {ReviewsPropTypes} from "Props";
 
 const App = (props) => {
-  const {offers, reviews} = props;
+  const {reviews} = props;
 
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/">
-          <Main offers={offers} />
+          <Main />
         </Route>
         <Route exact path="/login">
           <SignIn />
@@ -21,7 +21,7 @@ const App = (props) => {
           <Favorites />
         </Route>
         <Route exact path="/offer/:id">
-          <Room offers={offers} reviews={reviews} />
+          <Room reviews={reviews} />
         </Route>
         <Route
           render={() => (
@@ -37,7 +37,6 @@ const App = (props) => {
 };
 
 App.propTypes = {
-  offers: PropTypes.arrayOf(OffersPropTypes).isRequired,
   reviews: PropTypes.arrayOf(ReviewsPropTypes).isRequired,
 };
 

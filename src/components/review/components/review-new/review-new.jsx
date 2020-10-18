@@ -1,4 +1,4 @@
-import {OffersPropTypes, ReviewsPropTypes} from "Props";
+import {OffersPropTypes, ReviewsPropTypes} from "../../../../utils/prop-types";
 
 export default class ReviewNew extends React.PureComponent {
   constructor(props) {
@@ -43,7 +43,7 @@ export default class ReviewNew extends React.PureComponent {
         action="#"
         method="post"
         onSubmit={this._handleSubmit}
-        onClick={() => {
+        onChange={() => {
           this.setState({
             id: reviews.length
           });

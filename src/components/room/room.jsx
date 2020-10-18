@@ -1,4 +1,5 @@
 import {Link} from "react-router-dom";
+import {connect} from "react-redux";
 import ReviewList from "Review/review-list/review-list";
 import ReviewNew from "Review/components/review-new/review-new";
 import OfferList from "../offer-list/offer-list";
@@ -7,8 +8,8 @@ import {OffersPropTypes, ReviewsPropTypes} from "Props";
 
 const Room = (props) => {
   const {offers, reviews} = props;
-  const offerPathname = window.location.pathname.replace(`/offer/`, ``);
-  const offer = offers[offerPathname];
+  const offerPathname = parseInt(window.location.pathname.replace(`/offer/`, ``), 10);
+  const offer = offers.find((item) => item.id === offerPathname);
   const superBtnClass = offer.isSuper ? `property__avatar-wrapper--pro user__avatar` : ``;
   const offersNear = offers.filter((offerItem) => offerItem.id !== offer.id).slice(0, 3);
 
@@ -146,5 +147,11 @@ Room.propTypes = {
   offers: PropTypes.arrayOf(OffersPropTypes).isRequired,
   reviews: PropTypes.arrayOf(ReviewsPropTypes).isRequired,
 };
+const mapStateToProps = (state) => ({
+  offers: state.offers,
+  cities: state.cities,
+  activeCityIndex: state.activeCityIndex,
+});
 
-export default Room;
+export {Room};
+export default connect(mapStateToProps)(Room);
