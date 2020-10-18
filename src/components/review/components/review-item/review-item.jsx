@@ -1,4 +1,4 @@
-import {ReviewsPropTypes} from "../../utils/prop-types";
+import {ReviewsPropTypes} from "Props";
 
 const ReviewItem = (props) => {
   const {review} = props;

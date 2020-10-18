@@ -176,5 +176,34 @@ export default [
     ownerAvatar: `https://picsum.photos/seed/6/74/74`,
     isSuper: true,
     coordinates: [52.3709553943508, 4.939309666406198]
+  }, {
+    id: 6,
+    city: `Paris`,
+    title: `Nice, cozy, warm big bed apartment`,
+    description: `An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.`,
+    isPremium: false,
+    isFavorite: false,
+    type: `Hotel`,
+    rating: 1,
+    bedroomCount: 5,
+    guestCount: 2,
+    price: 180,
+    pictures: [
+      `https://picsum.photos/seed/24/260/200`,
+      `https://picsum.photos/seed/25/260/200`,
+      `https://picsum.photos/seed/26/260/200`,
+      `https://picsum.photos/seed/27/260/200`,
+      `https://picsum.photos/seed/28/260/200`,
+    ],
+    facilities: [
+      `Wi-Fi`,
+      `Coffee machine`,
+      `Cabel TV`,
+      `Fridge`,
+    ],
+    ownerName: `Irina`,
+    ownerAvatar: `https://picsum.photos/seed/6/74/74`,
+    isSuper: true,
+    coordinates: [52.3709553943508, 4.939309666406198]
   }
 ];
