@@ -3,23 +3,26 @@ import {ActionType} from "./action";
 import offers from "../mocks/offers";
 import {CITIES} from "../const";
 
-// const defaultOffers = ;
+const cities = CITIES;
+const defaultCity = CITIES[0];
+const defaultOffers = offers.filter((offer) => offer.city === CITIES[0]);
 
 const initialState = {
-  activeCityIndex: 0,
-  offers: offers.filter((offer) => offer.city === CITIES[0]),
-  cities: CITIES
+  activeCity: defaultCity,
+  offers: defaultOffers,
+  allOffers: offers,
+  cities
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.CHANGE_CITY:
       return extend(state, {
-        activeCityIndex: action.payload
+        activeCity: action.payload
       });
     case ActionType.GET_OFFERS_LIST:
       return extend(state, {
-        offers: offers.filter((offer) => offer.city === state.cities[state.activeCityIndex])
+        offers: offers.filter((offer) => offer.city === state.activeCity)
       });
   }
 

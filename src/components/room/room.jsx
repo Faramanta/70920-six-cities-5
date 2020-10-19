@@ -150,7 +150,7 @@ Room.propTypes = {
 const mapStateToProps = (state) => ({
   offers: state.offers,
   cities: state.cities,
-  activeCityIndex: state.activeCityIndex,
+  activeCity: state.activeCity,
 });
 
 export {Room};

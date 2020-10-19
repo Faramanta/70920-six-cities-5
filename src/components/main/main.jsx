@@ -5,7 +5,7 @@ import {OffersPropTypes} from "Props";
 import {connect} from "react-redux";
 
 const Main = (props) => {
-  const {offers, cities, activeCityIndex} = props;
+  const {offers, cities, activeCity} = props;
 
   return (
     <div className="page page--gray page--main">
@@ -43,7 +43,7 @@ const Main = (props) => {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offers.length} places to stay in {cities[activeCityIndex]}</b>
+              <b className="places__found">{offers.length} places to stay in {activeCity}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex="0">
@@ -74,15 +74,15 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
+  activeCity: PropTypes.string.isRequired,
   offers: PropTypes.arrayOf(OffersPropTypes).isRequired,
   cities: PropTypes.array.isRequired,
-  activeCityIndex: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({
+  activeCity: state.activeCity,
   offers: state.offers,
   cities: state.cities,
-  activeCityIndex: state.activeCityIndex,
 });
 
 export {Main};

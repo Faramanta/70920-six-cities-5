@@ -1,5 +1,5 @@
 const LocationItem = (props) => {
-  const {city, onLocationItemClick, className} = props;
+  const {city, className, onLocationItemClick} = props;
 
   return (
     <li className="locations__item" >
@@ -13,7 +13,6 @@ const LocationItem = (props) => {
 LocationItem.propTypes = {
   city: PropTypes.string.isRequired,
   onLocationItemClick: PropTypes.func.isRequired,
-  activeCityIndex: PropTypes.number.isRequired,
   className: PropTypes.string,
 };
 

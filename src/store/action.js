@@ -4,12 +4,11 @@ export const ActionType = {
 };
 
 export const ActionCreator = {
-  changeCity: (index) => ({
+  changeCity: (activeCity) => ({
     type: ActionType.CHANGE_CITY,
-    payload: index
+    payload: activeCity
   }),
   getOffersList: () => ({
     type: ActionType.GET_OFFERS_LIST,
-    payload: []
   })
 };
