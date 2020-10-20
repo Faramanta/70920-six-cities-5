@@ -1,19 +1,23 @@
+import {connect} from "react-redux";
+import {ActionCreator} from "../../store/action";
 import OfferCard from "../offer-card/offer-card";
 import {OffersPropTypes} from "Props";
 
-export default class OfferList extends React.PureComponent {
+class OfferList extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = {
-      offerActive: null,
-    };
-    this._handleOfferCardHover = this._handleOfferCardHover.bind(this);
+    this._handleOfferCardOver = this._handleOfferCardOver.bind(this);
+    this._handleOfferCardOut = this._handleOfferCardOut.bind(this);
   }
 
-  _handleOfferCardHover(offer) {
-    this.setState({
-      offerActive: offer
-    });
+  _handleOfferCardOver(id) {
+    const {changeHoverOfferCardId} = this.props;
+    changeHoverOfferCardId(id);
+  }
+
+  _handleOfferCardOut() {
+    const {changeHoverOfferCardId} = this.props;
+    changeHoverOfferCardId(null);
   }
 
   render() {
@@ -25,7 +29,8 @@ export default class OfferList extends React.PureComponent {
           <OfferCard
             key={offer.id}
             offer={offer}
-            onOfferCardHover={this._handleOfferCardHover}
+            onOfferCardOver={() => this._handleOfferCardOver(offer.id)}
+            onOfferCardOut={this._handleOfferCardOut}
             offerPathname={offer.id}
           />
         ))}
@@ -36,5 +41,20 @@ export default class OfferList extends React.PureComponent {
 
 OfferList.propTypes = {
   offers: PropTypes.arrayOf(OffersPropTypes).isRequired,
-  className: PropTypes.string
+  changeHoverOfferCardId: PropTypes.func.isRequired,
+  className: PropTypes.string,
 };
+
+const mapStateToProps = (state) => ({
+  hoverOfferCardId: state.hoverOfferCardId
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  changeHoverOfferCardId(id) {
+    dispatch(ActionCreator.changeHoverOfferCardId(id));
+  },
+
+});
+
+export {OfferList};
+export default connect(mapStateToProps, mapDispatchToProps)(OfferList);
