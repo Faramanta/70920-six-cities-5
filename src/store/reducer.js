@@ -1,4 +1,4 @@
-import {extend} from "../utils/utils";
+import {extend, filteredOffers} from "../utils/utils";
 import {ActionType} from "./action";
 import offers from "../mocks/offers";
 import {CITIES, SortingType} from "../const";
@@ -30,23 +30,11 @@ const reducer = (state = initialState, action) => {
       return extend(state, {
         sortingType: action.payload
       });
-    case ActionType.SORT_POPULAR:
+    case ActionType.CHANGE_FILTER:
       return extend(state, {
-        offers: state.offers.filter((offer) => offer.city === state.activeCity)
+        offers: filteredOffers(state.sortingType, state.activeCity, state.offers)
       });
-    case ActionType.SORT_LOW_TO_HIGH:
-      return extend(state, {
-        offers: state.offers.slice().sort((a, b) => a.price - b.price)
-      });
-    case ActionType.SORT_HIGH_TO_LOW:
-      return extend(state, {
-        offers: state.offers.slice().sort((a, b) => b.price - a.price)
-      });
-    case ActionType.SORT_TOP_RATED_FIRST:
-      return extend(state, {
-        offers: state.offers.slice().sort((a, b) => b.rating - a.rating)
-      });
-    case ActionType.SHANGE_HOVER_OFFER_CARD_ID:
+    case ActionType.CHANGE_HOVER_OFFER_CARD_ID:
       return extend(state, {
         hoverOfferCardId: action.payload
       });

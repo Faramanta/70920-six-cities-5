@@ -7,19 +7,18 @@ import {DEFAULT_CITY, ICON_URL, HOVER_ICON_URL, ICON_SIZE, MAP_CONTAINER_ID} fro
 class Map extends React.PureComponent {
   componentDidMount() {
     this._renderMap();
+    this._renderMarker();
   }
 
   componentDidUpdate() {
-    this._removeMap();
-    this._renderMap();
+    this._renderMarker();
   }
 
-  _renderMap() {
+  _renderMarker() {
     const {offers, hoverOfferCardId} = this.props;
     const coordsHoverOfferCardId = offers.filter((offer) => offer.id === hoverOfferCardId).map((offer) => offer.coordinates);
     const coordsNotHoverOfferCardId = offers.filter((offer) => offer.id !== hoverOfferCardId).map((offer) => offer.coordinates);
 
-    // Конфигурация leaflet
     const defaultIcon = leaflet.icon({
       iconUrl: ICON_URL,
       iconSize: ICON_SIZE
@@ -29,23 +28,6 @@ class Map extends React.PureComponent {
       iconUrl: HOVER_ICON_URL,
       iconSize: ICON_SIZE
     });
-
-    // Инициализация карты и фокус на DEFAULT_CITY
-    const zoom = 12;
-    this.map = leaflet.map(MAP_CONTAINER_ID, {
-      center: DEFAULT_CITY,
-      zoom,
-      zoomControl: false,
-      marker: true
-    });
-    this.map.setView(DEFAULT_CITY, zoom);
-
-    // Подключение слоя карты
-    leaflet
-      .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
-        attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
-      })
-      .addTo(this.map);
 
     // отрисовка маркера
     coordsNotHoverOfferCardId.forEach((offerCords) =>
@@ -62,8 +44,23 @@ class Map extends React.PureComponent {
     }
   }
 
-  _removeMap() {
-    this.map.remove();
+  _renderMap() {
+    // Инициализация карты и фокус на DEFAULT_CITY
+    const zoom = 12;
+    this.map = leaflet.map(MAP_CONTAINER_ID, {
+      center: DEFAULT_CITY,
+      zoom,
+      zoomControl: false,
+      marker: true
+    });
+    this.map.setView(DEFAULT_CITY, zoom);
+
+    // Подключение слоя карты
+    leaflet
+      .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
+        attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
+      })
+      .addTo(this.map);
   }
 
   render() {

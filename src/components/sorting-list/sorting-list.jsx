@@ -24,28 +24,14 @@ class SortingList extends React.PureComponent {
 
   // Обработка клика по пункту сортировки
   _onSortItemClick(sortName) {
-    const {changeSortingType, sortPopular, sortLowToHigh, sortHighToLow, sortTopRatedFirst} = this.props;
+    const {changeSortingType, changeFilter} = this.props;
 
     this.setState({
       isOpen: false
     });
 
     changeSortingType(sortName);
-
-    switch (sortName) {
-      case SortingType.POPULAR:
-        sortPopular();
-        break;
-      case SortingType.LOW_TO_HIGH:
-        sortLowToHigh();
-        break;
-      case SortingType.HIGH_TO_LOW:
-        sortHighToLow();
-        break;
-      case SortingType.TOP_RATED_FRIST:
-        sortTopRatedFirst();
-        break;
-    }
+    changeFilter();
   }
 
   render() {
@@ -81,12 +67,9 @@ class SortingList extends React.PureComponent {
 }
 
 SortingList.propTypes = {
-  changeSortingType: PropTypes.func.isRequired,
-  sortPopular: PropTypes.func.isRequired,
-  sortLowToHigh: PropTypes.func.isRequired,
-  sortHighToLow: PropTypes.func.isRequired,
-  sortTopRatedFirst: PropTypes.func.isRequired,
   sortingType: PropTypes.string.isRequired,
+  changeSortingType: PropTypes.func.isRequired,
+  changeFilter: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -97,18 +80,9 @@ const mapDispatchToProps = (dispatch) => ({
   changeSortingType(sortName) {
     dispatch(ActionCreator.changeSortingType(sortName));
   },
-  sortPopular() {
-    dispatch(ActionCreator.sortPopular());
+  changeFilter() {
+    dispatch(ActionCreator.changeFilter());
   },
-  sortLowToHigh() {
-    dispatch(ActionCreator.sortLowToHigh());
-  },
-  sortHighToLow() {
-    dispatch(ActionCreator.sortHighToLow());
-  },
-  sortTopRatedFirst() {
-    dispatch(ActionCreator.sortTopRatedFirst());
-  }
 });
 
 export {SortingList};
