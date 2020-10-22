@@ -2,17 +2,15 @@ import {Link} from "react-router-dom";
 import {OffersPropTypes} from "Props";
 
 const OfferCard = (props) => {
-  const {offer, offerPathname, onOfferCardHover} = props;
+  const {offer, offerPathname, onOfferCardOver, onOfferCardOut} = props;
   const roomUrl = `/offer/` + offerPathname;
   const favoriteBtnClass = offer.isFavorite ? `place-card__bookmark-button--active` : ``;
 
   return (
     <article
       className="cities__place-card place-card"
-      onMouseOver={(evt) => {
-        evt.preventDefault();
-        onOfferCardHover(offer);
-      }}
+      onMouseOver={onOfferCardOver}
+      onMouseOut={onOfferCardOut}
     >
       {offer.isPremium &&
         <>
@@ -57,7 +55,8 @@ const OfferCard = (props) => {
 
 OfferCard.propTypes = {
   offerPathname: PropTypes.number,
-  onOfferCardHover: PropTypes.func.isRequired,
+  onOfferCardOver: PropTypes.func.isRequired,
+  onOfferCardOut: PropTypes.func.isRequired,
   offer: OffersPropTypes
 };
 

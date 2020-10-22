@@ -1,11 +1,12 @@
+import {connect} from "react-redux";
 import OfferList from "../offer-list/offer-list";
 import Map from "../map/map";
 import LocationList from "../location-list/location-list";
+import SortingList from "../sorting-list/sorting-list";
 import {OffersPropTypes} from "Props";
-import {connect} from "react-redux";
 
 const Main = (props) => {
-  const {offers, cities, activeCityIndex} = props;
+  const {offers, cities, activeCity} = props;
 
   return (
     <div className="page page--gray page--main">
@@ -43,22 +44,8 @@ const Main = (props) => {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offers.length} places to stay in {cities[activeCityIndex]}</b>
-              <form className="places__sorting" action="#" method="get">
-                <span className="places__sorting-caption">Sort by</span>
-                <span className="places__sorting-type" tabIndex="0">
-                  Popular
-                  <svg className="places__sorting-arrow" width="7" height="4">
-                    <use xlinkHref="#icon-arrow-select"></use>
-                  </svg>
-                </span>
-                <ul className="places__options places__options--custom places__options--opened">
-                  <li className="places__option places__option--active" tabIndex="0">Popular</li>
-                  <li className="places__option" tabIndex="0">Price: low to high</li>
-                  <li className="places__option" tabIndex="0">Price: high to low</li>
-                  <li className="places__option" tabIndex="0">Top rated first</li>
-                </ul>
-              </form>
+              <b className="places__found">{offers.length} places to stay in {activeCity}</b>
+              <SortingList />
 
               <OfferList offers={offers} className={`cities__places-list tabs__content`} />
 
@@ -74,15 +61,15 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
+  activeCity: PropTypes.string.isRequired,
   offers: PropTypes.arrayOf(OffersPropTypes).isRequired,
   cities: PropTypes.array.isRequired,
-  activeCityIndex: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({
+  activeCity: state.activeCity,
   offers: state.offers,
   cities: state.cities,
-  activeCityIndex: state.activeCityIndex,
 });
 
 export {Main};

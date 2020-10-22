@@ -3,23 +3,23 @@ import {ActionCreator} from "../../store/action";
 import LocationItem from "../location-item/location-item";
 
 const LocationList = (props) => {
-  const {cities, changeCity, activeCityIndex, getOffersList} = props;
+  const {cities, changeCity, activeCity, getOffersList} = props;
 
-  const onLocationItemClick = (evt) => {
+  const onLocationItemClick = (evt, city) => {
     evt.preventDefault();
-    changeCity(cities.indexOf(evt.target.textContent));
+    changeCity(city);
     getOffersList();
   };
 
   return (
     <ul className="locations__list tabs__list">
       {cities.map((city, index) => (
+
         <LocationItem
           key={index}
           city={city}
-          activeCityIndex={activeCityIndex}
-          onLocationItemClick={onLocationItemClick}
-          className={activeCityIndex === index ? `tabs__item--active` : ``}
+          onLocationItemClick={(evt) => onLocationItemClick(evt, city)}
+          className={activeCity === city ? `tabs__item--active` : ``}
         />
       ))}
     </ul>
@@ -30,17 +30,17 @@ LocationList.propTypes = {
   cities: PropTypes.array.isRequired,
   changeCity: PropTypes.func.isRequired,
   getOffersList: PropTypes.func.isRequired,
-  activeCityIndex: PropTypes.number.isRequired,
+  activeCity: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   cities: state.cities,
-  activeCityIndex: state.activeCityIndex,
+  activeCity: state.activeCity,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  changeCity(index) {
-    dispatch(ActionCreator.changeCity(index));
+  changeCity(activeCity) {
+    dispatch(ActionCreator.changeCity(activeCity));
   },
   getOffersList() {
     dispatch(ActionCreator.getOffersList());

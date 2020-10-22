@@ -1,9 +1,10 @@
+import {connect} from "react-redux";
 import leaflet from "leaflet";
 import "leaflet/dist/leaflet.css";
 import {OffersPropTypes} from "Props";
-import {DEFAULT_CITY, ICON_URL, MAP_CONTAINER_ID} from "../../const";
+import {DEFAULT_CITY, ICON_URL, HOVER_ICON_URL, ICON_SIZE, MAP_CONTAINER_ID} from "../../const";
 
-export default class Map extends React.PureComponent {
+class Map extends React.PureComponent {
   componentDidMount() {
     this._renderMap();
   }
@@ -14,13 +15,19 @@ export default class Map extends React.PureComponent {
   }
 
   _renderMap() {
-    const {offers} = this.props;
-    const offersCords = offers.map((offer) => offer.coordinates);
+    const {offers, hoverOfferCardId} = this.props;
+    const coordsHoverOfferCardId = offers.filter((offer) => offer.id === hoverOfferCardId).map((offer) => offer.coordinates);
+    const coordsNotHoverOfferCardId = offers.filter((offer) => offer.id !== hoverOfferCardId).map((offer) => offer.coordinates);
 
     // Конфигурация leaflet
-    const icon = leaflet.icon({
+    const defaultIcon = leaflet.icon({
       iconUrl: ICON_URL,
-      iconSize: [27, 39]
+      iconSize: ICON_SIZE
+    });
+
+    const activeIcon = leaflet.icon({
+      iconUrl: HOVER_ICON_URL,
+      iconSize: ICON_SIZE
     });
 
     // Инициализация карты и фокус на DEFAULT_CITY
@@ -40,12 +47,19 @@ export default class Map extends React.PureComponent {
       })
       .addTo(this.map);
 
-    // const offerCords = [52.3709553943508, 4.89309666406198];
-    offersCords.forEach((offerCords) =>
+    // отрисовка маркера
+    coordsNotHoverOfferCardId.forEach((offerCords) =>
       leaflet
-        .marker(offerCords, {icon})
+        .marker(offerCords, {icon: defaultIcon})
         .addTo(this.map)
     );
+    if (coordsHoverOfferCardId.length > 0) {
+      coordsHoverOfferCardId.forEach((offerCords) =>
+        leaflet
+          .marker(offerCords, {icon: activeIcon})
+          .addTo(this.map)
+      );
+    }
   }
 
   _removeMap() {
@@ -62,6 +76,13 @@ export default class Map extends React.PureComponent {
 
 Map.propTypes = {
   offers: PropTypes.arrayOf(OffersPropTypes).isRequired,
-  className: PropTypes.string
+  className: PropTypes.string,
+  hoverOfferCardId: PropTypes.number
 };
 
+const mapStateToProps = (state) => ({
+  hoverOfferCardId: state.hoverOfferCardId
+});
+
+export {Map};
+export default connect(mapStateToProps)(Map);
