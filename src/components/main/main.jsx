@@ -6,7 +6,7 @@ import SortingList from "../sorting-list/sorting-list";
 import {OffersPropTypes} from "Props";
 
 const Main = (props) => {
-  const {offers, cities, activeCity} = props;
+  const {offers, cities, activeCity, hoverOfferCardId} = props;
 
   return (
     <div className="page page--gray page--main">
@@ -51,7 +51,7 @@ const Main = (props) => {
 
             </section>
             <div className="cities__right-section">
-              <Map offers={offers} cities={cities} className={`cities__map`} />
+              <Map offers={offers} cities={cities} className={`cities__map`} activeCity={activeCity} hoverOfferCardId={hoverOfferCardId} />
             </div>
           </div>
         </div>
@@ -64,12 +64,14 @@ Main.propTypes = {
   activeCity: PropTypes.string.isRequired,
   offers: PropTypes.arrayOf(OffersPropTypes).isRequired,
   cities: PropTypes.array.isRequired,
+  hoverOfferCardId: PropTypes.number
 };
 
 const mapStateToProps = (state) => ({
   activeCity: state.activeCity,
   offers: state.offers,
   cities: state.cities,
+  hoverOfferCardId: state.hoverOfferCardId,
 });
 
 export {Main};

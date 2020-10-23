@@ -1,59 +1,41 @@
-import {connect} from "react-redux";
+// import {connect} from "react-redux";
 import leaflet from "leaflet";
 import "leaflet/dist/leaflet.css";
 import {OffersPropTypes} from "Props";
-import {DEFAULT_CITY, ICON_URL, HOVER_ICON_URL, ICON_SIZE, MAP_CONTAINER_ID} from "../../const";
+import {MapSettings} from "../../const";
 
 class Map extends React.PureComponent {
   componentDidMount() {
-    this._renderMap();
-    this._renderMarker();
+    const {offers, activeCity, hoverOfferCardId} = this.props;
+    this._currentCity = offers.find((offerItem) => offerItem.city === activeCity);
+
+    this._renderMap(MapSettings.DEFAULT_CITY_COORDS);
+
+    this._renderMarker(offers, hoverOfferCardId);
   }
 
   componentDidUpdate() {
-    this._renderMarker();
-  }
+    const {offers, activeCity, hoverOfferCardId} = this.props;
 
-  _renderMarker() {
-    const {offers, hoverOfferCardId} = this.props;
-    const coordsHoverOfferCardId = offers.filter((offer) => offer.id === hoverOfferCardId).map((offer) => offer.coordinates);
-    const coordsNotHoverOfferCardId = offers.filter((offer) => offer.id !== hoverOfferCardId).map((offer) => offer.coordinates);
+    if (this._currentCity.city !== activeCity) {
+      this._currentCity = offers.find((offerItem) => offerItem.city === activeCity);
 
-    const defaultIcon = leaflet.icon({
-      iconUrl: ICON_URL,
-      iconSize: ICON_SIZE
-    });
+      this.map.remove();
 
-    const activeIcon = leaflet.icon({
-      iconUrl: HOVER_ICON_URL,
-      iconSize: ICON_SIZE
-    });
-
-    // отрисовка маркера
-    coordsNotHoverOfferCardId.forEach((offerCords) =>
-      leaflet
-        .marker(offerCords, {icon: defaultIcon})
-        .addTo(this.map)
-    );
-    if (coordsHoverOfferCardId.length > 0) {
-      coordsHoverOfferCardId.forEach((offerCords) =>
-        leaflet
-          .marker(offerCords, {icon: activeIcon})
-          .addTo(this.map)
-      );
+      this._renderMap(this._currentCity.coordinates);
     }
+
+    this._renderMarker(offers, hoverOfferCardId);
   }
 
-  _renderMap() {
-    // Инициализация карты и фокус на DEFAULT_CITY
-    const zoom = 12;
-    this.map = leaflet.map(MAP_CONTAINER_ID, {
-      center: DEFAULT_CITY,
-      zoom,
+  _renderMap(cityCoordinates) {
+    this.map = leaflet.map(MapSettings.MAP_CONTAINER_ID, {
+      center: cityCoordinates,
+      zoom: MapSettings.ZOOM,
       zoomControl: false,
       marker: true
     });
-    this.map.setView(DEFAULT_CITY, zoom);
+    this.map.setView(cityCoordinates, MapSettings.ZOOM);
 
     // Подключение слоя карты
     leaflet
@@ -61,6 +43,19 @@ class Map extends React.PureComponent {
         attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
       })
       .addTo(this.map);
+  }
+
+  _renderMarker(offers, hoverOfferCardId) {
+    offers
+      .map((offer) => {
+        const icon = leaflet.icon({
+          iconUrl: offer.id === hoverOfferCardId ? MapSettings.HOVER_ICON_URL : MapSettings.ICON_URL,
+          iconSize: MapSettings.ICON_SIZE
+        });
+        leaflet
+          .marker(offer.coordinates, {icon})
+          .addTo(this.map);
+      });
   }
 
   render() {
@@ -72,14 +67,10 @@ class Map extends React.PureComponent {
 }
 
 Map.propTypes = {
+  activeCity: PropTypes.string.isRequired,
   offers: PropTypes.arrayOf(OffersPropTypes).isRequired,
   className: PropTypes.string,
   hoverOfferCardId: PropTypes.number
 };
 
-const mapStateToProps = (state) => ({
-  hoverOfferCardId: state.hoverOfferCardId
-});
-
-export {Map};
-export default connect(mapStateToProps)(Map);
+export default Map;
