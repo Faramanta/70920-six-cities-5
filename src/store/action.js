@@ -6,7 +6,8 @@ export const ActionType = {
   SORT_LOW_TO_HIGH: `SORT_LOW_TO_HIGH`,
   SORT_HIGH_TO_LOW: `SORT_HIGH_TO_LOW`,
   SORT_TOP_RATED_FIRST: `SORT_TOP_RATED_FIRST`,
-  SHANGE_HOVER_OFFER_CARD_ID: `SHANGE_HOVER_OFFER_CARD_ID`
+  CHANGE_HOVER_OFFER_CARD_ID: `CHANGE_HOVER_OFFER_CARD_ID`,
+  CHANGE_FILTER: `CHANGE_FILTER`
 };
 
 export const ActionCreator = {
@@ -21,20 +22,11 @@ export const ActionCreator = {
     type: ActionType.CHANGE_SORTING_TYPE,
     payload: sortingType
   }),
-  sortPopular: () => ({
-    type: ActionType.SORT_POPULAR,
-  }),
-  sortLowToHigh: () => ({
-    type: ActionType.SORT_LOW_TO_HIGH,
-  }),
-  sortHighToLow: () => ({
-    type: ActionType.SORT_HIGH_TO_LOW,
-  }),
-  sortTopRatedFirst: () => ({
-    type: ActionType.SORT_TOP_RATED_FIRST,
+  changeFilter: () => ({
+    type: ActionType.CHANGE_FILTER,
   }),
   changeHoverOfferCardId: (id) => ({
-    type: ActionType.SHANGE_HOVER_OFFER_CARD_ID,
+    type: ActionType.CHANGE_HOVER_OFFER_CARD_ID,
     payload: id
   })
 };

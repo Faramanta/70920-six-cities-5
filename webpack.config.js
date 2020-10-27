@@ -33,6 +33,7 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'],
     alias: {
+      Header: path.resolve(__dirname, './src/components/header/'),
       Review: path.resolve(__dirname, './src/components/review/'),
       Props: path.resolve(__dirname, './src/utils/prop-types/')
     }

@@ -2,91 +2,49 @@ import {connect} from "react-redux";
 import {ActionCreator} from "../../store/action";
 import {SortingType} from "../../const";
 import SortingItem from "../sorting-item/sorting-item";
+import {withOpenSortingList} from "../../hocs/with-sorting-list";
 
-class SortingList extends React.PureComponent {
-  constructor(props) {
-    super(props);
+const SortingList = (props) => {
+  const {isOpen, onOpenList, changeSortingType, changeFilter} = props;
 
-    this.state = {
-      isOpen: false
-    };
+  const openListTypeClickClass = isOpen ? `places__options--opened` : ``;
+  const sortNames = Object.values(SortingType);
 
-    this._onOpenListTypeClick = this._onOpenListTypeClick.bind(this);
-    this._onSortItemClick = this._onSortItemClick.bind(this);
-  }
-
-  // Открыть сортировку
-  _onOpenListTypeClick() {
-    this.setState({
-      isOpen: true
-    });
-  }
-
-  // Обработка клика по пункту сортировки
-  _onSortItemClick(sortName) {
-    const {changeSortingType, sortPopular, sortLowToHigh, sortHighToLow, sortTopRatedFirst} = this.props;
-
-    this.setState({
-      isOpen: false
-    });
-
-    changeSortingType(sortName);
-
-    switch (sortName) {
-      case SortingType.POPULAR:
-        sortPopular();
-        break;
-      case SortingType.LOW_TO_HIGH:
-        sortLowToHigh();
-        break;
-      case SortingType.HIGH_TO_LOW:
-        sortHighToLow();
-        break;
-      case SortingType.TOP_RATED_FRIST:
-        sortTopRatedFirst();
-        break;
-    }
-  }
-
-  render() {
-    const {sortingType} = this.props;
-    const openListTypeClickClass = this.state.isOpen ? `places__options--opened` : ``;
-
-    const sortNames = Object.values(SortingType);
-
-    return (
-      <form className="places__sorting" action="#" method="get">
-        <span className="places__sorting-caption">Sort by </span>
-        <span className="places__sorting-type" tabIndex="0"
-          onClick={this._onOpenListTypeClick}
-        >
-        Popular
-          <svg className="places__sorting-arrow" width="7" height="4">
-            <use xlinkHref="#icon-arrow-select"></use>
-          </svg>
-        </span>
-        <ul className={`places__options places__options--custom ${openListTypeClickClass}`}>
-          {sortNames.map((sortName, index) => (
-            <SortingItem
-              key={index}
-              sortName={sortName}
-              isActive={sortName === sortingType}
-              onSortItemClick={() => this._onSortItemClick(sortName)}
-            />
-          ))}
-        </ul>
-      </form>
-    );
-  }
-}
+  return (
+    <form className="places__sorting" action="#" method="get">
+      <span className="places__sorting-caption">Sort by </span>
+      <span className="places__sorting-type" tabIndex="0"
+        onClick={onOpenList}
+      >
+      Popular
+        <svg className="places__sorting-arrow" width="7" height="4">
+          <use xlinkHref="#icon-arrow-select"></use>
+        </svg>
+      </span>
+      <ul className={`places__options places__options--custom ${openListTypeClickClass}`}>
+        {sortNames.map((sortName, index) => (
+          <SortingItem
+            key={index}
+            sortName={sortName}
+            isActive={sortName === props.sortingType}
+            onSortItemClick={() => {
+              onOpenList();
+              changeSortingType(sortName);
+              changeFilter();
+            }}
+          />
+        ))}
+      </ul>
+    </form>
+  );
+};
 
 SortingList.propTypes = {
-  changeSortingType: PropTypes.func.isRequired,
-  sortPopular: PropTypes.func.isRequired,
-  sortLowToHigh: PropTypes.func.isRequired,
-  sortHighToLow: PropTypes.func.isRequired,
-  sortTopRatedFirst: PropTypes.func.isRequired,
+  isOpen: PropTypes.bool,
   sortingType: PropTypes.string.isRequired,
+  onOpenList: PropTypes.func.isRequired,
+  changeSortingType: PropTypes.func.isRequired,
+  changeFilter: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -97,19 +55,10 @@ const mapDispatchToProps = (dispatch) => ({
   changeSortingType(sortName) {
     dispatch(ActionCreator.changeSortingType(sortName));
   },
-  sortPopular() {
-    dispatch(ActionCreator.sortPopular());
+  changeFilter() {
+    dispatch(ActionCreator.changeFilter());
   },
-  sortLowToHigh() {
-    dispatch(ActionCreator.sortLowToHigh());
-  },
-  sortHighToLow() {
-    dispatch(ActionCreator.sortHighToLow());
-  },
-  sortTopRatedFirst() {
-    dispatch(ActionCreator.sortTopRatedFirst());
-  }
 });
 
-export {SortingList};
-export default connect(mapStateToProps, mapDispatchToProps)(SortingList);
+export const SortingForTest = withOpenSortingList(SortingList);
+export default connect(mapStateToProps, mapDispatchToProps)(withOpenSortingList(SortingList));
