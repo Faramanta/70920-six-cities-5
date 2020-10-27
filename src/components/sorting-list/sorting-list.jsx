@@ -2,72 +2,47 @@ import {connect} from "react-redux";
 import {ActionCreator} from "../../store/action";
 import {SortingType} from "../../const";
 import SortingItem from "../sorting-item/sorting-item";
+import {withOpenSortingList} from "../../hocs/with-sorting-list";
 
-class SortingList extends React.PureComponent {
-  constructor(props) {
-    super(props);
+const SortingList = (props) => {
+  const {isOpen, onOpenList, changeSortingType, changeFilter} = props;
 
-    this.state = {
-      isOpen: false
-    };
+  const openListTypeClickClass = isOpen ? `places__options--opened` : ``;
+  const sortNames = Object.values(SortingType);
 
-    this._onOpenListTypeClick = this._onOpenListTypeClick.bind(this);
-    this._onSortItemClick = this._onSortItemClick.bind(this);
-  }
-
-  // Открыть сортировку
-  _onOpenListTypeClick() {
-    this.setState({
-      isOpen: true
-    });
-  }
-
-  // Обработка клика по пункту сортировки
-  _onSortItemClick(sortName) {
-    const {changeSortingType, changeFilter} = this.props;
-
-    this.setState({
-      isOpen: false
-    });
-
-    changeSortingType(sortName);
-    changeFilter();
-  }
-
-  render() {
-    const {sortingType} = this.props;
-    const openListTypeClickClass = this.state.isOpen ? `places__options--opened` : ``;
-
-    const sortNames = Object.values(SortingType);
-
-    return (
-      <form className="places__sorting" action="#" method="get">
-        <span className="places__sorting-caption">Sort by </span>
-        <span className="places__sorting-type" tabIndex="0"
-          onClick={this._onOpenListTypeClick}
-        >
-        Popular
-          <svg className="places__sorting-arrow" width="7" height="4">
-            <use xlinkHref="#icon-arrow-select"></use>
-          </svg>
-        </span>
-        <ul className={`places__options places__options--custom ${openListTypeClickClass}`}>
-          {sortNames.map((sortName, index) => (
-            <SortingItem
-              key={index}
-              sortName={sortName}
-              isActive={sortName === sortingType}
-              onSortItemClick={() => this._onSortItemClick(sortName)}
-            />
-          ))}
-        </ul>
-      </form>
-    );
-  }
-}
+  return (
+    <form className="places__sorting" action="#" method="get">
+      <span className="places__sorting-caption">Sort by </span>
+      <span className="places__sorting-type" tabIndex="0"
+        onClick={onOpenList}
+      >
+      Popular
+        <svg className="places__sorting-arrow" width="7" height="4">
+          <use xlinkHref="#icon-arrow-select"></use>
+        </svg>
+      </span>
+      <ul className={`places__options places__options--custom ${openListTypeClickClass}`}>
+        {sortNames.map((sortName, index) => (
+          <SortingItem
+            key={index}
+            sortName={sortName}
+            isActive={sortName === props.sortingType}
+            onSortItemClick={() => {
+              onOpenList();
+              changeSortingType(sortName);
+              changeFilter();
+            }}
+          />
+        ))}
+      </ul>
+    </form>
+  );
+};
 
 SortingList.propTypes = {
+  isOpen: PropTypes.bool,
   sortingType: PropTypes.string.isRequired,
+  onOpenList: PropTypes.func.isRequired,
   changeSortingType: PropTypes.func.isRequired,
   changeFilter: PropTypes.func.isRequired,
 };
@@ -85,5 +60,5 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-export {SortingList};
-export default connect(mapStateToProps, mapDispatchToProps)(SortingList);
+export const SortingForTest = withOpenSortingList(SortingList);
+export default connect(mapStateToProps, mapDispatchToProps)(withOpenSortingList(SortingList));

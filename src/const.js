@@ -22,3 +22,11 @@ export const SortingType = {
   HIGH_TO_LOW: `Price: high to low`,
   TOP_RATED_FRIST: `Top rated first`
 };
+
+export const ratingInfo = [
+  {title: `perfect`, value: `5`},
+  {title: `good`, value: `4`},
+  {title: `not bad`, value: `3`},
+  {title: `badly`, value: `2`},
+  {title: `terribly`, value: `1`},
+];

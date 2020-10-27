@@ -1,5 +1,5 @@
-import {Link} from "react-router-dom";
 import {connect} from "react-redux";
+import Header from "Header/header";
 import ReviewList from "Review/review-list/review-list";
 import ReviewNew from "Review/components/review-new/review-new";
 import OfferList from "../offer-list/offer-list";
@@ -7,7 +7,7 @@ import Map from "../map/map";
 import {OffersPropTypes, ReviewsPropTypes} from "Props";
 
 const Room = (props) => {
-  const {offers, reviews} = props;
+  const {offers, activeCity, hoverOfferCardId, reviews} = props;
   const offerPathname = parseInt(window.location.pathname.replace(`/offer/`, ``), 10);
   const offer = offers.find((item) => item.id === offerPathname);
   const superBtnClass = offer.isSuper ? `property__avatar-wrapper--pro user__avatar` : ``;
@@ -15,28 +15,8 @@ const Room = (props) => {
 
   return (
     <div className="page">
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <Link to="/" className="header__logo-link">
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
-              </Link>
-            </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#">
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </header>
+
+      <Header />
 
       <main className="page__main page__main--property">
         <section className="property">
@@ -128,7 +108,7 @@ const Room = (props) => {
               </section>
             </div>
           </div>
-          <Map offers={offersNear} className={`property__map`} />
+          <Map offers={offersNear} className={`property__map`} activeCity={activeCity} hoverOfferCardId={hoverOfferCardId} />
         </section>
         <div className="container">
           <section className="near-places places">
@@ -144,6 +124,8 @@ const Room = (props) => {
 };
 
 Room.propTypes = {
+  activeCity: PropTypes.string.isRequired,
+  hoverOfferCardId: PropTypes.number,
   offers: PropTypes.arrayOf(OffersPropTypes).isRequired,
   reviews: PropTypes.arrayOf(ReviewsPropTypes).isRequired,
 };
