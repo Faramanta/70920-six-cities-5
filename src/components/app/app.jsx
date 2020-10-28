@@ -1,9 +1,9 @@
 import {BrowserRouter, Switch, Route, Link} from "react-router-dom";
-import Main from "../main/main";
-import SignIn from "../sign-in/sign-in";
-import Favorites from "../favorites/favorites";
-import Room from "../room/room";
-import {ReviewsPropTypes} from "Props";
+import Main from "@components/main/main";
+import SignIn from "@components/sign-in/sign-in";
+import Favorites from "@components/favorites/favorites";
+import Room from "@components/room/room";
+import {ReviewsPropTypes} from "@props";
 
 const App = (props) => {
   const {reviews} = props;

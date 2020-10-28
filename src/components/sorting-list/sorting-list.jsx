@@ -1,7 +1,7 @@
 import {connect} from "react-redux";
-import {ActionCreator} from "../../store/action";
-import {SortingType} from "../../const";
-import SortingItem from "../sorting-item/sorting-item";
+import {ActionCreator} from "@store/action";
+import {SortingType} from "@const";
+import SortingItem from "@components/sorting-item/sorting-item";
 import {withOpenSortingList} from "../../hocs/with-sorting-list";
 
 const SortingList = (props) => {

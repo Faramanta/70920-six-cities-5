@@ -1,20 +1,25 @@
 import {connect} from "react-redux";
-import Header from "Header/header";
-import OfferList from "../offer-list/offer-list";
-import Map from "../map/map";
-import LocationList from "../location-list/location-list";
-import SortingList from "../sorting-list/sorting-list";
-import {OffersPropTypes} from "Props";
+import Header from "@components/header/header";
+import OfferList from "@components/offer-list/offer-list";
+import OfferListEmpty from "@components/offer-list-empty/offer-list-empty";
+import Map from "@components/map/map";
+import LocationList from "@components/location-list/location-list";
+import SortingList from "@components/sorting-list/sorting-list";
+import {OffersPropTypes} from "@props";
 
 const Main = (props) => {
   const {offers, cities, activeCity, hoverOfferCardId} = props;
+
+  const isOffersEmpty = offers.length === 0;
+  const containersOffersEmptyClass = isOffersEmpty ? `cities__places-container--empty` : ``;
+  const mainOffersEmptyClass = isOffersEmpty ? `page__main--index-empty` : ``;
 
   return (
     <div className="page page--gray page--main">
 
       <Header />
 
-      <main className="page__main page__main--index">
+      <main className={`page__main page__main--index ${mainOffersEmptyClass}`}>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
@@ -22,18 +27,25 @@ const Main = (props) => {
           </section>
         </div>
         <div className="cities">
-          <div className="cities__places-container container">
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offers.length} places to stay in {activeCity}</b>
-              <SortingList />
+          <div className={`cities__places-container ${containersOffersEmptyClass} container`}>
 
-              <OfferList offers={offers} className={`cities__places-list tabs__content`} />
+            {isOffersEmpty ?
+              <OfferListEmpty />
+              :
+              <>
+                <section className="cities__places places">
+                  <h2 className="visually-hidden">Places</h2>
+                  <b className="places__found">{offers.length} places to stay in {activeCity}</b>
+                  <SortingList />
 
-            </section>
-            <div className="cities__right-section">
-              <Map offers={offers} cities={cities} className={`cities__map`} activeCity={activeCity} hoverOfferCardId={hoverOfferCardId} />
-            </div>
+                  <OfferList offers={offers} className={`cities__places-list tabs__content`} />
+
+                </section>
+                <div className="cities__right-section">
+                  <Map offers={offers} cities={cities} className={`cities__map`} activeCity={activeCity} hoverOfferCardId={hoverOfferCardId} />
+                </div>
+              </>
+            }
           </div>
         </div>
       </main>

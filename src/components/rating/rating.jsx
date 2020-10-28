@@ -1,5 +1,5 @@
 import {Fragment} from 'react';
-import {ratingInfo} from "../../const";
+import {ratingInfo} from "@const";
 
 const Rating = (props) => {
   const {rating, onChange} = props;

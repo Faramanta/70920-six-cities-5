@@ -33,9 +33,10 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'],
     alias: {
-      Header: path.resolve(__dirname, './src/components/header/'),
-      Review: path.resolve(__dirname, './src/components/review/'),
-      Props: path.resolve(__dirname, './src/utils/prop-types/')
+      '@components': path.resolve(__dirname, './src/components/'),
+      '@store': path.resolve(__dirname, './src/store/'),
+      '@const': path.resolve(__dirname, './src/const'),
+      '@props': path.resolve(__dirname, './src/utils/prop-types/')
     }
   },
   devtool: 'source-map',

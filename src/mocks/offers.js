@@ -66,7 +66,7 @@ export default [
     coordinates: [52.369553943508, 4.85309666406198]
   }, {
     id: 2,
-    city: `Brussels`,
+    city: `Cologne`,
     title: `Canal View Prinsengracht`,
     description: `An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.`,
     isPremium: false,

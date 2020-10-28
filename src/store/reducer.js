@@ -1,7 +1,7 @@
 import {extend, filteredOffers} from "../utils/utils";
 import {ActionType} from "./action";
 import offers from "../mocks/offers";
-import {CITIES, SortingType} from "../const";
+import {CITIES, SortingType} from "@const";
 
 const cities = CITIES;
 const defaultCity = CITIES[0];

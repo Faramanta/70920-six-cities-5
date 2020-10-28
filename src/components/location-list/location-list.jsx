@@ -1,6 +1,6 @@
 import {connect} from "react-redux";
-import {ActionCreator} from "../../store/action";
-import LocationItem from "../location-item/location-item";
+import {ActionCreator} from "@store/action";
+import LocationItem from "@components/location-item/location-item";
 
 const LocationList = (props) => {
   const {cities, changeCity, activeCity, getOffersList} = props;

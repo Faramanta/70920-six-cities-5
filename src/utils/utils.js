@@ -1,4 +1,4 @@
-import {SortingType} from "../const";
+import {SortingType} from "@const";
 
 export const extend = (a, b) => {
   return Object.assign({}, a, b);

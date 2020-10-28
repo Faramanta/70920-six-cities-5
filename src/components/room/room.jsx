@@ -1,17 +1,19 @@
 import {connect} from "react-redux";
-import Header from "Header/header";
-import ReviewList from "Review/review-list/review-list";
-import ReviewNew from "Review/components/review-new/review-new";
-import OfferList from "../offer-list/offer-list";
-import Map from "../map/map";
-import {OffersPropTypes, ReviewsPropTypes} from "Props";
+import Header from "@components/header/header";
+import ReviewList from "@components/review/review-list/review-list";
+import ReviewNew from "@components/review/components/review-new/review-new";
+import OfferList from "@components/offer-list/offer-list";
+import Map from "@components/map/map";
+import {OffersPropTypes, ReviewsPropTypes} from "@props";
 
 const Room = (props) => {
-  const {offers, activeCity, hoverOfferCardId, reviews} = props;
+  const {activeCity, hoverOfferCardId, reviews, allOffers} = props;
+
   const offerPathname = parseInt(window.location.pathname.replace(`/offer/`, ``), 10);
-  const offer = offers.find((item) => item.id === offerPathname);
+  const offer = allOffers.find((item) => item.id === offerPathname);
   const superBtnClass = offer.isSuper ? `property__avatar-wrapper--pro user__avatar` : ``;
-  const offersNear = offers.filter((offerItem) => offerItem.id !== offer.id).slice(0, 3);
+  const offersCity = allOffers.filter((offerItem) => offerItem.city === offer.city);
+  const offersNear = offersCity.filter((offerItem) => offerItem.id !== offer.id).slice(0, 3);
 
   return (
     <div className="page">
@@ -112,10 +114,13 @@ const Room = (props) => {
         </section>
         <div className="container">
           <section className="near-places places">
-            <h2 className="near-places__title">Other places in the neighbourhood</h2>
+            {offersNear.length > 0 &&
+              <>
+                <h2 className="near-places__title">Other places in the neighbourhood</h2>
 
-            <OfferList offers={offersNear} className={`near-places__list`} />
-
+                <OfferList offers={offersNear} className={`near-places__list`} />
+              </>
+            }
           </section>
         </div>
       </main>
@@ -126,11 +131,11 @@ const Room = (props) => {
 Room.propTypes = {
   activeCity: PropTypes.string.isRequired,
   hoverOfferCardId: PropTypes.number,
-  offers: PropTypes.arrayOf(OffersPropTypes).isRequired,
+  allOffers: PropTypes.arrayOf(OffersPropTypes).isRequired,
   reviews: PropTypes.arrayOf(ReviewsPropTypes).isRequired,
 };
 const mapStateToProps = (state) => ({
-  offers: state.offers,
+  allOffers: state.allOffers,
   cities: state.cities,
   activeCity: state.activeCity,
 });
