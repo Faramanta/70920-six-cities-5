@@ -1,5 +1,5 @@
 import {Link} from "react-router-dom";
-import {OffersPropTypes} from "Props";
+import {OffersPropTypes} from "@props";
 
 const OfferCard = (props) => {
   const {offer, offerPathname, onOfferCardOver, onOfferCardOut} = props;

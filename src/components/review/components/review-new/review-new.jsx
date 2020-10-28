@@ -1,5 +1,5 @@
 import {withReviewNew} from "../../../../hocs/with-review-new";
-import Rating from "../../../rating/rating";
+import Rating from "@components/rating/rating";
 
 const ReviewNew = (props) => {
   const {rating, onSubmit, onChange} = props;

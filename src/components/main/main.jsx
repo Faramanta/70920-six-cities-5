@@ -1,10 +1,10 @@
 import {connect} from "react-redux";
-import Header from "Header/header";
-import OfferList from "../offer-list/offer-list";
-import Map from "../map/map";
-import LocationList from "../location-list/location-list";
-import SortingList from "../sorting-list/sorting-list";
-import {OffersPropTypes} from "Props";
+import Header from "@components/header/header";
+import OfferList from "@components/offer-list/offer-list";
+import Map from "@components/map/map";
+import LocationList from "@components/location-list/location-list";
+import SortingList from "@components/sorting-list/sorting-list";
+import {OffersPropTypes} from "@props";
 
 const Main = (props) => {
   const {offers, cities, activeCity, hoverOfferCardId} = props;

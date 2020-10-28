@@ -1,10 +1,10 @@
 import {connect} from "react-redux";
-import Header from "Header/header";
-import ReviewList from "Review/review-list/review-list";
-import ReviewNew from "Review/components/review-new/review-new";
-import OfferList from "../offer-list/offer-list";
-import Map from "../map/map";
-import {OffersPropTypes, ReviewsPropTypes} from "Props";
+import Header from "@components/header/header";
+import ReviewList from "@components/review/review-list/review-list";
+import ReviewNew from "@components/review/components/review-new/review-new";
+import OfferList from "@components/offer-list/offer-list";
+import Map from "@components/map/map";
+import {OffersPropTypes, ReviewsPropTypes} from "@props";
 
 const Room = (props) => {
   const {offers, activeCity, hoverOfferCardId, reviews} = props;

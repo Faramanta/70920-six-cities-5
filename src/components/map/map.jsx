@@ -1,8 +1,8 @@
 // import {connect} from "react-redux";
 import leaflet from "leaflet";
 import "leaflet/dist/leaflet.css";
-import {OffersPropTypes} from "Props";
-import {MapSettings} from "../../const";
+import {OffersPropTypes} from "@props";
+import {MapSettings} from "@const";
 
 class Map extends React.PureComponent {
   componentDidMount() {
