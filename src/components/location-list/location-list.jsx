@@ -27,7 +27,6 @@ const LocationList = (props) => {
 LocationList.propTypes = {
   cities: PropTypes.array.isRequired,
   changeCityAction: PropTypes.func.isRequired,
-  // getOffersListAction: PropTypes.func.isRequired,
   activeCity: PropTypes.string.isRequired,
 };
 
@@ -40,9 +39,6 @@ const mapDispatchToProps = (dispatch) => ({
   changeCityAction(activeCity) {
     dispatch(changeCity(activeCity));
   },
-  // getOffersListAction() {
-  //   dispatch(getOffersList());
-  // }
 });
 
 export {LocationList};
