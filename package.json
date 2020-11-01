@@ -22,7 +22,8 @@
     "babel-loader": "8",
     "style-loader": "2.0.0",
     "css-loader": "4.3.0",
-    "file-loader": "6.1.1"
+    "file-loader": "6.1.1",
+    "redux-devtools-extension": "2.13"
   },
   "engines": {
     "node": "10"
@@ -34,6 +35,9 @@
     "react-dom": "16.12",
     "react-router-dom": "5.2.0",
     "react-redux": "7.2.1",
-    "redux": "4.0.5"
+    "redux": "4.0.5",
+    "axios": "0.19",
+    "redux-thunk": "2.3",
+    "reselect": "4"
   }
 }

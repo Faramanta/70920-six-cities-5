@@ -1,25 +1,30 @@
-import {SortingType} from "@const";
-
 export const extend = (a, b) => {
   return Object.assign({}, a, b);
 };
 
-export const filteredOffers = (sortName, activeCity, offers) => {
-  const offersDefault = offers.filter((offer) => offer.city === activeCity);
+export const getRating = (rating) => {
+  const offerRating = Math.round(rating);
+  return offerRating > 0 && offerRating <= 5 ? `${offerRating * 20}%` : false;
+};
 
-  switch (sortName) {
-    case SortingType.POPULAR:
-      return offersDefault;
-
-    case SortingType.LOW_TO_HIGH:
-      return offers.slice().sort((a, b) => a.price - b.price);
-
-    case SortingType.HIGH_TO_LOW:
-      return offers.slice().sort((a, b) => b.price - a.price);
-
-    case SortingType.TOP_RATED_FRIST:
-      return offers.slice().sort((a, b) => b.rating - a.rating);
-  }
-
-  return offersDefault;
+export const adapterData = (offer) => {
+  return Object.assign({}, offer, {
+    city: offer.city.name,
+    cityLocation: offer.city.location,
+    isPremium: offer.is_premium,
+    rating: offer.rating,
+    title: offer.title,
+    type: offer.type,
+    bedroomCount: offer.bedrooms,
+    guestCount: offer.max_adults,
+    price: offer.price,
+    facilities: offer.goods,
+    pictures: offer.images,
+    previewImage: offer.preview_image,
+    ownerName: offer.host.name,
+    ownerAvatar: offer.host.avatar_url,
+    isSuper: offer.host.is_pro,
+    isFavorite: offer.is_favorite,
+    coordinates: [offer.location.latitude, offer.location.longitude],
+  });
 };

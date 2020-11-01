@@ -1,4 +1,3 @@
-import {connect} from "react-redux";
 import Header from "@components/header/header";
 import OfferList from "@components/offer-list/offer-list";
 import OfferListEmpty from "@components/offer-list-empty/offer-list-empty";
@@ -8,7 +7,7 @@ import SortingList from "@components/sorting-list/sorting-list";
 import {OffersPropTypes} from "@props";
 
 const Main = (props) => {
-  const {offers, cities, activeCity, hoverOfferCardId} = props;
+  const {offers, city, hoverOfferCardId} = props;
 
   const isOffersEmpty = offers.length === 0;
   const containersOffersEmptyClass = isOffersEmpty ? `cities__places-container--empty` : ``;
@@ -35,14 +34,14 @@ const Main = (props) => {
               <>
                 <section className="cities__places places">
                   <h2 className="visually-hidden">Places</h2>
-                  <b className="places__found">{offers.length} places to stay in {activeCity}</b>
+                  <b className="places__found">{offers.length} places to stay in {city}</b>
                   <SortingList />
 
-                  <OfferList offers={offers} className={`cities__places-list tabs__content`} />
+                  <OfferList offers={offers} city={city} className={`cities__places-list tabs__content`} />
 
                 </section>
                 <div className="cities__right-section">
-                  <Map offers={offers} cities={cities} className={`cities__map`} activeCity={activeCity} hoverOfferCardId={hoverOfferCardId} />
+                  <Map offers={offers} className={`cities__map`} city={city} hoverOfferCardId={hoverOfferCardId} />
                 </div>
               </>
             }
@@ -54,18 +53,9 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
-  activeCity: PropTypes.string.isRequired,
+  city: PropTypes.string.isRequired,
   offers: PropTypes.arrayOf(OffersPropTypes).isRequired,
-  cities: PropTypes.array.isRequired,
   hoverOfferCardId: PropTypes.number
 };
 
-const mapStateToProps = (state) => ({
-  activeCity: state.activeCity,
-  offers: state.offers,
-  cities: state.cities,
-  hoverOfferCardId: state.hoverOfferCardId,
-});
-
-export {Main};
-export default connect(mapStateToProps)(Main);
+export default Main;

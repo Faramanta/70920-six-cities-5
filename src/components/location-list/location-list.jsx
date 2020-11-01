@@ -1,20 +1,18 @@
 import {connect} from "react-redux";
-import {ActionCreator} from "@store/action";
+import {changeCity} from "@store/action";
 import LocationItem from "@components/location-item/location-item";
 
 const LocationList = (props) => {
-  const {cities, changeCity, activeCity, getOffersList} = props;
+  const {cities, activeCity, changeCityAction} = props;
 
   const onLocationItemClick = (evt, city) => {
     evt.preventDefault();
-    changeCity(city);
-    getOffersList();
+    changeCityAction(city);
   };
 
   return (
     <ul className="locations__list tabs__list">
       {cities.map((city, index) => (
-
         <LocationItem
           key={index}
           city={city}
@@ -28,23 +26,23 @@ const LocationList = (props) => {
 
 LocationList.propTypes = {
   cities: PropTypes.array.isRequired,
-  changeCity: PropTypes.func.isRequired,
-  getOffersList: PropTypes.func.isRequired,
+  changeCityAction: PropTypes.func.isRequired,
+  // getOffersListAction: PropTypes.func.isRequired,
   activeCity: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  cities: state.cities,
-  activeCity: state.activeCity,
+const mapStateToProps = ({PROCESS}) => ({
+  cities: PROCESS.cities,
+  activeCity: PROCESS.city,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  changeCity(activeCity) {
-    dispatch(ActionCreator.changeCity(activeCity));
+  changeCityAction(activeCity) {
+    dispatch(changeCity(activeCity));
   },
-  getOffersList() {
-    dispatch(ActionCreator.getOffersList());
-  }
+  // getOffersListAction() {
+  //   dispatch(getOffersList());
+  // }
 });
 
 export {LocationList};

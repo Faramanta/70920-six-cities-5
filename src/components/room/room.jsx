@@ -7,12 +7,13 @@ import Map from "@components/map/map";
 import {OffersPropTypes, ReviewsPropTypes} from "@props";
 
 const Room = (props) => {
-  const {activeCity, hoverOfferCardId, reviews, allOffers} = props;
+  const {city, hoverOfferCardId, reviews, offers} = props;
 
   const offerPathname = parseInt(window.location.pathname.replace(`/offer/`, ``), 10);
-  const offer = allOffers.find((item) => item.id === offerPathname);
+  const offer = offers.find((item) => item.id === offerPathname);
+  const imagesForShow = offer.images.slice(0, 6);
   const superBtnClass = offer.isSuper ? `property__avatar-wrapper--pro user__avatar` : ``;
-  const offersCity = allOffers.filter((offerItem) => offerItem.city === offer.city);
+  const offersCity = offers.filter((offerItem) => offerItem.city === offer.city);
   const offersNear = offersCity.filter((offerItem) => offerItem.id !== offer.id).slice(0, 3);
 
   return (
@@ -24,7 +25,7 @@ const Room = (props) => {
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              {offer.pictures.map((picture, index) =>(
+              {imagesForShow.map((picture, index) =>(
                 <div className="property__image-wrapper" key={index}>
                   <img className="property__image" src={picture} alt="Photo studio" key/>
                 </div>
@@ -110,7 +111,7 @@ const Room = (props) => {
               </section>
             </div>
           </div>
-          <Map offers={offersNear} className={`property__map`} activeCity={activeCity} hoverOfferCardId={hoverOfferCardId} />
+          <Map offers={offersNear} className={`property__map`} city={city} hoverOfferCardId={hoverOfferCardId} />
         </section>
         <div className="container">
           <section className="near-places places">
@@ -129,15 +130,18 @@ const Room = (props) => {
 };
 
 Room.propTypes = {
-  activeCity: PropTypes.string.isRequired,
+  city: PropTypes.string.isRequired,
   hoverOfferCardId: PropTypes.number,
+  offers: PropTypes.arrayOf(OffersPropTypes).isRequired,
   allOffers: PropTypes.arrayOf(OffersPropTypes).isRequired,
   reviews: PropTypes.arrayOf(ReviewsPropTypes).isRequired,
 };
-const mapStateToProps = (state) => ({
-  allOffers: state.allOffers,
-  cities: state.cities,
-  activeCity: state.activeCity,
+
+const mapStateToProps = ({DATA, PROCESS}) => ({
+  allOffers: DATA.allOffers,
+  cities: PROCESS.cities,
+  city: PROCESS.city,
+  hoverOfferCardId: PROCESS.hoverOfferCardId,
 });
 
 export {Room};
