@@ -1,18 +1,23 @@
+import {connect} from "react-redux";
 import {BrowserRouter, Switch, Route, Link} from "react-router-dom";
 import Main from "@components/main/main";
 import SignIn from "@components/sign-in/sign-in";
 import Favorites from "@components/favorites/favorites";
 import Room from "@components/room/room";
-import {ReviewsPropTypes} from "@props";
+import {ReviewsPropTypes, OffersPropTypes} from "@props";
+import {sortedOffers} from "../../store/selectors";
 
-const App = (props) => {
-  const {reviews} = props;
+const App = ({offers, city, reviews, hoverOfferCardId}) => {
 
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/">
-          <Main />
+          <Main
+            offers={offers}
+            city={city}
+            hoverOfferCardId={hoverOfferCardId}
+          />
         </Route>
         <Route exact path="/login">
           <SignIn />
@@ -21,7 +26,9 @@ const App = (props) => {
           <Favorites />
         </Route>
         <Route exact path="/offer/:id">
-          <Room reviews={reviews} />
+          <Room
+            offers={offers}
+            reviews={reviews} />
         </Route>
         <Route
           render={() => (
@@ -38,6 +45,20 @@ const App = (props) => {
 
 App.propTypes = {
   reviews: PropTypes.arrayOf(ReviewsPropTypes).isRequired,
+  offers: PropTypes.arrayOf(OffersPropTypes).isRequired,
+  city: PropTypes.string.isRequired,
+  hoverOfferCardId: PropTypes.number.isRequired,
+  authorizationStatus: PropTypes.string.isRequired
 };
 
-export default App;
+const mapStateToProps = ({DATA, PROCESS, USER}) => ({
+  city: PROCESS.city,
+  cities: PROCESS.cities,
+  reviews: DATA.reviews,
+  hoverOfferCardId: PROCESS.hoverOfferCardId,
+  offers: sortedOffers({DATA, PROCESS}),
+  authorizationStatus: USER.authorizationStatus,
+});
+
+export {App};
+export default connect(mapStateToProps)(App);

@@ -6,36 +6,43 @@ import {MapSettings} from "@const";
 
 class Map extends React.PureComponent {
   componentDidMount() {
-    const {offers, activeCity, hoverOfferCardId} = this.props;
-    this._currentCity = offers.find((offerItem) => offerItem.city === activeCity);
+    const {offers, city, hoverOfferCardId} = this.props;
 
-    this._renderMap(MapSettings.DEFAULT_CITY_COORDS);
+    this._currentCity = offers.find((offerItem) => offerItem.city === city);
+
+    const cityCoordinate = [this._currentCity.cityLocation.latitude, this._currentCity.cityLocation.longitude];
+    const cityZoom = [this._currentCity.cityLocation.zoom];
+
+    this._renderMap(cityCoordinate, cityZoom);
 
     this._renderMarker(offers, hoverOfferCardId);
   }
 
   componentDidUpdate() {
-    const {offers, activeCity, hoverOfferCardId} = this.props;
+    const {offers, city, hoverOfferCardId} = this.props;
 
-    if (this._currentCity.city !== activeCity) {
-      this._currentCity = offers.find((offerItem) => offerItem.city === activeCity);
+    if (this._currentCity.city !== city) {
+      this._currentCity = offers.find((offerItem) => offerItem.city === city);
+
+      const cityCoordinate = [this._currentCity.cityLocation.latitude, this._currentCity.cityLocation.longitude];
+      const cityZoom = [this._currentCity.cityLocation.zoom];
 
       this.map.remove();
 
-      this._renderMap(this._currentCity.coordinates);
+      this._renderMap(cityCoordinate, cityZoom);
     }
 
     this._renderMarker(offers, hoverOfferCardId);
   }
 
-  _renderMap(cityCoordinates) {
+  _renderMap(cityCoordinates, cityZoom) {
     this.map = leaflet.map(MapSettings.MAP_CONTAINER_ID, {
       center: cityCoordinates,
-      zoom: MapSettings.ZOOM,
+      zoom: cityZoom,
       zoomControl: false,
       marker: true
     });
-    this.map.setView(cityCoordinates, MapSettings.ZOOM);
+    this.map.setView(cityCoordinates, cityZoom);
 
     // Подключение слоя карты
     leaflet
@@ -48,12 +55,13 @@ class Map extends React.PureComponent {
   _renderMarker(offers, hoverOfferCardId) {
     offers
       .map((offer) => {
+        const markerCoordinate = [offer.location.latitude, offer.location.longitude];
         const icon = leaflet.icon({
           iconUrl: offer.id === hoverOfferCardId ? MapSettings.HOVER_ICON_URL : MapSettings.ICON_URL,
           iconSize: MapSettings.ICON_SIZE
         });
         leaflet
-          .marker(offer.coordinates, {icon})
+          .marker(markerCoordinate, {icon})
           .addTo(this.map);
       });
   }
@@ -67,7 +75,7 @@ class Map extends React.PureComponent {
 }
 
 Map.propTypes = {
-  activeCity: PropTypes.string.isRequired,
+  city: PropTypes.string.isRequired,
   offers: PropTypes.arrayOf(OffersPropTypes).isRequired,
   className: PropTypes.string,
   hoverOfferCardId: PropTypes.number

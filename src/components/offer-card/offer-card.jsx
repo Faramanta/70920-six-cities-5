@@ -1,10 +1,12 @@
 import {Link} from "react-router-dom";
 import {OffersPropTypes} from "@props";
+import {getRating} from "./../../utils/utils";
 
 const OfferCard = (props) => {
   const {offer, offerPathname, onOfferCardOver, onOfferCardOut} = props;
   const roomUrl = `/offer/` + offerPathname;
   const favoriteBtnClass = offer.isFavorite ? `place-card__bookmark-button--active` : ``;
+  const hotelRating = getRating(offer.rating);
 
   return (
     <article
@@ -22,7 +24,7 @@ const OfferCard = (props) => {
 
       <div className="cities__image-wrapper place-card__image-wrapper">
         <Link to={roomUrl}>
-          <img className="place-card__image" src={offer.pictures[0]} width="260" height="200" alt="Place image"/>
+          <img className="place-card__image" src={offer.preview_image} width="260" height="200" alt="Place image"/>
         </Link>
       </div>
       <div className="place-card__info">
@@ -40,7 +42,7 @@ const OfferCard = (props) => {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `80%`}}></span>
+            <span style={{width: hotelRating}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

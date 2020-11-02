@@ -1,10 +1,8 @@
 export const MapSettings = {
-  DEFAULT_CITY_COORDS: [52.38333, 4.9],
   ICON_URL: `img/pin.svg`,
   HOVER_ICON_URL: `img/pin-active.svg`,
   ICON_SIZE: [27, 39],
   MAP_CONTAINER_ID: `map`,
-  ZOOM: 12,
 };
 
 export const CITIES = [
@@ -30,3 +28,15 @@ export const ratingInfo = [
   {title: `badly`, value: `2`},
   {title: `terribly`, value: `1`},
 ];
+
+export const AuthorizationStatus = {
+  AUTH: `AUTH`,
+  NO_AUTH: `NO_AUTH`,
+};
+
+export const HttpCode = {
+  UNAUTHORIZED: 401
+};
+
+export const NULL_ID = 0;
+
