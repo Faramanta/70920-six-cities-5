@@ -2,7 +2,6 @@ import {connect} from "react-redux";
 import {changeHoverOfferCardId} from "@store/action";
 import OfferCard from "@components/offer-card/offer-card";
 import {OffersPropTypes} from "@props";
-import {NULL_ID} from "@const";
 
 class OfferList extends React.PureComponent {
   constructor(props) {
@@ -18,7 +17,7 @@ class OfferList extends React.PureComponent {
 
   _handleOfferCardOut() {
     const {changeHoverOfferCardIdAction} = this.props;
-    changeHoverOfferCardIdAction(NULL_ID);
+    changeHoverOfferCardIdAction(0);
   }
 
   render() {

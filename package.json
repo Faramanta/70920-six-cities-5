@@ -38,6 +38,7 @@
     "redux": "4.0.5",
     "axios": "0.19",
     "redux-thunk": "2.3",
-    "reselect": "4"
+    "reselect": "4",
+    "history": "4.10"
   }
 }
