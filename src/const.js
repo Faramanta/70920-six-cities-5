@@ -38,5 +38,9 @@ export const HttpCode = {
   UNAUTHORIZED: 401
 };
 
-export const NULL_ID = 0;
-
+export const AppRoute = {
+  MAIN: `/`,
+  LOGIN: `/login`,
+  FAVORITES: `/favorites`,
+  ROOM: `/offer/:id`,
+};

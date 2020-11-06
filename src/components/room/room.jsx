@@ -7,7 +7,7 @@ import Map from "@components/map/map";
 import {OffersPropTypes, ReviewsPropTypes} from "@props";
 
 const Room = (props) => {
-  const {city, hoverOfferCardId, reviews, offers} = props;
+  const {city, hoverOfferCardId, reviews, offers, onHeaderLinkClick} = props;
 
   const offerPathname = parseInt(window.location.pathname.replace(`/offer/`, ``), 10);
   const offer = offers.find((item) => item.id === offerPathname);
@@ -19,7 +19,7 @@ const Room = (props) => {
   return (
     <div className="page">
 
-      <Header />
+      <Header onHeaderLinkClick={onHeaderLinkClick} />
 
       <main className="page__main page__main--property">
         <section className="property">
@@ -135,6 +135,7 @@ Room.propTypes = {
   offers: PropTypes.arrayOf(OffersPropTypes).isRequired,
   allOffers: PropTypes.arrayOf(OffersPropTypes).isRequired,
   reviews: PropTypes.arrayOf(ReviewsPropTypes).isRequired,
+  onHeaderLinkClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({DATA, PROCESS}) => ({

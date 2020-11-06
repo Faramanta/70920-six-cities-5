@@ -6,8 +6,7 @@ import LocationList from "@components/location-list/location-list";
 import SortingList from "@components/sorting-list/sorting-list";
 import {OffersPropTypes} from "@props";
 
-const Main = (props) => {
-  const {offers, city, hoverOfferCardId} = props;
+const Main = ({offers, city, hoverOfferCardId, onHeaderLinkClick}) => {
 
   const isOffersEmpty = offers.length === 0;
   const containersOffersEmptyClass = isOffersEmpty ? `cities__places-container--empty` : ``;
@@ -16,7 +15,7 @@ const Main = (props) => {
   return (
     <div className="page page--gray page--main">
 
-      <Header />
+      <Header onHeaderLinkClick={onHeaderLinkClick} />
 
       <main className={`page__main page__main--index ${mainOffersEmptyClass}`}>
         <h1 className="visually-hidden">Cities</h1>
@@ -55,7 +54,8 @@ const Main = (props) => {
 Main.propTypes = {
   city: PropTypes.string.isRequired,
   offers: PropTypes.arrayOf(OffersPropTypes).isRequired,
-  hoverOfferCardId: PropTypes.number
+  hoverOfferCardId: PropTypes.number,
+  onHeaderLinkClick: PropTypes.func,
 };
 
 export default Main;
