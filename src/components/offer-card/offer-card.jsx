@@ -1,10 +1,13 @@
+import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 import {OffersPropTypes} from "@props";
 import {getRating} from "./../../utils/utils";
+import {TypeRoom, AppRoute} from "@const";
+import {changeFavoriteStatus} from "@store/api-actions";
+import {updateMainOfferFavoriteStatus} from "@store/action";
 
 const OfferCard = (props) => {
-  const {offer, offerPathname, onOfferCardOver, onOfferCardOut} = props;
-  const roomUrl = `/offer/` + offerPathname;
+  const {offer, onOfferCardOver, onOfferCardOut, onFavoriteButtonClick, updateFavoriteStatus} = props;
   const favoriteBtnClass = offer.isFavorite ? `place-card__bookmark-button--active` : ``;
   const hotelRating = getRating(offer.rating);
 
@@ -23,22 +26,31 @@ const OfferCard = (props) => {
       }
 
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <Link to={roomUrl}>
-          <img className="place-card__image" src={offer.preview_image} width="260" height="200" alt="Place image"/>
+        <Link to={`${AppRoute.ROOM}${offer.id}`}>
+          <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place image"/>
         </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{offer.price}</b>
-            <span className="place-card__price-text">&#47;&nbsp;night</span>
+            <span className="place-card__price-text">&nbsp;&#47;&nbsp;night</span>
           </div>
-          <button className={`place-card__bookmark-button ${favoriteBtnClass} button`} type="button">
+
+          <button
+            className={`place-card__bookmark-button ${favoriteBtnClass} button`}
+            type="button"
+            onClick={(evt) => {
+              onFavoriteButtonClick(evt);
+              updateFavoriteStatus(offer.id, offer.isFavorite ? 0 : 1);
+            }}
+          >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
             <span className="visually-hidden">To bookmarks</span>
           </button>
+
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
@@ -47,19 +59,27 @@ const OfferCard = (props) => {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={roomUrl}>{offer.title}</Link>
+          <Link to={`${AppRoute.ROOM}${offer.id}`}>{offer.title}</Link>
         </h2>
-        <p className="place-card__type">{offer.type}</p>
+        <p className="place-card__type">{TypeRoom[offer.type.toUpperCase()]}</p>
       </div>
     </article>
   );
 };
 
 OfferCard.propTypes = {
-  offerPathname: PropTypes.number,
   onOfferCardOver: PropTypes.func.isRequired,
   onOfferCardOut: PropTypes.func.isRequired,
+  onFavoriteButtonClick: PropTypes.func,
+  updateFavoriteStatus: PropTypes.func.isRequired,
   offer: OffersPropTypes
 };
 
-export default OfferCard;
+const mapDispatchToProps = (dispatch) => ({
+  updateFavoriteStatus(id, favoriteStatus) {
+    dispatch(changeFavoriteStatus(id, favoriteStatus, updateMainOfferFavoriteStatus));
+  },
+});
+
+export {OfferCard};
+export default connect(null, mapDispatchToProps)(OfferCard);

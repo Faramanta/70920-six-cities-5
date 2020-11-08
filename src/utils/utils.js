@@ -31,13 +31,18 @@ export const adapterData = (offer) => {
 
 export const adapterComment = (comment) => {
   return Object.assign({}, comment, {
-    id: comment.id,
     comment: comment.comment,
     date: new Date(comment.date),
-    rating: comment.rating,
     userId: comment.user.id,
     avatarUrl: comment.user.avatar_url,
     isPro: comment.user.is_pro,
     name: comment.user.name,
+  });
+};
+
+export const adapterUser = (comment) => {
+  return Object.assign({}, comment, {
+    avatarUrl: comment.user.avatar_url,
+    isPro: comment.user.is_pro,
   });
 };

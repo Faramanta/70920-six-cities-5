@@ -2,10 +2,10 @@ import {connect} from "react-redux";
 import {BrowserRouter, Switch, Route, Link} from "react-router-dom";
 import Main from "@components/main/main";
 import SignIn from "@components/sign-in/sign-in";
-import Favorites from "@components/favorites/favorites";
+import FavoriteList from "@components/favorites/favorites";
 import Room from "@components/room/room";
 import PrivateRoute from "../private-route/private-route";
-import {ReviewsPropTypes, OffersPropTypes} from "@props";
+import {OffersPropTypes} from "@props";
 import {sortedOffers} from "../../store/selectors";
 import {AppRoute, AuthorizationStatus} from "@const";
 
@@ -20,6 +20,13 @@ const App = ({offers, city, hoverOfferCardId, authorizationStatus}) => {
     history.push(AppRoute.FAVORITES);
   };
 
+  const onFavoriteButtonClick = (evt, history) => {
+    evt.preventDefault();
+    if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
+      history.push(AppRoute.LOGIN);
+    }
+  };
+
   return (
     <BrowserRouter>
       <Switch>
@@ -31,6 +38,7 @@ const App = ({offers, city, hoverOfferCardId, authorizationStatus}) => {
                 city={city}
                 hoverOfferCardId={hoverOfferCardId}
                 onHeaderLinkClick={(evt) => onHeaderLinkClick(evt, history)}
+                onFavoriteButtonClick={(evt) => onFavoriteButtonClick(evt, history)}
               />
             );
           }}
@@ -49,7 +57,7 @@ const App = ({offers, city, hoverOfferCardId, authorizationStatus}) => {
           path={AppRoute.FAVORITES}
           render={({history}) => {
             return (
-              <Favorites
+              <FavoriteList
                 onHeaderLinkClick={(evt) => onHeaderLinkClick(evt, history)}
               />
             );
@@ -62,9 +70,8 @@ const App = ({offers, city, hoverOfferCardId, authorizationStatus}) => {
             return (
               <Room
                 idCurrentOffer={+match.params.id}
-                // offers={offers}
-                // reviews={reviews}
                 onHeaderLinkClick={(evt) => onHeaderLinkClick(evt, history)}
+                onFavoriteButtonClick={(evt) => onFavoriteButtonClick(evt, history)}
               />
             );
           }}
@@ -83,7 +90,6 @@ const App = ({offers, city, hoverOfferCardId, authorizationStatus}) => {
 };
 
 App.propTypes = {
-  // reviews: PropTypes.arrayOf(ReviewsPropTypes).isRequired,
   offers: PropTypes.arrayOf(OffersPropTypes).isRequired,
   city: PropTypes.string.isRequired,
   hoverOfferCardId: PropTypes.number.isRequired,

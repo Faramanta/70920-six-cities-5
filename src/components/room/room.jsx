@@ -7,6 +7,8 @@ import Map from "@components/map/map";
 import {OffersPropTypes} from "@props";
 import {getCurrentOffer, getOffersNearby} from "@store/api-actions";
 import {AuthorizationStatus} from "@const";
+import {changeFavoriteStatus} from "@store/api-actions";
+import {updateCurrentOfferFavoriteStatus} from "@store/action";
 
 class Room extends React.PureComponent {
 
@@ -26,11 +28,11 @@ class Room extends React.PureComponent {
   }
 
   render() {
-    const {offer, offersNearby, onHeaderLinkClick, authorizationStatus} = this.props;
-
+    const {offer, offersNearby, onHeaderLinkClick, authorizationStatus, onFavoriteButtonClick, updateFavoriteStatus} = this.props;
     if (Object.keys(offer).length && offersNearby.length) {
       const imagesForShow = offer.images.length > 6 ? offer.images.slice(0, 6) : ``;
       const superBtnClass = offer.isSuper ? `property__avatar-wrapper--pro user__avatar` : ``;
+      const favoriteBtnClass = offer.isFavorite ? `property__bookmark-button--active` : ``;
 
       return (
         <div className="page">
@@ -60,8 +62,13 @@ class Room extends React.PureComponent {
                       {offer.title}
                     </h1>
 
-                    <button className="property__bookmark-button button" type="button">
-                      <svg className="property__bookmark-icon" width="31" height="33">
+                    <button className={`property__bookmark-button button ${favoriteBtnClass}`} type="button"
+                      onClick={(evt) => {
+                        onFavoriteButtonClick(evt);
+                        updateFavoriteStatus(offer.id, offer.isFavorite ? 0 : 1);
+                      }}
+                    >
+                      <svg className="place-card__bookmark-icon" width="31" height="33">
                         <use xlinkHref="#icon-bookmark"></use>
                       </svg>
                       <span className="visually-hidden">To bookmarks</span>
@@ -126,7 +133,7 @@ class Room extends React.PureComponent {
                   </section>
                 </div>
               </div>
-              <Map offers={offersNearby} className={`property__map`} city={offer.city}  />
+              <Map offers={offersNearby} className={`property__map`} city={offer.city} />
             </section>
             <div className="container">
               <section className="near-places places">
@@ -134,7 +141,12 @@ class Room extends React.PureComponent {
                 <>
                 <h2 className="near-places__title">Other places in the neighbourhood</h2>
 
-                <OfferList offers={offersNearby} city={offer.city} className={`near-places__list`} />
+                <OfferList
+                  offers={offersNearby}
+                  city={offer.city}
+                  className={`near-places__list`}
+                  onFavoriteButtonClick={onFavoriteButtonClick}
+                />
                 </>
                 }
               </section>
@@ -165,7 +177,9 @@ Room.propTypes = {
   onHeaderLinkClick: PropTypes.func.isRequired,
   loadCurrentOffer: PropTypes.func.isRequired,
   loadOffersNearby: PropTypes.func.isRequired,
-  authorizationStatus: PropTypes.string.isRequired
+  authorizationStatus: PropTypes.string.isRequired,
+  onFavoriteButtonClick: PropTypes.func,
+  updateFavoriteStatus: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({DATA, PROCESS, USER}) => ({
@@ -184,6 +198,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   loadOffersNearby(id) {
     dispatch(getOffersNearby(id));
+  },
+  updateFavoriteStatus(id, favoriteStatus) {
+    dispatch(changeFavoriteStatus(id, favoriteStatus, updateCurrentOfferFavoriteStatus));
   },
 });
 

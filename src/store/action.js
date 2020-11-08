@@ -11,7 +11,13 @@ export const ActionType = {
   LOAD_CURRENT_OFFER: `LOAD_CURRENT_OFFER`,
   LOAD_CURRENT_OFFER_COMMENTS: `LOAD_CURRENT_OFFER_COMMENTS`,
   LOAD_FAVORITES: `LOAD_FAVORITES`,
+  UPDATE_MAIN_OFFER_FAVORITE_STATUS: `UPDATE_MAIN_OFFER_FAVORITE_STATUS`,
+  UPDATE_CURRENT_OFFER_FAVORITE_STATUS: `UPDATE_CURRENT_OFFER_FAVORITE_STATUS`,
+  UPDATE_NEARBY_OFFER_FAVORITE_STATUS: `UPDATE_NEARBY_OFFER_FAVORITE_STATUS`,
+  ADD_FAVORITES: `ADD_FAVORITES`,
+  REMOVE_FAVORITES: `REMOVE_FAVORITES`,
   REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`,
+  UPDATE_USER: `UPDATE_USER`,
 };
 
 export const changeCity = (city) => ({
@@ -44,6 +50,21 @@ export const loadFavorites = (favoriteOffers) => ({
   payload: favoriteOffers,
 });
 
+export const updateMainOfferFavoriteStatus = (favoriteOffer) => ({
+  type: ActionType.UPDATE_MAIN_OFFER_FAVORITE_STATUS,
+  payload: favoriteOffer,
+});
+
+export const updateCurrentOfferFavoriteStatus = (currentOffer) => ({
+  type: ActionType.UPDATE_CURRENT_OFFER_FAVORITE_STATUS,
+  payload: currentOffer,
+});
+
+export const updateNearbyOfferFavoriteStatus = (favoriteOffer) => ({
+  type: ActionType.UPDATE_NEARBY_OFFER_FAVORITE_STATUS,
+  payload: favoriteOffer,
+});
+
 export const loadCurrentOffer = (currentOffer) => ({
   type: ActionType.LOAD_CURRENT_OFFER,
   payload: currentOffer,
@@ -57,4 +78,9 @@ export const loadCurrentOfferComments = (currentOfferComments) => ({
 export const requireAuthorization = (status) => ({
   type: ActionType.REQUIRED_AUTHORIZATION,
   payload: status,
+});
+
+export const updateUser = (userInformation) => ({
+  type: ActionType.UPDATE_USER,
+  payload: userInformation
 });

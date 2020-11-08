@@ -1,4 +1,5 @@
-import {loadOffers, loadOffersNearby, loadFavorites, loadCurrentOffer, loadCurrentOfferComments, requireAuthorization} from "./action";
+import {loadOffers, loadOffersNearby, loadFavorites, loadCurrentOffer, loadCurrentOfferComments, requireAuthorization,
+  updateFavoriteStatus, updateUser} from "./action";
 import {AuthorizationStatus} from "@const";
 import {adapterData, adapterComment} from "../utils/utils";
 
@@ -12,7 +13,10 @@ export const getOffersFromServer = () => (dispatch, _getState, api) => (
 
 export const checkAuth = () => (dispatch, _getState, api) => (
   api.get(`/login`)
-    .then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH)))
+    .then((response) => {
+      dispatch(requireAuthorization(AuthorizationStatus.AUTH));
+      dispatch(updateUser(response.data));
+    })
     .catch((err) => {
       throw err;
     })
@@ -20,7 +24,10 @@ export const checkAuth = () => (dispatch, _getState, api) => (
 
 export const login = ({login: email, password}) => (dispatch, _getState, api) => (
   api.post(`/login`, {email, password})
-    .then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH)))
+    .then((response) => {
+      dispatch(requireAuthorization(AuthorizationStatus.AUTH));
+      dispatch(updateUser(response.data));
+    })
 );
 
 // Запрос текущего предложения
@@ -55,6 +62,14 @@ export const getFavoriteOffer = () => (dispatch, _getState, api) => (
     .then(({data}) => {
       const formattedData = data.map((offer) => adapterData(offer));
       dispatch(loadFavorites(formattedData));
+    })
+);
+
+// Изменение статуса избранного у предложения.
+export const changeFavoriteStatus = (id, favoriteStatus, action) => (dispatch, _getState, api) => (
+  api.post(`/favorite/${id}/${favoriteStatus}`)
+    .then(({data}) => {
+      dispatch(action(adapterData(data)));
     })
 );
 

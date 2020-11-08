@@ -6,7 +6,7 @@ import {createAPI} from "./services/api";
 import App from "./components/app/app";
 import rootReducer from "@store/redusers/root-reducer";
 import {requireAuthorization} from "@store/action";
-import {getOffersFromServer, getFavoriteOffer, checkAuth} from "@store/api-actions";
+import {getOffersFromServer, checkAuth} from "@store/api-actions";
 import {AuthorizationStatus} from "@const";
 import {composeWithDevTools} from "redux-devtools-extension";
 
@@ -22,7 +22,6 @@ const store = createStore(
 );
 
 store.dispatch(getOffersFromServer());
-store.dispatch(getFavoriteOffer());
 store.dispatch(checkAuth());
 
 ReactDOM.render(

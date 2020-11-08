@@ -14,6 +14,13 @@ export const CITIES = [
   `Dusseldorf`
 ];
 
+export const TypeRoom = {
+  APARTMENT: `Apartment`,
+  ROOM: `Private Room`,
+  HOUSE: `House`,
+  HOTEL: `Hotel`
+};
+
 export const SortingType = {
   POPULAR: `Popular`,
   LOW_TO_HIGH: `Price: low to high`,
