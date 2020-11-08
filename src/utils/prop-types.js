@@ -10,7 +10,7 @@ export const OffersPropTypes = PropTypes.shape({
   bedroomCount: PropTypes.number.isRequired,
   guestCount: PropTypes.number.isRequired,
   price: PropTypes.number.isRequired,
-  pictures: PropTypes.array.isRequired,
+  images: PropTypes.array.isRequired,
   facilities: PropTypes.array.isRequired,
   ownerName: PropTypes.string.isRequired,
   ownerAvatar: PropTypes.string.isRequired,
@@ -20,10 +20,11 @@ export const OffersPropTypes = PropTypes.shape({
 
 export const ReviewsPropTypes = PropTypes.shape({
   id: PropTypes.number.isRequired,
-  offerId: PropTypes.number.isRequired,
-  authorName: PropTypes.string.isRequired,
-  authorAvatar: PropTypes.string.isRequired,
-  rating: PropTypes.number.isRequired,
+  comment: PropTypes.string.isRequired,
   date: PropTypes.object.isRequired,
-  text: PropTypes.string.isRequired
+  rating: PropTypes.number.isRequired,
+  userId: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  avatarUrl: PropTypes.string.isRequired,
+  isPro: PropTypes.bool.isRequired,
 }).isRequired;

@@ -1,6 +1,6 @@
-import {loadOffers, requireAuthorization} from "./action";
+import {loadOffers, loadOffersNearby, loadFavorites, loadCurrentOffer, loadCurrentOfferComments, requireAuthorization} from "./action";
 import {AuthorizationStatus} from "@const";
-import {adapterData} from "../utils/utils";
+import {adapterData, adapterComment} from "../utils/utils";
 
 export const getOffersFromServer = () => (dispatch, _getState, api) => (
   api.get(`/hotels`)
@@ -22,3 +22,39 @@ export const login = ({login: email, password}) => (dispatch, _getState, api) =>
   api.post(`/login`, {email, password})
     .then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH)))
 );
+
+// Запрос текущего предложения
+export const getCurrentOffer = (id) => (dispatch, _getState, api) => (
+  api.get(`/hotels/${id}`)
+    .then(({data}) => {
+      dispatch(loadCurrentOffer(adapterData(data)));
+    })
+);
+
+// Запрос списка предложений неподалеку
+export const getOffersNearby = (id) => (dispatch, _getState, api) => (
+  api.get(`/hotels/${id}/nearby`)
+    .then(({data}) => {
+      const formattedData = data.map((offer) => adapterData(offer));
+      dispatch(loadOffersNearby(formattedData));
+    })
+);
+
+// Запрос список комментариев для конкретного предложения по его id.
+export const getCurrentOfferComments = (id) => (dispatch, _getState, api) => (
+  api.get(`/comments/${id}`)
+    .then(({data}) => {
+      const formattedData = data.map((comment) => adapterComment(comment));
+      dispatch(loadCurrentOfferComments(formattedData));
+    })
+);
+
+// Получение списка избранных предложений.
+export const getFavoriteOffer = () => (dispatch, _getState, api) => (
+  api.get(`/favorite`)
+    .then(({data}) => {
+      const formattedData = data.map((offer) => adapterData(offer));
+      dispatch(loadFavorites(formattedData));
+    })
+);
+

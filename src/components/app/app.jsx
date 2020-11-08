@@ -9,7 +9,7 @@ import {ReviewsPropTypes, OffersPropTypes} from "@props";
 import {sortedOffers} from "../../store/selectors";
 import {AppRoute, AuthorizationStatus} from "@const";
 
-const App = ({offers, city, reviews, hoverOfferCardId, authorizationStatus}) => {
+const App = ({offers, city, hoverOfferCardId, authorizationStatus}) => {
 
   const onHeaderLinkClick = (evt, history) => {
     evt.preventDefault();
@@ -57,12 +57,13 @@ const App = ({offers, city, reviews, hoverOfferCardId, authorizationStatus}) => 
         />
         <Route
           exact
-          path={AppRoute.ROOM}
-          render={({history}) => {
+          path={`${AppRoute.ROOM}:id`}
+          render={({history, match}) => {
             return (
               <Room
-                offers={offers}
-                reviews={reviews}
+                idCurrentOffer={+match.params.id}
+                // offers={offers}
+                // reviews={reviews}
                 onHeaderLinkClick={(evt) => onHeaderLinkClick(evt, history)}
               />
             );
@@ -70,10 +71,10 @@ const App = ({offers, city, reviews, hoverOfferCardId, authorizationStatus}) => 
         />
         <Route
           render={() => (
-            <>
+            <div style={{position: `absolute`, top: `50%`, left: `50%`, transform: `translate(-50%, -50%)`}}>
               <h1 style={{display: `block`, textAlign: `center`}}>Page not found</h1>
-              <Link to={AppRoute.MAIN} style={{display: `block`, textAlign: `center`, marginTop: `30px`}}>Go to home</Link>
-            </>
+              <Link to={AppRoute.MAIN} style={{display: `block`, textAlign: `center`, marginTop: `30px`, color: `#4481c3`, fontSize: `21px`}}>Go to home</Link>
+            </div>
           )}
         />
       </Switch>
@@ -82,7 +83,7 @@ const App = ({offers, city, reviews, hoverOfferCardId, authorizationStatus}) => 
 };
 
 App.propTypes = {
-  reviews: PropTypes.arrayOf(ReviewsPropTypes).isRequired,
+  // reviews: PropTypes.arrayOf(ReviewsPropTypes).isRequired,
   offers: PropTypes.arrayOf(OffersPropTypes).isRequired,
   city: PropTypes.string.isRequired,
   hoverOfferCardId: PropTypes.number.isRequired,

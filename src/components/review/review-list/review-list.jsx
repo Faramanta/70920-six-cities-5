@@ -1,33 +1,54 @@
+import {connect} from 'react-redux';
 import ReviewItem from "../components/review-item/review-item";
-import {OffersPropTypes, ReviewsPropTypes} from "@props";
+import {ReviewsPropTypes} from "@props";
+import {getCurrentOfferComments} from "@store/api-actions";
 
-const ReviewList = (props) => {
-  const {reviews, offer} = props;
-  const filteredReviews = reviews.filter((review) => review.offerId === offer.id);
-  const reviewsCount = filteredReviews.length;
+class ReviewList extends React.PureComponent {
+  componentDidMount() {
+    const {idCurrentOffer, loadCurrentOfferComments} = this.props;
+    loadCurrentOfferComments(idCurrentOffer);
+  }
 
-  return (
-    <>
+  render() {
+    const {currentOfferComments} = this.props;
+
+    const reviewsCount = currentOfferComments.length;
+
+    return (
+      <>
       {reviewsCount > 0 &&
-        <>
-          <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviewsCount}</span></h2>
-          <ul className="reviews__list">
-            {filteredReviews.map((filteredReview) => (
-              <ReviewItem
-                key={filteredReview.id}
-                review={filteredReview}
-              />
-            ))}
-          </ul>
-        </>
+      <>
+      <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviewsCount}</span></h2>
+      <ul className="reviews__list">
+        {currentOfferComments.map((comment) => (
+          <ReviewItem
+            key={comment.id}
+            comment={comment}
+          />
+        ))}
+      </ul>
+      </>
       }
-    </>
-  );
-};
+      </>
+    );
+  }
+}
 
 ReviewList.propTypes = {
-  offer: OffersPropTypes,
-  reviews: PropTypes.arrayOf(ReviewsPropTypes).isRequired
+  currentOfferComments: PropTypes.arrayOf(ReviewsPropTypes),
+  idCurrentOffer: PropTypes.number,
+  loadCurrentOfferComments: PropTypes.func.isRequired,
 };
 
-export default ReviewList;
+const mapStateToProps = ({DATA}) => ({
+  currentOfferComments: DATA.currentOfferComments,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  loadCurrentOfferComments(id) {
+    dispatch(getCurrentOfferComments(id));
+  },
+});
+
+export {ReviewList};
+export default connect(mapStateToProps, mapDispatchToProps)(ReviewList);

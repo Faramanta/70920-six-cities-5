@@ -7,6 +7,10 @@ export const ActionType = {
   SORT_TOP_RATED_FIRST: `SORT_TOP_RATED_FIRST`,
   CHANGE_HOVER_OFFER_CARD_ID: `CHANGE_HOVER_OFFER_CARD_ID`,
   LOAD_OFFERS: `LOAD_OFFERS`,
+  LOAD_OFFERS_NEARBY: `LOAD_OFFERS_NEARBY`,
+  LOAD_CURRENT_OFFER: `LOAD_CURRENT_OFFER`,
+  LOAD_CURRENT_OFFER_COMMENTS: `LOAD_CURRENT_OFFER_COMMENTS`,
+  LOAD_FAVORITES: `LOAD_FAVORITES`,
   REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`,
 };
 
@@ -28,6 +32,26 @@ export const changeHoverOfferCardId = (id) => ({
 export const loadOffers = (hotels) => ({
   type: ActionType.LOAD_OFFERS,
   payload: hotels,
+});
+
+export const loadOffersNearby = (hotels) => ({
+  type: ActionType.LOAD_OFFERS_NEARBY,
+  payload: hotels,
+});
+
+export const loadFavorites = (favoriteOffers) => ({
+  type: ActionType.LOAD_FAVORITES,
+  payload: favoriteOffers,
+});
+
+export const loadCurrentOffer = (currentOffer) => ({
+  type: ActionType.LOAD_CURRENT_OFFER,
+  payload: currentOffer,
+});
+
+export const loadCurrentOfferComments = (currentOfferComments) => ({
+  type: ActionType.LOAD_CURRENT_OFFER_COMMENTS,
+  payload: currentOfferComments,
 });
 
 export const requireAuthorization = (status) => ({
