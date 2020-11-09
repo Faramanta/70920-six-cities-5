@@ -1,6 +1,5 @@
-import {extend} from "../../utils/utils";
+import {extend} from "@utils/utils";
 import {ActionType} from "./../action";
-import reviews from "../../mocks/reviews";
 
 const initialState = {
   allOffers: [],
@@ -53,6 +52,10 @@ const loadData = (state = initialState, action) => {
           action.payload,
           ...state.offersNearby.slice(indexNearby + 1)
         ]
+      });
+    case ActionType.REMOVE_FAVORITE_STATUS:
+      return extend(state, {
+        favoriteOffers: state.favoriteOffers.slice(0).filter((offer) => offer.id !== action.payload.id)
       });
   }
   return state;

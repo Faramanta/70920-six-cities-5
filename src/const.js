@@ -21,6 +21,17 @@ export const TypeRoom = {
   HOTEL: `Hotel`
 };
 
+export const ReviewLimits = {
+  EMPTY_COUNT_SIMBOLS: 0,
+  MIN_COUNT_SIMBOLS: 5,
+  MAX_COUNT_SIMBOLS: 300,
+};
+
+export const FormStatus = {
+  DISABLED: true,
+  ENABLED: false,
+};
+
 export const SortingType = {
   POPULAR: `Popular`,
   LOW_TO_HIGH: `Price: low to high`,
@@ -51,3 +62,5 @@ export const AppRoute = {
   FAVORITES: `/favorites`,
   ROOM: `/offer/`,
 };
+
+export const ERROR_MESSAGE = `Something went wrong. Please try again later.`;

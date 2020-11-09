@@ -14,10 +14,12 @@ export const ActionType = {
   UPDATE_MAIN_OFFER_FAVORITE_STATUS: `UPDATE_MAIN_OFFER_FAVORITE_STATUS`,
   UPDATE_CURRENT_OFFER_FAVORITE_STATUS: `UPDATE_CURRENT_OFFER_FAVORITE_STATUS`,
   UPDATE_NEARBY_OFFER_FAVORITE_STATUS: `UPDATE_NEARBY_OFFER_FAVORITE_STATUS`,
+  REMOVE_FAVORITE_STATUS: `REMOVE_FAVORITE_STATUS`,
   ADD_FAVORITES: `ADD_FAVORITES`,
   REMOVE_FAVORITES: `REMOVE_FAVORITES`,
   REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`,
   UPDATE_USER: `UPDATE_USER`,
+  ADD_NEW_COMMENT: `ADD_NEW_COMMENT`,
 };
 
 export const changeCity = (city) => ({
@@ -62,6 +64,11 @@ export const updateCurrentOfferFavoriteStatus = (currentOffer) => ({
 
 export const updateNearbyOfferFavoriteStatus = (favoriteOffer) => ({
   type: ActionType.UPDATE_NEARBY_OFFER_FAVORITE_STATUS,
+  payload: favoriteOffer,
+});
+
+export const removeFavoriteStatus = (favoriteOffer) => ({
+  type: ActionType.REMOVE_FAVORITE_STATUS,
   payload: favoriteOffer,
 });
 

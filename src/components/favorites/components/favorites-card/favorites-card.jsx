@@ -1,10 +1,13 @@
+import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 import {OffersPropTypes} from "@props";
 import {TypeRoom} from "@const";
-import {getRating} from "./../../utils/utils";
+import {getRating} from "@utils/utils";
+import {changeFavoriteStatus} from "@store/api-actions";
+import {removeFavoriteStatus} from "@store/action";
 
 const FavoritesCard = (props) => {
-  const {favoriteOffer} = props;
+  const {favoriteOffer, updateFavoriteStatus} = props;
   const offerRating = getRating(favoriteOffer.rating);
 
   return (
@@ -20,7 +23,11 @@ const FavoritesCard = (props) => {
             <b className="place-card__price-value">&euro;{favoriteOffer.price}</b>
             <span className="place-card__price-text">&nbsp;&#47;&nbsp;night</span>
           </div>
-          <button className="place-card__bookmark-button place-card__bookmark-button--active button" type="button">
+          <button className="place-card__bookmark-button place-card__bookmark-button--active button" type="button"
+            onClick={() => {
+              updateFavoriteStatus(favoriteOffer.id, favoriteOffer.isFavorite ? 0 : 1);
+            }}
+          >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
@@ -44,7 +51,14 @@ const FavoritesCard = (props) => {
 
 FavoritesCard.propTypes = {
   favoriteOffer: OffersPropTypes,
-  // city: PropTypes.string.isRequired,
+  updateFavoriteStatus: PropTypes.func.isRequired,
 };
 
-export default FavoritesCard;
+const mapDispatchToProps = (dispatch) => ({
+  updateFavoriteStatus(id, favoriteStatus) {
+    dispatch(changeFavoriteStatus(id, favoriteStatus, removeFavoriteStatus));
+  },
+});
+
+export {FavoritesCard};
+export default connect(null, mapDispatchToProps)(FavoritesCard);

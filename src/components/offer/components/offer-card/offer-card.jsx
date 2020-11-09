@@ -1,7 +1,7 @@
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 import {OffersPropTypes} from "@props";
-import {getRating} from "./../../utils/utils";
+import {getRating} from "@utils/utils";
 import {TypeRoom, AppRoute} from "@const";
 import {changeFavoriteStatus} from "@store/api-actions";
 import {updateMainOfferFavoriteStatus} from "@store/action";

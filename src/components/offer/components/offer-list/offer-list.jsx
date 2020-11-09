@@ -1,6 +1,6 @@
 import {connect} from "react-redux";
 import {changeHoverOfferCardId} from "@store/action";
-import OfferCard from "@components/offer-card/offer-card";
+import OfferCard from "@components/offer/components/offer-card/offer-card";
 import {OffersPropTypes} from "@props";
 
 class OfferList extends React.PureComponent {

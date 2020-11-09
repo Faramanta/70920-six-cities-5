@@ -1,4 +1,4 @@
-import {extend} from "../../utils/utils";
+import {extend} from "@utils/utils";
 import {AuthorizationStatus} from "@const";
 import {ActionType} from "./../action";
 

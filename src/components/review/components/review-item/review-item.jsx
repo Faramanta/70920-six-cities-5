@@ -1,5 +1,5 @@
 import {ReviewsPropTypes} from "@props";
-import {getRating} from "./../../../../utils/utils";
+import {getRating} from "@utils/utils";
 
 const ReviewItem = (props) => {
   const {comment} = props;

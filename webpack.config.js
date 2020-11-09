@@ -36,7 +36,9 @@ module.exports = {
       '@components': path.resolve(__dirname, './src/components/'),
       '@store': path.resolve(__dirname, './src/store/'),
       '@const': path.resolve(__dirname, './src/const'),
-      '@props': path.resolve(__dirname, './src/utils/prop-types/')
+      '@props': path.resolve(__dirname, './src/utils/prop-types/'),
+      '@utils': path.resolve(__dirname, './src/utils/'),
+      '@hocs': path.resolve(__dirname, './src/hocs/')
     }
   },
   devtool: 'source-map',

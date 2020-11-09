@@ -2,33 +2,36 @@ import {connect} from "react-redux";
 import Header from "@components/header/header";
 import ReviewList from "@components/review/review-list/review-list";
 import ReviewNew from "@components/review/components/review-new/review-new";
-import OfferList from "@components/offer-list/offer-list";
+import OfferList from "@components/offer/components/offer-list/offer-list";
 import Map from "@components/map/map";
-import {OffersPropTypes} from "@props";
+import {OffersPropTypes, ReviewsPropTypes} from "@props";
 import {getCurrentOffer, getOffersNearby} from "@store/api-actions";
 import {AuthorizationStatus} from "@const";
 import {changeFavoriteStatus} from "@store/api-actions";
 import {updateCurrentOfferFavoriteStatus} from "@store/action";
+import {getCurrentOfferComments} from "@store/api-actions";
 
 class Room extends React.PureComponent {
 
   componentDidMount() {
-    const {idCurrentOffer, loadCurrentOffer, loadOffersNearby} = this.props;
+    const {idCurrentOffer, loadCurrentOffer, loadOffersNearby, loadCurrentOfferComments} = this.props;
     loadCurrentOffer(idCurrentOffer);
     loadOffersNearby(idCurrentOffer);
+    loadCurrentOfferComments(idCurrentOffer);
   }
 
   componentDidUpdate(prevProps) {
-    const {idCurrentOffer, loadCurrentOffer, loadOffersNearby} = this.props;
+    const {idCurrentOffer, loadCurrentOffer, loadOffersNearby, loadCurrentOfferComments} = this.props;
 
     if (prevProps.idCurrentOffer !== idCurrentOffer) {
       loadCurrentOffer(idCurrentOffer);
       loadOffersNearby(idCurrentOffer);
+      loadCurrentOfferComments(idCurrentOffer);
     }
   }
 
   render() {
-    const {offer, offersNearby, onHeaderLinkClick, authorizationStatus, onFavoriteButtonClick, updateFavoriteStatus} = this.props;
+    const {offer, offersNearby, onHeaderLinkClick, authorizationStatus, onFavoriteButtonClick, updateFavoriteStatus, currentOfferComments} = this.props;
     if (Object.keys(offer).length && offersNearby.length) {
       const imagesForShow = offer.images.length > 6 ? offer.images.slice(0, 6) : ``;
       const superBtnClass = offer.isSuper ? `property__avatar-wrapper--pro user__avatar` : ``;
@@ -124,7 +127,7 @@ class Room extends React.PureComponent {
                   </div>
                   <section className="property__reviews reviews">
 
-                    <ReviewList idCurrentOffer={offer.id} />
+                    <ReviewList currentOfferComments={currentOfferComments} />
 
                     {authorizationStatus === AuthorizationStatus.AUTH &&
                       <ReviewNew idCurrentOffer={offer.id} />
@@ -180,6 +183,8 @@ Room.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
   onFavoriteButtonClick: PropTypes.func,
   updateFavoriteStatus: PropTypes.func.isRequired,
+  loadCurrentOfferComments: PropTypes.func.isRequired,
+  currentOfferComments: PropTypes.arrayOf(ReviewsPropTypes),
 };
 
 const mapStateToProps = ({DATA, PROCESS, USER}) => ({
@@ -190,6 +195,7 @@ const mapStateToProps = ({DATA, PROCESS, USER}) => ({
   city: PROCESS.city,
   hoverOfferCardId: PROCESS.hoverOfferCardId,
   authorizationStatus: USER.authorizationStatus,
+  currentOfferComments: DATA.currentOfferComments,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -201,6 +207,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   updateFavoriteStatus(id, favoriteStatus) {
     dispatch(changeFavoriteStatus(id, favoriteStatus, updateCurrentOfferFavoriteStatus));
+  },
+  loadCurrentOfferComments(id) {
+    dispatch(getCurrentOfferComments(id));
   },
 });
 

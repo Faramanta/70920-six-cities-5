@@ -1,4 +1,4 @@
-import FavoritesCard from "@components/favorites-card/favorites-card";
+import FavoritesCard from "@components/favorites/components/favorites-card/favorites-card";
 import {OffersPropTypes} from "@props";
 
 const FavoritesList = ({city, favoriteOffersInCity}) => {

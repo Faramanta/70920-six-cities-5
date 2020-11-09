@@ -1,7 +1,12 @@
-import {loadOffers, loadOffersNearby, loadFavorites, loadCurrentOffer, loadCurrentOfferComments, requireAuthorization,
-  updateFavoriteStatus, updateUser} from "./action";
+import {loadOffers,
+  loadOffersNearby,
+  loadFavorites,
+  loadCurrentOffer,
+  loadCurrentOfferComments,
+  requireAuthorization,
+  updateUser} from "./action";
 import {AuthorizationStatus} from "@const";
-import {adapterData, adapterComment} from "../utils/utils";
+import {adapterData, adapterComment} from "@utils/utils";
 
 export const getOffersFromServer = () => (dispatch, _getState, api) => (
   api.get(`/hotels`)
@@ -47,15 +52,6 @@ export const getOffersNearby = (id) => (dispatch, _getState, api) => (
     })
 );
 
-// Запрос список комментариев для конкретного предложения по его id.
-export const getCurrentOfferComments = (id) => (dispatch, _getState, api) => (
-  api.get(`/comments/${id}`)
-    .then(({data}) => {
-      const formattedData = data.map((comment) => adapterComment(comment));
-      dispatch(loadCurrentOfferComments(formattedData));
-    })
-);
-
 // Получение списка избранных предложений.
 export const getFavoriteOffer = () => (dispatch, _getState, api) => (
   api.get(`/favorite`)
@@ -70,6 +66,24 @@ export const changeFavoriteStatus = (id, favoriteStatus, action) => (dispatch, _
   api.post(`/favorite/${id}/${favoriteStatus}`)
     .then(({data}) => {
       dispatch(action(adapterData(data)));
+    })
+);
+
+// Запрос список комментариев для конкретного предложения по его id.
+export const getCurrentOfferComments = (id) => (dispatch, _getState, api) => (
+  api.get(`/comments/${id}`)
+    .then(({data}) => {
+      const formattedData = data.map((comment) => adapterComment(comment));
+      dispatch(loadCurrentOfferComments(formattedData));
+    })
+);
+
+// Отправить новый комментарий к конкретному предложения по его id.
+export const sendNewComment = (id, {review: comment, rating}) => (dispatch, _getState, api) => (
+  api.post(`/comments/${id}`, {comment, rating})
+    .then(({data}) => {
+      const formattedData = data.map((newComment) => adapterComment(newComment));
+      dispatch(loadCurrentOfferComments(formattedData));
     })
 );
 

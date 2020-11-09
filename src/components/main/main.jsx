@@ -1,9 +1,9 @@
 import Header from "@components/header/header";
-import OfferList from "@components/offer-list/offer-list";
-import OfferListEmpty from "@components/offer-list-empty/offer-list-empty";
+import OfferList from "@components/offer/components/offer-list/offer-list";
+import OfferListEmpty from "@components/offer/components/offer-list-empty/offer-list-empty";
 import Map from "@components/map/map";
-import LocationList from "@components/location-list/location-list";
-import SortingList from "@components/sorting-list/sorting-list";
+import LocationList from "@components/location/components/location-list/location-list";
+import SortingList from "@components/sorting/components/sorting-list/sorting-list";
 import {OffersPropTypes} from "@props";
 
 const Main = ({offers, city, hoverOfferCardId, onHeaderLinkClick, onFavoriteButtonClick}) => {
