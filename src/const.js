@@ -14,6 +14,24 @@ export const CITIES = [
   `Dusseldorf`
 ];
 
+export const TypeRoom = {
+  APARTMENT: `Apartment`,
+  ROOM: `Private Room`,
+  HOUSE: `House`,
+  HOTEL: `Hotel`
+};
+
+export const ReviewLimits = {
+  EMPTY_COUNT_SIMBOLS: 0,
+  MIN_COUNT_SIMBOLS: 5,
+  MAX_COUNT_SIMBOLS: 300,
+};
+
+export const FormStatus = {
+  DISABLED: true,
+  ENABLED: false,
+};
+
 export const SortingType = {
   POPULAR: `Popular`,
   LOW_TO_HIGH: `Price: low to high`,
@@ -42,5 +60,7 @@ export const AppRoute = {
   MAIN: `/`,
   LOGIN: `/login`,
   FAVORITES: `/favorites`,
-  ROOM: `/offer/:id`,
+  ROOM: `/offer/`,
 };
+
+export const ERROR_MESSAGE = `Something went wrong. Please try again later.`;

@@ -1,12 +1,12 @@
 import Header from "@components/header/header";
-import OfferList from "@components/offer-list/offer-list";
-import OfferListEmpty from "@components/offer-list-empty/offer-list-empty";
+import OfferList from "@components/offer/components/offer-list/offer-list";
+import OfferListEmpty from "@components/offer/components/offer-list-empty/offer-list-empty";
 import Map from "@components/map/map";
-import LocationList from "@components/location-list/location-list";
-import SortingList from "@components/sorting-list/sorting-list";
+import LocationList from "@components/location/components/location-list/location-list";
+import SortingList from "@components/sorting/components/sorting-list/sorting-list";
 import {OffersPropTypes} from "@props";
 
-const Main = ({offers, city, hoverOfferCardId, onHeaderLinkClick}) => {
+const Main = ({offers, city, hoverOfferCardId, onHeaderLinkClick, onFavoriteButtonClick}) => {
 
   const isOffersEmpty = offers.length === 0;
   const containersOffersEmptyClass = isOffersEmpty ? `cities__places-container--empty` : ``;
@@ -36,7 +36,12 @@ const Main = ({offers, city, hoverOfferCardId, onHeaderLinkClick}) => {
                   <b className="places__found">{offers.length} places to stay in {city}</b>
                   <SortingList />
 
-                  <OfferList offers={offers} city={city} className={`cities__places-list tabs__content`} />
+                  <OfferList
+                    offers={offers}
+                    city={city}
+                    className={`cities__places-list tabs__content`}
+                    onFavoriteButtonClick={onFavoriteButtonClick}
+                  />
 
                 </section>
                 <div className="cities__right-section">
@@ -56,6 +61,7 @@ Main.propTypes = {
   offers: PropTypes.arrayOf(OffersPropTypes).isRequired,
   hoverOfferCardId: PropTypes.number,
   onHeaderLinkClick: PropTypes.func,
+  onFavoriteButtonClick: PropTypes.func,
 };
 
 export default Main;

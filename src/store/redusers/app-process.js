@@ -1,4 +1,4 @@
-import {extend} from "../../utils/utils";
+import {extend} from "@utils/utils";
 import {ActionType} from "./../action";
 import {CITIES, SortingType} from "@const";
 

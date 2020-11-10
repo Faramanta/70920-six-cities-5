@@ -1,8 +1,8 @@
 import {connect} from "react-redux";
 import {changeSortingType} from "@store/action";
 import {SortingType} from "@const";
-import SortingItem from "@components/sorting-item/sorting-item";
-import {withOpenSortingList} from "../../hocs/with-sorting-list";
+import SortingItem from "../sorting-item/sorting-item";
+import {withOpenSortingList} from "@hocs/with-sorting-list";
 
 const SortingList = (props) => {
   const {isOpen, onOpenList, changeSortingTypeAction, sortingType} = props;

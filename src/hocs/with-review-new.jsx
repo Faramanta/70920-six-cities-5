@@ -1,18 +1,15 @@
 export const withReviewNew = (Component) => {
   return class WithReviewNew extends React.PureComponent {
-    constructor(props) {
-      super(props);
-      this._handleSubmit = this._handleSubmit.bind(this);
+    constructor() {
+      super();
+      this._changeDisabledFormStatus = this._changeDisabledFormStatus.bind(this);
       this._handleFieldChange = this._handleFieldChange.bind(this);
-
+      this._resetForm = this._resetForm.bind(this);
       this.state = {
-        rating: `0`,
-        review: ``
+        rating: ``,
+        review: ``,
+        isDisabled: false
       };
-    }
-
-    _handleSubmit(evt) {
-      evt.preventDefault();
     }
 
     _handleFieldChange(evt) {
@@ -22,16 +19,31 @@ export const withReviewNew = (Component) => {
       });
     }
 
+    _changeDisabledFormStatus(status) {
+      this.setState({
+        isDisabled: status
+      });
+    }
+
+    _resetForm() {
+      this.setState({
+        rating: ``,
+        review: ``,
+      });
+    }
+
     render() {
-      const {rating, review} = this.state;
+      const {rating, review, isDisabled} = this.state;
 
       return <Component
         rating={rating}
-        text={review}
-        onSubmit={this._handleSubmit}
+        review={review}
         onChange={this._handleFieldChange}
+        changeDisabledFormStatus={this._changeDisabledFormStatus}
+        resetForm={this._resetForm}
+        isDisabled={isDisabled}
+        {...this.props}
       />;
     }
   };
 };
-

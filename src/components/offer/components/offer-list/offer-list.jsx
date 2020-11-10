@@ -1,6 +1,6 @@
 import {connect} from "react-redux";
 import {changeHoverOfferCardId} from "@store/action";
-import OfferCard from "@components/offer-card/offer-card";
+import OfferCard from "@components/offer/components/offer-card/offer-card";
 import {OffersPropTypes} from "@props";
 
 class OfferList extends React.PureComponent {
@@ -21,7 +21,7 @@ class OfferList extends React.PureComponent {
   }
 
   render() {
-    const {offers, className} = this.props;
+    const {offers, className, onFavoriteButtonClick} = this.props;
 
     return (
       <div className={`places__list ${className}`}>
@@ -32,6 +32,7 @@ class OfferList extends React.PureComponent {
             onOfferCardOver={() => this._handleOfferCardOver(offer.id)}
             onOfferCardOut={this._handleOfferCardOut}
             offerPathname={offer.id}
+            onFavoriteButtonClick={onFavoriteButtonClick}
           />
         ))}
       </div>
@@ -42,6 +43,7 @@ class OfferList extends React.PureComponent {
 OfferList.propTypes = {
   offers: PropTypes.arrayOf(OffersPropTypes).isRequired,
   changeHoverOfferCardIdAction: PropTypes.func.isRequired,
+  onFavoriteButtonClick: PropTypes.func,
   className: PropTypes.string,
 };
 
@@ -52,8 +54,7 @@ const mapStateToProps = ({DATA}) => ({
 const mapDispatchToProps = (dispatch) => ({
   changeHoverOfferCardIdAction(id) {
     dispatch(changeHoverOfferCardId(id));
-  },
-
+  }
 });
 
 export {OfferList};

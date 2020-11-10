@@ -3,6 +3,8 @@ import {connect} from "react-redux";
 import {AuthorizationStatus, AppRoute} from "@const";
 
 const Header = (props) => {
+  const {user} = props;
+
   const {onHeaderLinkClick, authorizationStatus} = props;
 
   return (
@@ -22,7 +24,7 @@ const Header = (props) => {
                   <div className="header__avatar-wrapper user__avatar-wrapper">
                   </div>
                   {authorizationStatus === AuthorizationStatus.AUTH
-                    ? <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                    ? <span className="header__user-name user__name">{user.email}</span>
                     : <span className="header__login">Sign in</span>
                   }
                 </a>
@@ -36,12 +38,14 @@ const Header = (props) => {
 };
 
 Header.propTypes = {
+  user: PropTypes.object.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
   onHeaderLinkClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({USER}) => ({
   authorizationStatus: USER.authorizationStatus,
+  user: USER.user,
 });
 
 export {Header};

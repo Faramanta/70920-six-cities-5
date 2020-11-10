@@ -19,12 +19,30 @@ export const adapterData = (offer) => {
     guestCount: offer.max_adults,
     price: offer.price,
     facilities: offer.goods,
-    pictures: offer.images,
+    images: offer.images,
     previewImage: offer.preview_image,
     ownerName: offer.host.name,
     ownerAvatar: offer.host.avatar_url,
     isSuper: offer.host.is_pro,
     isFavorite: offer.is_favorite,
     coordinates: [offer.location.latitude, offer.location.longitude],
+  });
+};
+
+export const adapterComment = (comment) => {
+  return Object.assign({}, comment, {
+    comment: comment.comment,
+    date: new Date(comment.date),
+    userId: comment.user.id,
+    avatarUrl: comment.user.avatar_url,
+    isPro: comment.user.is_pro,
+    name: comment.user.name,
+  });
+};
+
+export const adapterUser = (comment) => {
+  return Object.assign({}, comment, {
+    avatarUrl: comment.user.avatar_url,
+    isPro: comment.user.is_pro,
   });
 };

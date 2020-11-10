@@ -1,4 +1,4 @@
-// import {connect} from "react-redux";
+import {connect} from "react-redux";
 import leaflet from "leaflet";
 import "leaflet/dist/leaflet.css";
 import {OffersPropTypes} from "@props";
@@ -81,4 +81,10 @@ Map.propTypes = {
   hoverOfferCardId: PropTypes.number
 };
 
-export default Map;
+const mapStateToProps = ({PROCESS}) => ({
+  hoverOfferCardId: PROCESS.hoverOfferCardId,
+});
+
+export {Map};
+export default connect(mapStateToProps)(Map);
+
