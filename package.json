@@ -43,5 +43,17 @@
     "redux-thunk": "2.3",
     "reselect": "4",
     "history": "4.10"
+  },
+  "jest": {
+    "verbose": true,
+    "setupFiles": ["<rootDir>/jest.setup.js"],
+    "moduleNameMapper": {
+      "^@components(.*)$": "<rootDir>/src/components/$1",
+      "^@store(.*)$": "<rootDir>/src/store/$1",
+      "^@const(.*)$": "<rootDir>/src/const.js",
+      "^@props(.*)$": "<rootDir>/src/utils/prop-types.js",
+      "^@utils(.*)$": "<rootDir>/src/utils/$1",
+      "^@hocs(.*)$": "<rootDir>/src/hocs/$1"
+    }
   }
 }
