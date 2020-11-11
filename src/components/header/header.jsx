@@ -3,9 +3,7 @@ import {connect} from "react-redux";
 import {AuthorizationStatus, AppRoute} from "@const";
 
 const Header = (props) => {
-  const {user} = props;
-
-  const {onHeaderLinkClick, authorizationStatus} = props;
+  const {onHeaderLinkClick, authorizationStatus, user} = props;
 
   return (
     <header className="header">
