@@ -32,10 +32,12 @@ class Room extends React.PureComponent {
 
   render() {
     const {offer, offersNearby, onHeaderLinkClick, authorizationStatus, onFavoriteButtonClick, updateFavoriteStatus, currentOfferComments} = this.props;
+
     if (Object.keys(offer).length && offersNearby.length) {
       const imagesForShow = offer.images.length > 6 ? offer.images.slice(0, 6) : ``;
       const superBtnClass = offer.isSuper ? `property__avatar-wrapper--pro user__avatar` : ``;
       const favoriteBtnClass = offer.isFavorite ? `property__bookmark-button--active` : ``;
+      const reviewsCount = currentOfferComments.length;
 
       return (
         <div className="page">
@@ -127,7 +129,12 @@ class Room extends React.PureComponent {
                   </div>
                   <section className="property__reviews reviews">
 
-                    <ReviewList currentOfferComments={currentOfferComments} />
+                    {currentOfferComments.length > 0 &&
+                      <>
+                        <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviewsCount}</span></h2>
+                        <ReviewList currentOfferComments={currentOfferComments} />
+                      </>
+                    }
 
                     {authorizationStatus === AuthorizationStatus.AUTH &&
                       <ReviewNew idCurrentOffer={offer.id} />
