@@ -33,7 +33,7 @@ class Room extends React.PureComponent {
   render() {
     const {offer, offersNearby, onHeaderLinkClick, authorizationStatus, onFavoriteButtonClick, updateFavoriteStatus, currentOfferComments} = this.props;
 
-    if (Object.keys(offer).length && offersNearby.length) {
+    if (Object.keys(offer).length) {
       const imagesForShow = offer.images.length > 6 ? offer.images.slice(0, 6) : ``;
       const superBtnClass = offer.isSuper ? `property__avatar-wrapper--pro user__avatar` : ``;
       const favoriteBtnClass = offer.isFavorite ? `property__bookmark-button--active` : ``;
@@ -143,12 +143,14 @@ class Room extends React.PureComponent {
                   </section>
                 </div>
               </div>
-              <Map offers={offersNearby} className={`property__map`} city={offer.city} />
+              {offersNearby.length > 0 &&
+                <Map offers={offersNearby} className={`property__map`} city={offer.city} />
+              }
             </section>
+
+            {offersNearby.length > 0 &&
             <div className="container">
               <section className="near-places places">
-                {offersNearby.length > 0 &&
-                <>
                 <h2 className="near-places__title">Other places in the neighbourhood</h2>
 
                 <OfferList
@@ -157,10 +159,9 @@ class Room extends React.PureComponent {
                   className={`near-places__list`}
                   onFavoriteButtonClick={onFavoriteButtonClick}
                 />
-                </>
-                }
               </section>
             </div>
+            }
           </main>
         </div>
       );
@@ -183,7 +184,6 @@ Room.propTypes = {
     PropTypes.arrayOf(OffersPropTypes)
   ]),
   offersNearby: PropTypes.arrayOf(OffersPropTypes),
-  allOffers: PropTypes.arrayOf(OffersPropTypes).isRequired,
   onHeaderLinkClick: PropTypes.func.isRequired,
   loadCurrentOffer: PropTypes.func.isRequired,
   loadOffersNearby: PropTypes.func.isRequired,
@@ -196,7 +196,6 @@ Room.propTypes = {
 
 const mapStateToProps = ({DATA, PROCESS, USER}) => ({
   offer: DATA.currentOffer,
-  allOffers: DATA.allOffers,
   offersNearby: DATA.offersNearby,
   cities: PROCESS.cities,
   city: PROCESS.city,

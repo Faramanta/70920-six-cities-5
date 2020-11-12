@@ -1,11 +1,8 @@
 import renderer from 'react-test-renderer';
-import {createStore} from 'redux';
-import {Provider} from 'react-redux';
 import {BrowserRouter} from 'react-router-dom';
-import reducer from "@store/redusers/root-reducer";
-import FavoritesList from './favorites-list';
+import {OfferCard} from "./offer-card";
 
-const favoriteOffers = [{
+const offer = {
   bedroomCount: 3,
   cityLocation: [52.370216, 4.895168],
   city: `Amsterdam`,
@@ -26,38 +23,41 @@ const favoriteOffers = [{
   rating: 4.8,
   title: `Beautiful & luxurious studio at great location`,
   type: `apartment`
-}];
-const store = createStore(reducer);
+};
 
-describe(`FavoritesList render correctly`, () => {
-  it(`FavoritesList empty`, () => {
+describe(`OfferCard render correctly`, () => {
+  it(`OfferCard no favorite`, () => {
     const tree = renderer
       .create(
-          <Provider store={store}>
-            <BrowserRouter>
-              <FavoritesList
-                favoriteOffersInCity={[]}
-                city={``}
-              />
-            </BrowserRouter>
-          </Provider>
+          <BrowserRouter>
+            <OfferCard
+              offer={offer}
+              isFavorite={false}
+              onOfferCardOver={() => {}}
+              onOfferCardOut={() => {}}
+              updateFavoriteStatus={() => {}}
+            />
+          </BrowserRouter>
       ).toJSON();
 
     expect(tree).toMatchSnapshot();
   });
-  it(`FavoritesList not empty`, () => {
+
+  it(`OfferCard favorite`, () => {
     const tree = renderer
       .create(
-          <Provider store={store}>
-            <BrowserRouter>
-              <FavoritesList
-                favoriteOffersInCity={favoriteOffers}
-                city={`Amsterdam`}
-              />
-            </BrowserRouter>
-          </Provider>
+          <BrowserRouter>
+            <OfferCard
+              offer={offer}
+              isFavorite={true}
+              onOfferCardOver={() => {}}
+              onOfferCardOut={() => {}}
+              updateFavoriteStatus={() => {}}
+            />
+          </BrowserRouter>
       ).toJSON();
 
     expect(tree).toMatchSnapshot();
   });
+
 });
