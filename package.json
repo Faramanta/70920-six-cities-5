@@ -48,7 +48,7 @@
     "verbose": true,
     "setupFiles": ["<rootDir>/jest.setup.js"],
     "transformIgnorePatterns": [
-      "<rootDir>/node_modules/leaflet"
+      "<rootDir>/node_modules/$1"
     ],
     "moduleNameMapper": {
       "^@components(.*)$": "<rootDir>/src/components/$1",
