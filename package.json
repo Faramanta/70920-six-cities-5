@@ -26,7 +26,10 @@
     "file-loader": "6.1.1",
     "redux-devtools-extension": "2.13",
     "jest": "25.1",
-    "react-test-renderer": "16.12"
+    "react-test-renderer": "16.12",
+    "enzyme": "3.11",
+    "enzyme-adapter-react-16": "1.15",
+    "axios-mock-adapter": "1.17"
   },
   "engines": {
     "node": "10"
@@ -46,9 +49,11 @@
   },
   "jest": {
     "verbose": true,
-    "setupFiles": ["<rootDir>/jest.setup.js"],
+    "setupFiles": [
+      "<rootDir>/jest.setup.js"
+    ],
     "transformIgnorePatterns": [
-      "<rootDir>/node_modules/$1"
+      "<rootDir>/node_modules/(?!leaflet)"
     ],
     "moduleNameMapper": {
       "^@components(.*)$": "<rootDir>/src/components/$1",

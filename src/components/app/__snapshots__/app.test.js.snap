@@ -445,91 +445,95 @@ exports[`App render correctly 1`] = `
         <div
           className="cities__right-section"
         >
-          <Map
-            city="Amsterdam"
-            className="cities__map"
-            hoverOfferCardId={1}
-            offers={
-              Array [
-                Object {
-                  "bedroomCount": 3,
-                  "city": "Amsterdam",
-                  "cityLocation": Array [
-                    52.370216,
-                    4.895168,
-                  ],
-                  "coordinates": Array [
-                    52.35514938496378,
-                    4.673877537499948,
-                  ],
-                  "description": "A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.",
-                  "facilities": Array [
-                    "Heating",
-                    "Kitchen",
-                    "Cable TV",
-                    "Washing machine",
-                    "Coffee machine",
-                    "Dishwasher",
-                  ],
-                  "guestCount": 4,
-                  "id": 1,
-                  "images": Array [
-                    "img/1.png",
-                    "img/2.png",
-                  ],
-                  "isFavorite": false,
-                  "isPremium": false,
-                  "isSuper": true,
-                  "ownerAvatar": "img/1.png",
-                  "ownerName": "Angelina",
-                  "previewImage": "img/1.png",
-                  "price": 120,
-                  "rating": 4.8,
-                  "title": "Beautiful & luxurious studio at great location",
-                  "type": "apartment",
-                  "zoom": 8,
-                },
-                Object {
-                  "bedroomCount": 3,
-                  "city": "Paris",
-                  "cityLocation": Array [
-                    52.370216,
-                    4.895168,
-                  ],
-                  "coordinates": Array [
-                    52.35514938496378,
-                    4.673877537499948,
-                  ],
-                  "description": "A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.",
-                  "facilities": Array [
-                    "Heating",
-                    "Kitchen",
-                    "Cable TV",
-                    "Washing machine",
-                    "Coffee machine",
-                    "Dishwasher",
-                  ],
-                  "guestCount": 4,
-                  "id": 2,
-                  "images": Array [
-                    "img/1.png",
-                    "img/2.png",
-                  ],
-                  "isFavorite": false,
-                  "isPremium": false,
-                  "isSuper": true,
-                  "ownerAvatar": "img/1.png",
-                  "ownerName": "Angelina",
-                  "previewImage": "img/1.png",
-                  "price": 120,
-                  "rating": 4.8,
-                  "title": "Beautiful & luxurious studio at great location",
-                  "type": "apartment",
-                  "zoom": 8,
-                },
-              ]
-            }
-          />
+          <section
+            className="cities__map map"
+          >
+            <Map
+              city="Amsterdam"
+              offers={
+                Array [
+                  Object {
+                    "bedroomCount": 3,
+                    "city": "Amsterdam",
+                    "cityLocation": Object {
+                      "latitude": 52.37454,
+                      "longitude": 4.897976,
+                      "zoom": 13,
+                    },
+                    "coordinates": Array [
+                      52.35514938496378,
+                      4.673877537499948,
+                    ],
+                    "description": "A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.",
+                    "facilities": Array [
+                      "Heating",
+                      "Kitchen",
+                      "Cable TV",
+                      "Washing machine",
+                      "Coffee machine",
+                      "Dishwasher",
+                    ],
+                    "guestCount": 4,
+                    "id": 1,
+                    "images": Array [
+                      "img/1.png",
+                      "img/2.png",
+                    ],
+                    "isFavorite": false,
+                    "isPremium": false,
+                    "isSuper": true,
+                    "ownerAvatar": "img/1.png",
+                    "ownerName": "Angelina",
+                    "previewImage": "img/1.png",
+                    "price": 120,
+                    "rating": 4.8,
+                    "title": "Beautiful & luxurious studio at great location",
+                    "type": "apartment",
+                    "zoom": 8,
+                  },
+                  Object {
+                    "bedroomCount": 3,
+                    "city": "Paris",
+                    "cityLocation": Object {
+                      "latitude": 52.37454,
+                      "longitude": 4.897976,
+                      "zoom": 13,
+                    },
+                    "coordinates": Array [
+                      52.35514938496378,
+                      4.673877537499948,
+                    ],
+                    "description": "A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.",
+                    "facilities": Array [
+                      "Heating",
+                      "Kitchen",
+                      "Cable TV",
+                      "Washing machine",
+                      "Coffee machine",
+                      "Dishwasher",
+                    ],
+                    "guestCount": 4,
+                    "id": 2,
+                    "images": Array [
+                      "img/1.png",
+                      "img/2.png",
+                    ],
+                    "isFavorite": false,
+                    "isPremium": false,
+                    "isSuper": true,
+                    "ownerAvatar": "img/1.png",
+                    "ownerName": "Angelina",
+                    "previewImage": "img/1.png",
+                    "price": 120,
+                    "rating": 4.8,
+                    "title": "Beautiful & luxurious studio at great location",
+                    "type": "apartment",
+                    "zoom": 8,
+                  },
+                ]
+              }
+            />
+          </section>
         </div>
       </div>
     </div>

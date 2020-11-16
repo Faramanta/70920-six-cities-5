@@ -9,6 +9,7 @@ import {requireAuthorization} from "@store/action";
 import {getOffersFromServer, checkAuth} from "@store/api-actions";
 import {AuthorizationStatus} from "@const";
 import {composeWithDevTools} from "redux-devtools-extension";
+import "leaflet/dist/leaflet.css";
 
 const api = createAPI(
     () => store.dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH))
@@ -21,12 +22,15 @@ const store = createStore(
     )
 );
 
-store.dispatch(getOffersFromServer());
-store.dispatch(checkAuth());
-
-ReactDOM.render(
-    <Provider store={store}>
-      <App />
-    </Provider>,
-    document.querySelector(`#root`)
-);
+Promise.all([
+  store.dispatch(getOffersFromServer()),
+  store.dispatch(checkAuth()),
+])
+  .then(() => {
+    ReactDOM.render(
+        <Provider store={store}>
+          <App />
+        </Provider>,
+        document.querySelector(`#root`)
+    );
+  });

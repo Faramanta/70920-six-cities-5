@@ -1,5 +1,5 @@
 import {extend} from "@utils/utils";
-import {ActionType} from "./../action";
+import {ActionType} from "./../../action";
 
 const initialState = {
   allOffers: [],

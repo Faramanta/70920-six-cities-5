@@ -15,6 +15,7 @@ class Room extends React.PureComponent {
 
   componentDidMount() {
     const {idCurrentOffer, loadCurrentOffer, loadOffersNearby, loadCurrentOfferComments} = this.props;
+
     loadCurrentOffer(idCurrentOffer);
     loadOffersNearby(idCurrentOffer);
     loadCurrentOfferComments(idCurrentOffer);
@@ -144,7 +145,9 @@ class Room extends React.PureComponent {
                 </div>
               </div>
               {offersNearby.length > 0 &&
-                <Map offers={offersNearby} className={`property__map`} city={offer.city} />
+              <section className="property__map map">
+                <Map offers={offersNearby} city={offer.city} />
+              </section>
               }
             </section>
 
