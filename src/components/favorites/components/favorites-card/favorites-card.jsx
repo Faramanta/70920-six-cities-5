@@ -1,10 +1,9 @@
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 import {OffersPropTypes} from "@props";
-import {TypeRoom} from "@const";
+import {TypeRoom, AppRoute} from "@const";
 import {getRating} from "@utils/utils";
 import {changeFavoriteStatus} from "@store/api-actions";
-import {removeFavoriteStatus} from "@store/action";
 
 const FavoritesCard = (props) => {
   const {favoriteOffer, updateFavoriteStatus} = props;
@@ -13,7 +12,7 @@ const FavoritesCard = (props) => {
   return (
     <article className="favorites__card place-card">
       <div className="favorites__image-wrapper place-card__image-wrapper">
-        <Link to={`/offer/${favoriteOffer.id}`}>
+        <Link to={`${AppRoute.ROOM}${favoriteOffer.id}`}>
           <img className="place-card__image" src={favoriteOffer.previewImage} width="150" height="110" alt="Place image" />
         </Link>
       </div>
@@ -41,7 +40,7 @@ const FavoritesCard = (props) => {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`/offer/${favoriteOffer.id}`}>{favoriteOffer.title}</Link>
+          <Link to={`${AppRoute.ROOM}${favoriteOffer.id}`}>{favoriteOffer.title}</Link>
         </h2>
         <p className="place-card__type">{TypeRoom[favoriteOffer.type.toUpperCase()]}</p>
       </div>
@@ -56,7 +55,7 @@ FavoritesCard.propTypes = {
 
 const mapDispatchToProps = (dispatch) => ({
   updateFavoriteStatus(id, favoriteStatus) {
-    dispatch(changeFavoriteStatus(id, favoriteStatus, removeFavoriteStatus));
+    dispatch(changeFavoriteStatus(id, favoriteStatus));
   },
 });
 

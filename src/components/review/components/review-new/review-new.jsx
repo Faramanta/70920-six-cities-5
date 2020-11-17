@@ -1,6 +1,6 @@
 import {Fragment} from 'react';
 import {connect} from "react-redux";
-import {withReviewNew} from "@hocs/with-review-new";
+import withReviewNew from "@hocs/with-review-new/with-review-new";
 import {sendNewComment} from "@store/api-actions";
 import {ratingInfo, FormStatus, ReviewLimits, ERROR_MESSAGE} from "@const";
 

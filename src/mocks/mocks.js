@@ -121,3 +121,8 @@ export const favoriteOffers = [{
   title: `Beautiful & luxurious studio at great location`,
   type: `apartment`
 }];
+
+export const userAuthData = {
+  login: `Oliver.conner@gmail.com`,
+  password: `123`
+};

@@ -4,18 +4,16 @@ import {OffersPropTypes} from "@props";
 import {getRating} from "@utils/utils";
 import {TypeRoom, AppRoute} from "@const";
 import {changeFavoriteStatus} from "@store/api-actions";
-import {updateMainOfferFavoriteStatus} from "@store/action";
 
 const OfferCard = (props) => {
-  const {offer, onOfferCardOver, onOfferCardOut, onFavoriteButtonClick, updateFavoriteStatus} = props;
+  const {offer, onOfferCardHover, onFavoriteButtonClick, updateFavoriteStatus} = props;
   const favoriteBtnClass = offer.isFavorite ? `place-card__bookmark-button--active` : ``;
   const hotelRating = getRating(offer.rating);
 
   return (
     <article
       className="cities__place-card place-card"
-      onMouseOver={onOfferCardOver}
-      onMouseOut={onOfferCardOut}
+      onMouseOver={onOfferCardHover}
     >
       {offer.isPremium &&
         <>
@@ -68,8 +66,7 @@ const OfferCard = (props) => {
 };
 
 OfferCard.propTypes = {
-  onOfferCardOver: PropTypes.func.isRequired,
-  onOfferCardOut: PropTypes.func.isRequired,
+  onOfferCardHover: PropTypes.func.isRequired,
   onFavoriteButtonClick: PropTypes.func,
   updateFavoriteStatus: PropTypes.func.isRequired,
   offer: OffersPropTypes
@@ -77,7 +74,7 @@ OfferCard.propTypes = {
 
 const mapDispatchToProps = (dispatch) => ({
   updateFavoriteStatus(id, favoriteStatus) {
-    dispatch(changeFavoriteStatus(id, favoriteStatus, updateMainOfferFavoriteStatus));
+    dispatch(changeFavoriteStatus(id, favoriteStatus));
   },
 });
 

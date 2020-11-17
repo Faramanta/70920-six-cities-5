@@ -1,4 +1,4 @@
-export const withOpenSortingList = (Component) => {
+const withOpenSortingList = (Component) => {
   return class WithOpenSortingList extends React.PureComponent {
     constructor(props) {
       super(props);
@@ -26,3 +26,5 @@ export const withOpenSortingList = (Component) => {
     }
   };
 };
+
+export default withOpenSortingList;

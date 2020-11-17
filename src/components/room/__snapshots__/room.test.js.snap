@@ -919,7 +919,6 @@ exports[`Room render correctly Room when user auth & no comments 1`] = `
         >
           <article
             className="cities__place-card place-card"
-            onMouseOut={[Function]}
             onMouseOver={[Function]}
           >
             <div
@@ -1019,7 +1018,6 @@ exports[`Room render correctly Room when user auth & no comments 1`] = `
           </article>
           <article
             className="cities__place-card place-card"
-            onMouseOut={[Function]}
             onMouseOver={[Function]}
           >
             <div
@@ -1540,7 +1538,6 @@ exports[`Room render correctly Room when user no auth & no comments 1`] = `
         >
           <article
             className="cities__place-card place-card"
-            onMouseOut={[Function]}
             onMouseOver={[Function]}
           >
             <div
@@ -1640,7 +1637,6 @@ exports[`Room render correctly Room when user no auth & no comments 1`] = `
           </article>
           <article
             className="cities__place-card place-card"
-            onMouseOut={[Function]}
             onMouseOver={[Function]}
           >
             <div
@@ -2235,7 +2231,6 @@ exports[`Room render correctly Room when user no auth & with comments 1`] = `
         >
           <article
             className="cities__place-card place-card"
-            onMouseOut={[Function]}
             onMouseOver={[Function]}
           >
             <div
@@ -2335,7 +2330,6 @@ exports[`Room render correctly Room when user no auth & with comments 1`] = `
           </article>
           <article
             className="cities__place-card place-card"
-            onMouseOut={[Function]}
             onMouseOver={[Function]}
           >
             <div
@@ -3117,7 +3111,6 @@ exports[`Room render correctly Room when user no auth & with comments 2`] = `
         >
           <article
             className="cities__place-card place-card"
-            onMouseOut={[Function]}
             onMouseOver={[Function]}
           >
             <div
@@ -3217,7 +3210,6 @@ exports[`Room render correctly Room when user no auth & with comments 2`] = `
           </article>
           <article
             className="cities__place-card place-card"
-            onMouseOut={[Function]}
             onMouseOver={[Function]}
           >
             <div

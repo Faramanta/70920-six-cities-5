@@ -8,7 +8,6 @@ import {OffersPropTypes, ReviewsPropTypes} from "@props";
 import {getCurrentOffer, getOffersNearby} from "@store/api-actions";
 import {AuthorizationStatus} from "@const";
 import {changeFavoriteStatus} from "@store/api-actions";
-import {updateCurrentOfferFavoriteStatus} from "@store/action";
 import {getCurrentOfferComments} from "@store/api-actions";
 
 class Room extends React.PureComponent {
@@ -215,7 +214,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(getOffersNearby(id));
   },
   updateFavoriteStatus(id, favoriteStatus) {
-    dispatch(changeFavoriteStatus(id, favoriteStatus, updateCurrentOfferFavoriteStatus));
+    dispatch(changeFavoriteStatus(id, favoriteStatus));
   },
   loadCurrentOfferComments(id) {
     dispatch(getCurrentOfferComments(id));

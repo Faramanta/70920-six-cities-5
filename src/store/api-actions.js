@@ -4,7 +4,8 @@ import {loadOffers,
   loadCurrentOffer,
   loadCurrentOfferComments,
   requireAuthorization,
-  updateUser} from "./action";
+  updateUser,
+  updateFavoriteStatus} from "./action";
 import {AuthorizationStatus} from "@const";
 import {adapterData, adapterComment} from "@utils/utils";
 
@@ -62,10 +63,10 @@ export const getFavoriteOffer = () => (dispatch, _getState, api) => (
 );
 
 // Изменение статуса избранного у предложения.
-export const changeFavoriteStatus = (id, favoriteStatus, action) => (dispatch, _getState, api) => (
+export const changeFavoriteStatus = (id, favoriteStatus) => (dispatch, _getState, api) => (
   api.post(`/favorite/${id}/${favoriteStatus}`)
     .then(({data}) => {
-      dispatch(action(adapterData(data)));
+      dispatch(updateFavoriteStatus(adapterData(data)));
     })
 );
 

@@ -6,10 +6,6 @@ import {
   loadOffers,
   loadOffersNearby,
   loadFavorites,
-  updateMainOfferFavoriteStatus,
-  updateCurrentOfferFavoriteStatus,
-  updateNearbyOfferFavoriteStatus,
-  removeFavoriteStatus,
   loadCurrentOffer,
   loadCurrentOfferComments,
   requireAuthorization,
@@ -57,43 +53,6 @@ describe(`Action creators work correctly`, () => {
     expect(loadFavorites(offers)).toEqual({
       type: ActionType.LOAD_FAVORITES,
       payload: offers,
-    });
-  });
-
-  it(`Action creator for update main favorite status`, () => {
-    expect(updateMainOfferFavoriteStatus({
-      id: 1,
-      isFavorite: true
-    })).toEqual({
-      type: ActionType.UPDATE_MAIN_OFFER_FAVORITE_STATUS,
-      payload: {id: 1, isFavorite: true},
-    });
-  });
-
-  it(`Action creator for current offer favorite status`, () => {
-    expect(updateCurrentOfferFavoriteStatus({
-      id: 1,
-      isFavorite: true
-    })).toEqual({
-      type: ActionType.UPDATE_CURRENT_OFFER_FAVORITE_STATUS,
-      payload: {id: 1, isFavorite: true},
-    });
-  });
-
-  it(`Action creator for current nearby offer favorite status`, () => {
-    expect(updateNearbyOfferFavoriteStatus({
-      id: 1,
-      isFavorite: true
-    })).toEqual({
-      type: ActionType.UPDATE_NEARBY_OFFER_FAVORITE_STATUS,
-      payload: {id: 1, isFavorite: true},
-    });
-  });
-
-  it(`Action creator for remove favorite status`, () => {
-    expect(removeFavoriteStatus(offer)).toEqual({
-      type: ActionType.REMOVE_FAVORITE_STATUS,
-      payload: offer,
     });
   });
 

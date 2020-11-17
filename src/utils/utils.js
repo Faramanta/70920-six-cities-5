@@ -46,3 +46,10 @@ export const adapterUser = (comment) => {
     isPro: comment.user.is_pro,
   });
 };
+
+export const updateArray = (elem, array) => {
+  const index = array.findIndex((item) => item.id === elem.id);
+  return index !== -1
+    ? [...array.slice(0, index), elem, ...array.slice(index + 1)]
+    : [...array, elem];
+};

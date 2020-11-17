@@ -1,4 +1,4 @@
-import {extend} from "@utils/utils";
+import {extend, updateArray} from "@utils/utils";
 import {ActionType} from "./../../action";
 
 const initialState = {
@@ -31,30 +31,11 @@ const loadData = (state = initialState, action) => {
       return extend(state, {
         currentOfferComments: action.payload
       });
-    case ActionType.UPDATE_MAIN_OFFER_FAVORITE_STATUS:
-      const index = state.allOffers.findIndex((offer) => offer.id === action.payload.id);
+    case ActionType.UPDATE_FAVORITE_STATUS:
       return extend(state, {
-        allOffers: [
-          ...state.allOffers.slice(0, index),
-          action.payload,
-          ...state.allOffers.slice(index + 1)
-        ]
-      });
-    case ActionType.UPDATE_CURRENT_OFFER_FAVORITE_STATUS:
-      return extend(state, {
-        currentOffer: action.payload
-      });
-    case ActionType.UPDATE_NEARBY_OFFER_FAVORITE_STATUS:
-      const indexNearby = state.offersNearby.findIndex((offer) => offer.id === action.payload.id);
-      return extend(state, {
-        offersNearby: [
-          ...state.offersNearby.slice(0, indexNearby),
-          action.payload,
-          ...state.offersNearby.slice(indexNearby + 1)
-        ]
-      });
-    case ActionType.REMOVE_FAVORITE_STATUS:
-      return extend(state, {
+        allOffers: updateArray(action.payload, state.allOffers),
+        currentOffer: action.payload,
+        offersNearby: updateArray(action.payload, state.offersNearby),
         favoriteOffers: state.favoriteOffers.slice(0).filter((offer) => offer.id !== action.payload.id)
       });
   }

@@ -68,47 +68,20 @@ describe(`loadData reduser test`, () => {
     });
   });
 
-  it(`Reducer load current update main favorite status`, () => {
+  it(`Reducer load current update favorite status`, () => {
     expect(loadData({
       allOffers: [{id: 1, isFavorite: false}, {id: 2, isFavorite: false}, {id: 3, isFavorite: false}],
+      currentOffer: {id: 1, isFavorite: false},
+      offersNearby: [{id: 1, isFavorite: false}, {id: 2, isFavorite: false}, {id: 3, isFavorite: false}],
+      favoriteOffers: [{id: 1, isFavorite: true}],
     }, {
-      type: ActionType.UPDATE_MAIN_OFFER_FAVORITE_STATUS,
+      type: ActionType.UPDATE_FAVORITE_STATUS,
       payload: {id: 1, isFavorite: true},
     })).toEqual({
       allOffers: [{id: 1, isFavorite: true}, {id: 2, isFavorite: false}, {id: 3, isFavorite: false}],
-    });
-  });
-
-  it(`Reducer load current update current offer favorite status`, () => {
-    expect(loadData({
-      currentOffer: {id: 1, isFavorite: false}
-    }, {
-      type: ActionType.UPDATE_CURRENT_OFFER_FAVORITE_STATUS,
-      payload: {id: 1, isFavorite: true},
-    })).toEqual({
-      currentOffer: {id: 1, isFavorite: true}
-    });
-  });
-
-  it(`Reducer load current update nearby offer favorite status`, () => {
-    expect(loadData({
-      offersNearby: [{id: 1, isFavorite: false}, {id: 2, isFavorite: false}, {id: 3, isFavorite: false}],
-    }, {
-      type: ActionType.UPDATE_NEARBY_OFFER_FAVORITE_STATUS,
-      payload: {id: 1, isFavorite: true},
-    })).toEqual({
+      currentOffer: {id: 1, isFavorite: true},
       offersNearby: [{id: 1, isFavorite: true}, {id: 2, isFavorite: false}, {id: 3, isFavorite: false}],
-    });
-  });
-
-  it(`Reducer remove favorite status`, () => {
-    expect(loadData({
-      favoriteOffers: [{id: 1, isFavorite: true}, {id: 2, isFavorite: true}],
-    }, {
-      type: ActionType.REMOVE_FAVORITE_STATUS,
-      payload: {id: 2, isFavorite: false},
-    })).toEqual({
-      favoriteOffers: [{id: 1, isFavorite: true}],
+      favoriteOffers: [],
     });
   });
 });
