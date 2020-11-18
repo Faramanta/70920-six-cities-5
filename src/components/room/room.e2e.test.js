@@ -24,7 +24,7 @@ it(`Room favorite button click`, () => {
       />
   );
 
-  wrapper.find(`.property__bookmark-button`).simulate(`click`);
+  wrapper.find(`.property__bookmark-button`).simulate(`click`, {preventDefault: () => {}});
 
   expect(updateFavoriteStatus).toHaveBeenCalledTimes(1);
 });

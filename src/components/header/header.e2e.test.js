@@ -17,7 +17,7 @@ describe(`Header e2e testing`, () => {
     );
 
     const headerLink = wrapper.find(`.header__nav-link`);
-    headerLink.simulate(`click`);
+    headerLink.simulate(`click`, {preventDefault: () => {}});
 
     expect(onHeaderLinkClick).toHaveBeenCalledTimes(1);
   });
@@ -33,7 +33,7 @@ describe(`Header e2e testing`, () => {
     );
 
     const headerLink = wrapper.find(`.header__nav-link`);
-    headerLink.simulate(`click`);
+    headerLink.simulate(`click`, {preventDefault: () => {}});
 
     expect(onHeaderLinkClick).toHaveBeenCalledTimes(1);
   });

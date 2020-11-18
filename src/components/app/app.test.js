@@ -19,6 +19,7 @@ it(`App render correctly`, () => {
             city={`Amsterdam`}
             hoverOfferCardId={1}
             authorizationStatus={`NO_AUTH`}
+            init={() => {}}
           />
         </Provider>
     ).toJSON();

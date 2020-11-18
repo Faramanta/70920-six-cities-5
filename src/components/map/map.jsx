@@ -94,7 +94,7 @@ class Map extends React.PureComponent {
 Map.propTypes = {
   city: PropTypes.string.isRequired,
   offers: PropTypes.arrayOf(OffersPropTypes).isRequired,
-  hoverOfferCardId: PropTypes.number.isRequired
+  hoverOfferCardId: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = ({PROCESS}) => ({
