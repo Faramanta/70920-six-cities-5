@@ -2,7 +2,7 @@ import {Redirect} from "react-router-dom";
 import {connect} from "react-redux";
 import Header from "@components/header/header";
 import {login} from "../../store/api-actions";
-import {AuthorizationStatus} from "@const";
+import {AuthorizationStatus, AppRoute} from "@const";
 
 class SignIn extends React.PureComponent {
   constructor(props) {
@@ -28,7 +28,7 @@ class SignIn extends React.PureComponent {
     const {authorizationStatus, onHeaderLinkClick} = this.props;
 
     if (authorizationStatus === AuthorizationStatus.AUTH) {
-      return <Redirect to={`/`} />;
+      return <Redirect to={AppRoute.MAIN} />;
     }
     return (
       <div className="page page--gray page--login">

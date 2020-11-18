@@ -69,7 +69,8 @@ class Room extends React.PureComponent {
 
                     <button className={`property__bookmark-button button ${favoriteBtnClass}`} type="button"
                       onClick={(evt) => {
-                        onFavoriteButtonClick(evt);
+                        evt.preventDefault();
+                        onFavoriteButtonClick(authorizationStatus);
                         updateFavoriteStatus(offer.id, offer.isFavorite ? 0 : 1);
                       }}
                     >

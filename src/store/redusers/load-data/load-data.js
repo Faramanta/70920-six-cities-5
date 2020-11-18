@@ -1,4 +1,4 @@
-import {extend, updateArray} from "@utils/utils";
+import {extend, getIndex, getNewArray} from "@utils/utils";
 import {ActionType} from "./../../action";
 
 const initialState = {
@@ -32,12 +32,24 @@ const loadData = (state = initialState, action) => {
         currentOfferComments: action.payload
       });
     case ActionType.UPDATE_FAVORITE_STATUS:
-      return extend(state, {
-        allOffers: updateArray(action.payload, state.allOffers),
-        currentOffer: action.payload,
-        offersNearby: updateArray(action.payload, state.offersNearby),
-        favoriteOffers: state.favoriteOffers.slice(0).filter((offer) => offer.id !== action.payload.id)
-      });
+      const result = {};
+      let index = getIndex(action.payload, state.allOffers);
+      if (index !== -1) {
+        result.allOffers = getNewArray(action.payload, state.allOffers, index);
+      }
+
+      index = getIndex(action.payload, state.offersNearby);
+      if (index !== -1) {
+        result.offersNearby = getNewArray(action.payload, state.offersNearby, index);
+      }
+
+      if (state.currentOffer.id === action.payload.id) {
+        result.currentOffer = action.payload;
+      }
+
+      result.favoriteOffers = state.favoriteOffers.slice(0).filter((offer) => offer.id !== action.payload.id);
+
+      return extend(state, result);
   }
   return state;
 };
