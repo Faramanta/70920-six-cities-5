@@ -1,3 +1,5 @@
+import {AppRoute, AuthorizationStatus} from "@const";
+
 export const extend = (a, b) => {
   return Object.assign({}, a, b);
 };
@@ -45,4 +47,27 @@ export const adapterUser = (comment) => {
     avatarUrl: comment.user.avatar_url,
     isPro: comment.user.is_pro,
   });
+};
+
+
+export const getIndex = (elem, array) => {
+  return array.findIndex((item) => item.id === elem.id);
+};
+
+export const getNewArray = (elem, array, index) => {
+  return [...array.slice(0, index), elem, ...array.slice(index + 1)];
+};
+
+export const handleHeaderLinkClick = (history, authorizationStatus) => {
+  if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
+    history.push(AppRoute.LOGIN);
+    return;
+  }
+  history.push(AppRoute.FAVORITES);
+};
+
+export const handleFavoriteButtonClick = (history, authorizationStatus) => {
+  if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
+    history.push(AppRoute.LOGIN);
+  }
 };

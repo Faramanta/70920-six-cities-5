@@ -23,7 +23,7 @@ export const TypeRoom = {
 
 export const ReviewLimits = {
   EMPTY_COUNT_SIMBOLS: 0,
-  MIN_COUNT_SIMBOLS: 5,
+  MIN_COUNT_SIMBOLS: 50,
   MAX_COUNT_SIMBOLS: 300,
 };
 

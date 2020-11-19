@@ -1,4 +1,4 @@
-export const withReviewNew = (Component) => {
+const withReviewNew = (Component) => {
   return class WithReviewNew extends React.PureComponent {
     constructor() {
       super();
@@ -47,3 +47,5 @@ export const withReviewNew = (Component) => {
     }
   };
 };
+
+export default withReviewNew;

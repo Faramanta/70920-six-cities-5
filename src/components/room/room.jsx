@@ -8,13 +8,13 @@ import {OffersPropTypes, ReviewsPropTypes} from "@props";
 import {getCurrentOffer, getOffersNearby} from "@store/api-actions";
 import {AuthorizationStatus} from "@const";
 import {changeFavoriteStatus} from "@store/api-actions";
-import {updateCurrentOfferFavoriteStatus} from "@store/action";
 import {getCurrentOfferComments} from "@store/api-actions";
 
 class Room extends React.PureComponent {
 
   componentDidMount() {
     const {idCurrentOffer, loadCurrentOffer, loadOffersNearby, loadCurrentOfferComments} = this.props;
+
     loadCurrentOffer(idCurrentOffer);
     loadOffersNearby(idCurrentOffer);
     loadCurrentOfferComments(idCurrentOffer);
@@ -32,10 +32,12 @@ class Room extends React.PureComponent {
 
   render() {
     const {offer, offersNearby, onHeaderLinkClick, authorizationStatus, onFavoriteButtonClick, updateFavoriteStatus, currentOfferComments} = this.props;
-    if (Object.keys(offer).length && offersNearby.length) {
+
+    if (Object.keys(offer).length) {
       const imagesForShow = offer.images.length > 6 ? offer.images.slice(0, 6) : ``;
       const superBtnClass = offer.isSuper ? `property__avatar-wrapper--pro user__avatar` : ``;
       const favoriteBtnClass = offer.isFavorite ? `property__bookmark-button--active` : ``;
+      const reviewsCount = currentOfferComments.length;
 
       return (
         <div className="page">
@@ -67,7 +69,8 @@ class Room extends React.PureComponent {
 
                     <button className={`property__bookmark-button button ${favoriteBtnClass}`} type="button"
                       onClick={(evt) => {
-                        onFavoriteButtonClick(evt);
+                        evt.preventDefault();
+                        onFavoriteButtonClick(authorizationStatus);
                         updateFavoriteStatus(offer.id, offer.isFavorite ? 0 : 1);
                       }}
                     >
@@ -127,7 +130,12 @@ class Room extends React.PureComponent {
                   </div>
                   <section className="property__reviews reviews">
 
-                    <ReviewList currentOfferComments={currentOfferComments} />
+                    {currentOfferComments.length > 0 &&
+                      <>
+                        <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviewsCount}</span></h2>
+                        <ReviewList currentOfferComments={currentOfferComments} />
+                      </>
+                    }
 
                     {authorizationStatus === AuthorizationStatus.AUTH &&
                       <ReviewNew idCurrentOffer={offer.id} />
@@ -136,12 +144,16 @@ class Room extends React.PureComponent {
                   </section>
                 </div>
               </div>
-              <Map offers={offersNearby} className={`property__map`} city={offer.city} />
+              {offersNearby.length > 0 &&
+              <section className="property__map map">
+                <Map offers={offersNearby} city={offer.city} />
+              </section>
+              }
             </section>
+
+            {offersNearby.length > 0 &&
             <div className="container">
               <section className="near-places places">
-                {offersNearby.length > 0 &&
-                <>
                 <h2 className="near-places__title">Other places in the neighbourhood</h2>
 
                 <OfferList
@@ -150,10 +162,9 @@ class Room extends React.PureComponent {
                   className={`near-places__list`}
                   onFavoriteButtonClick={onFavoriteButtonClick}
                 />
-                </>
-                }
               </section>
             </div>
+            }
           </main>
         </div>
       );
@@ -176,7 +187,6 @@ Room.propTypes = {
     PropTypes.arrayOf(OffersPropTypes)
   ]),
   offersNearby: PropTypes.arrayOf(OffersPropTypes),
-  allOffers: PropTypes.arrayOf(OffersPropTypes).isRequired,
   onHeaderLinkClick: PropTypes.func.isRequired,
   loadCurrentOffer: PropTypes.func.isRequired,
   loadOffersNearby: PropTypes.func.isRequired,
@@ -189,7 +199,6 @@ Room.propTypes = {
 
 const mapStateToProps = ({DATA, PROCESS, USER}) => ({
   offer: DATA.currentOffer,
-  allOffers: DATA.allOffers,
   offersNearby: DATA.offersNearby,
   cities: PROCESS.cities,
   city: PROCESS.city,
@@ -206,7 +215,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(getOffersNearby(id));
   },
   updateFavoriteStatus(id, favoriteStatus) {
-    dispatch(changeFavoriteStatus(id, favoriteStatus, updateCurrentOfferFavoriteStatus));
+    dispatch(changeFavoriteStatus(id, favoriteStatus));
   },
   loadCurrentOfferComments(id) {
     dispatch(getCurrentOfferComments(id));

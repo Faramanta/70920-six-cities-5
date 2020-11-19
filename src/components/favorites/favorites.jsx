@@ -14,6 +14,7 @@ class Favorites extends React.PureComponent {
 
   render() {
     const {onHeaderLinkClick, favoriteOffers} = this.props;
+
     const favoriteOffersCity = [...new Set(favoriteOffers.map((offer) => offer.city))];
     const pageFavoriteEmptyClass = favoriteOffers.length === 0 ? `page--favorites-empty` : ``;
     const pageMainFavoriteEmptyClass = favoriteOffers.length === 0 ? `page__main--favorites-empty` : ``;

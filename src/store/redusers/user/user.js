@@ -1,6 +1,6 @@
 import {extend} from "@utils/utils";
 import {AuthorizationStatus} from "@const";
-import {ActionType} from "./../action";
+import {ActionType} from "./../../action";
 
 const initialState = {
   authorizationStatus: AuthorizationStatus.NO_AUTH,

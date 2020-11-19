@@ -7,93 +7,90 @@ import Room from "@components/room/room";
 import PrivateRoute from "../private-route/private-route";
 import {OffersPropTypes} from "@props";
 import {sortedOffers} from "../../store/selectors";
-import {AppRoute, AuthorizationStatus} from "@const";
+import {AppRoute} from "@const";
+import {handleHeaderLinkClick, handleFavoriteButtonClick} from "@utils/utils";
+import {init} from "./actions/init";
 
-const App = ({offers, city, hoverOfferCardId, authorizationStatus}) => {
+class App extends React.PureComponent {
+  componentDidMount() {
+    this.props.init();
+  }
 
-  const onHeaderLinkClick = (evt, history) => {
-    evt.preventDefault();
-    if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
-      history.push(AppRoute.LOGIN);
-      return;
-    }
-    history.push(AppRoute.FAVORITES);
-  };
+  render() {
+    const {offers, city, hoverOfferCardId} = this.props;
 
-  const onFavoriteButtonClick = (evt, history) => {
-    evt.preventDefault();
-    if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
-      history.push(AppRoute.LOGIN);
-    }
-  };
+    return (
+      <BrowserRouter>
+        <Switch>
+          <Route
+            exact
+            path={AppRoute.MAIN}
+            render={({history}) => {
+              return (
+                <Main
+                  offers={offers}
+                  city={city}
+                  hoverOfferCardId={hoverOfferCardId}
+                  onHeaderLinkClick={(authorizationStatus) => handleHeaderLinkClick(history, authorizationStatus)}
+                  onFavoriteButtonClick={(authorizationStatus) => handleFavoriteButtonClick(history, authorizationStatus)}
+                />
+              );
+            }}
+          />
+          <Route exact path={AppRoute.LOGIN}
+            render={({history}) => {
+              return (
+                <SignIn
+                  onHeaderLinkClick={(authorizationStatus) => handleHeaderLinkClick(history, authorizationStatus)}
+                />
+              );
+            }}
+          />
+          <PrivateRoute
+            exact
+            path={AppRoute.FAVORITES}
+            render={({history}) => {
+              return (
+                <FavoriteList
+                  onHeaderLinkClick={(authorizationStatus) => handleHeaderLinkClick(history, authorizationStatus)}
+                />
+              );
+            }}
+          />
+          <Route
+            exact
+            path={`${AppRoute.ROOM}:id`}
+            render={({history, match}) => {
+              return (
+                <Room
+                  idCurrentOffer={+match.params.id}
+                  onHeaderLinkClick={(authorizationStatus) => handleHeaderLinkClick(history, authorizationStatus)}
+                  onFavoriteButtonClick={(authorizationStatus) => handleFavoriteButtonClick(history, authorizationStatus)}
+                />
+              );
+            }}
+          />
+          <Route
+            render={() => (
+              <div style={{position: `absolute`, top: `50%`, left: `50%`, transform: `translate(-50%, -50%)`}}>
+                <h1 style={{display: `block`, textAlign: `center`}}>Page not found</h1>
+                <Link to={AppRoute.MAIN} style={{display: `block`, textAlign: `center`, marginTop: `30px`, color: `#4481c3`, fontSize: `21px`}}>Go to home</Link>
+              </div>
+            )}
+          />
+        </Switch>
+      </BrowserRouter>
+    );
+  }
+}
 
-  return (
-    <BrowserRouter>
-      <Switch>
-        <Route exact path={AppRoute.MAIN}
-          render={({history}) => {
-            return (
-              <Main
-                offers={offers}
-                city={city}
-                hoverOfferCardId={hoverOfferCardId}
-                onHeaderLinkClick={(evt) => onHeaderLinkClick(evt, history)}
-                onFavoriteButtonClick={(evt) => onFavoriteButtonClick(evt, history)}
-              />
-            );
-          }}
-        />
-        <Route exact path={AppRoute.LOGIN}
-          render={({history}) => {
-            return (
-              <SignIn
-                onHeaderLinkClick={(evt) => onHeaderLinkClick(evt, history)}
-              />
-            );
-          }}
-        />
-        <PrivateRoute
-          exact
-          path={AppRoute.FAVORITES}
-          render={({history}) => {
-            return (
-              <FavoriteList
-                onHeaderLinkClick={(evt) => onHeaderLinkClick(evt, history)}
-              />
-            );
-          }}
-        />
-        <Route
-          exact
-          path={`${AppRoute.ROOM}:id`}
-          render={({history, match}) => {
-            return (
-              <Room
-                idCurrentOffer={+match.params.id}
-                onHeaderLinkClick={(evt) => onHeaderLinkClick(evt, history)}
-                onFavoriteButtonClick={(evt) => onFavoriteButtonClick(evt, history)}
-              />
-            );
-          }}
-        />
-        <Route
-          render={() => (
-            <div style={{position: `absolute`, top: `50%`, left: `50%`, transform: `translate(-50%, -50%)`}}>
-              <h1 style={{display: `block`, textAlign: `center`}}>Page not found</h1>
-              <Link to={AppRoute.MAIN} style={{display: `block`, textAlign: `center`, marginTop: `30px`, color: `#4481c3`, fontSize: `21px`}}>Go to home</Link>
-            </div>
-          )}
-        />
-      </Switch>
-    </BrowserRouter>
-  );
-};
 
 App.propTypes = {
   offers: PropTypes.arrayOf(OffersPropTypes).isRequired,
   city: PropTypes.string.isRequired,
   hoverOfferCardId: PropTypes.number.isRequired,
-  authorizationStatus: PropTypes.string.isRequired
+  authorizationStatus: PropTypes.string.isRequired,
+  init: PropTypes.func.isRequired
 };
 
 const mapStateToProps = ({DATA, PROCESS, USER}) => ({
@@ -105,5 +102,9 @@ const mapStateToProps = ({DATA, PROCESS, USER}) => ({
   authorizationStatus: USER.authorizationStatus,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  init: () => dispatch(init())
+});
+
 export {App};
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

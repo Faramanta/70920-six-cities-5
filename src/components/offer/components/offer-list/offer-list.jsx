@@ -6,18 +6,12 @@ import {OffersPropTypes} from "@props";
 class OfferList extends React.PureComponent {
   constructor(props) {
     super(props);
-    this._handleOfferCardOver = this._handleOfferCardOver.bind(this);
-    this._handleOfferCardOut = this._handleOfferCardOut.bind(this);
+    this._handleOfferCardHover = this._handleOfferCardHover.bind(this);
   }
 
-  _handleOfferCardOver(id) {
+  _handleOfferCardHover(id) {
     const {changeHoverOfferCardIdAction} = this.props;
     changeHoverOfferCardIdAction(id);
-  }
-
-  _handleOfferCardOut() {
-    const {changeHoverOfferCardIdAction} = this.props;
-    changeHoverOfferCardIdAction(0);
   }
 
   render() {
@@ -29,8 +23,7 @@ class OfferList extends React.PureComponent {
           <OfferCard
             key={offer.id}
             offer={offer}
-            onOfferCardOver={() => this._handleOfferCardOver(offer.id)}
-            onOfferCardOut={this._handleOfferCardOut}
+            onOfferCardHover={() => this._handleOfferCardHover(offer.id)}
             offerPathname={offer.id}
             onFavoriteButtonClick={onFavoriteButtonClick}
           />

@@ -1,10 +1,14 @@
 import {connect} from "react-redux";
 import leaflet from "leaflet";
-import "leaflet/dist/leaflet.css";
 import {OffersPropTypes} from "@props";
 import {MapSettings} from "@const";
 
 class Map extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.mapRef = React.createRef();
+  }
+
   componentDidMount() {
     const {offers, city, hoverOfferCardId} = this.props;
 
@@ -21,8 +25,16 @@ class Map extends React.PureComponent {
   componentDidUpdate() {
     const {offers, city, hoverOfferCardId} = this.props;
 
+    if (!this._currentCity) {
+      return;
+    }
+
     if (this._currentCity.city !== city) {
       this._currentCity = offers.find((offerItem) => offerItem.city === city);
+
+      if (!this._currentCity) {
+        return;
+      }
 
       const cityCoordinate = [this._currentCity.cityLocation.latitude, this._currentCity.cityLocation.longitude];
       const cityZoom = [this._currentCity.cityLocation.zoom];
@@ -36,12 +48,13 @@ class Map extends React.PureComponent {
   }
 
   _renderMap(cityCoordinates, cityZoom) {
-    this.map = leaflet.map(MapSettings.MAP_CONTAINER_ID, {
+    this.map = leaflet.map(this.mapRef.current, {
       center: cityCoordinates,
       zoom: cityZoom,
       zoomControl: false,
       marker: true
     });
+
     this.map.setView(cityCoordinates, cityZoom);
 
     // Подключение слоя карты
@@ -55,7 +68,8 @@ class Map extends React.PureComponent {
   _renderMarker(offers, hoverOfferCardId) {
     offers
       .map((offer) => {
-        const markerCoordinate = [offer.location.latitude, offer.location.longitude];
+        const markerCoordinate = offer.coordinates;
+
         const icon = leaflet.icon({
           iconUrl: offer.id === hoverOfferCardId ? MapSettings.HOVER_ICON_URL : MapSettings.ICON_URL,
           iconSize: MapSettings.ICON_SIZE
@@ -67,9 +81,12 @@ class Map extends React.PureComponent {
   }
 
   render() {
-    const {className} = this.props;
     return (
-      <section className={`map ${className}`} id="map"></section>
+      <div
+        ref={this.mapRef}
+        id="map"
+        style={{height: `100%`}}
+      ></div>
     );
   }
 }
@@ -77,8 +94,7 @@ class Map extends React.PureComponent {
 Map.propTypes = {
   city: PropTypes.string.isRequired,
   offers: PropTypes.arrayOf(OffersPropTypes).isRequired,
-  className: PropTypes.string,
-  hoverOfferCardId: PropTypes.number
+  hoverOfferCardId: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = ({PROCESS}) => ({

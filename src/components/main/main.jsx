@@ -6,7 +6,7 @@ import LocationList from "@components/location/components/location-list/location
 import SortingList from "@components/sorting/components/sorting-list/sorting-list";
 import {OffersPropTypes} from "@props";
 
-const Main = ({offers, city, hoverOfferCardId, onHeaderLinkClick, onFavoriteButtonClick}) => {
+const Main = ({offers, city, onHeaderLinkClick, onFavoriteButtonClick}) => {
 
   const isOffersEmpty = offers.length === 0;
   const containersOffersEmptyClass = isOffersEmpty ? `cities__places-container--empty` : ``;
@@ -45,7 +45,9 @@ const Main = ({offers, city, hoverOfferCardId, onHeaderLinkClick, onFavoriteButt
 
                 </section>
                 <div className="cities__right-section">
-                  <Map offers={offers} className={`cities__map`} city={city} hoverOfferCardId={hoverOfferCardId} />
+                  <section className="cities__map map">
+                    <Map offers={offers} city={city} />
+                  </section>
                 </div>
               </>
             }
