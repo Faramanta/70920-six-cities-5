@@ -40,7 +40,7 @@ export const login = ({login: email, password}) => (dispatch, _getState, api) =>
 export const getCurrentOffer = (id) => (dispatch, _getState, api) => (
   api.get(`/hotels/${id}`)
     .then(({data}) => {
-      dispatch(loadCurrentOffer(adapterData(data)));
+      return dispatch(loadCurrentOffer(adapterData(data)));
     })
 );
 

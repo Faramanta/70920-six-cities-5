@@ -7,19 +7,19 @@ configure({adapter: new Adapter()});
 
 describe(`OfferCard e2e testing`, () => {
   it(`OfferCard hover and blur`, () => {
-    const onOfferCardHover = jest.fn();
+    const onOfferHover = jest.fn();
     const wrapper = shallow(
         <OfferCard
           offer={offer}
-          onOfferCardHover={onOfferCardHover}
+          onOfferHover={onOfferHover}
           onFavoriteButtonClick={() => {}}
           updateFavoriteStatus={() => {}}
         />
     );
 
-    wrapper.find(`.place-card`).simulate(`mouseover`);
+    wrapper.find(`.place-card`).simulate(`mouseover`, {preventDefault: () => {}});
 
-    expect(onOfferCardHover).toHaveBeenCalledTimes(1);
+    expect(onOfferHover).toHaveBeenCalledTimes(1);
   });
 
   it(`OfferCard click favorite button`, () => {
@@ -27,13 +27,13 @@ describe(`OfferCard e2e testing`, () => {
     const wrapper = shallow(
         <OfferCard
           offer={offer}
-          onOfferCardHover={() => {}}
+          onOfferHover={() => {}}
           onFavoriteButtonClick={() => {}}
           updateFavoriteStatus={updateFavoriteStatus}
         />
     );
 
-    wrapper.find(`.place-card__bookmark-button`).simulate(`click`);
+    wrapper.find(`.place-card__bookmark-button`).simulate(`click`, {preventDefault: () => {}});
 
     expect(updateFavoriteStatus).toHaveBeenCalledTimes(1);
   });

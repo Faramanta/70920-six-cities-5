@@ -5,7 +5,7 @@ const initialState = {
   allOffers: [],
   offersNearby: [],
   favoriteOffers: [],
-  currentOffer: [],
+  currentOffer: null,
   currentOfferComments: []
 };
 

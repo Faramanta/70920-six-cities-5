@@ -5,7 +5,6 @@ export const ActionType = {
   SORT_LOW_TO_HIGH: `SORT_LOW_TO_HIGH`,
   SORT_HIGH_TO_LOW: `SORT_HIGH_TO_LOW`,
   SORT_TOP_RATED_FIRST: `SORT_TOP_RATED_FIRST`,
-  CHANGE_HOVER_OFFER_CARD_ID: `CHANGE_HOVER_OFFER_CARD_ID`,
   LOAD_OFFERS: `LOAD_OFFERS`,
   LOAD_OFFERS_NEARBY: `LOAD_OFFERS_NEARBY`,
   LOAD_CURRENT_OFFER: `LOAD_CURRENT_OFFER`,
@@ -26,11 +25,6 @@ export const changeCity = (city) => ({
 export const changeSortingType = (sortingType) => ({
   type: ActionType.CHANGE_SORTING_TYPE,
   payload: sortingType
-});
-
-export const changeHoverOfferCardId = (id) => ({
-  type: ActionType.CHANGE_HOVER_OFFER_CARD_ID,
-  payload: id
 });
 
 export const loadOffers = (hotels) => ({

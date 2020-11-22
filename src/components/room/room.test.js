@@ -23,11 +23,12 @@ describe(`Room render correctly`, () => {
                 currentOfferComments={comments}
                 idCurrentOffer={6}
                 onHeaderLinkClick={() => {}}
-                loadCurrentOffer={() => {}}
-                loadOffersNearby={() => {}}
+                resetActiveOffer={() => {}}
+                getCurrentOfferAction={() => {}}
+                getOffersNearbyAction={() => {}}
                 authorizationStatus={`NO_AUTH`}
                 updateFavoriteStatus={() => {}}
-                loadCurrentOfferComments={() => {}}
+                getCurrentOfferCommentsAction={() => {}}
               />
             </BrowserRouter>
           </Provider>
@@ -48,11 +49,12 @@ describe(`Room render correctly`, () => {
                 currentOfferComments={comments}
                 idCurrentOffer={6}
                 onHeaderLinkClick={() => {}}
-                loadCurrentOffer={() => {}}
-                loadOffersNearby={() => {}}
+                resetActiveOffer={() => {}}
+                getCurrentOfferAction={() => {}}
+                getOffersNearbyAction={() => {}}
                 authorizationStatus={`AUTH`}
                 updateFavoriteStatus={() => {}}
-                loadCurrentOfferComments={() => {}}
+                getCurrentOfferCommentsAction={() => {}}
               />
             </BrowserRouter>
           </Provider>
@@ -73,11 +75,12 @@ describe(`Room render correctly`, () => {
                 currentOfferComments={[]}
                 idCurrentOffer={6}
                 onHeaderLinkClick={() => {}}
-                loadCurrentOffer={() => {}}
-                loadOffersNearby={() => {}}
+                resetActiveOffer={() => {}}
+                getCurrentOfferAction={() => {}}
+                getOffersNearbyAction={() => {}}
                 authorizationStatus={`AUTH`}
                 updateFavoriteStatus={() => {}}
-                loadCurrentOfferComments={() => {}}
+                getCurrentOfferCommentsAction={() => {}}
               />
             </BrowserRouter>
           </Provider>
@@ -98,11 +101,12 @@ describe(`Room render correctly`, () => {
                 currentOfferComments={[]}
                 idCurrentOffer={6}
                 onHeaderLinkClick={() => {}}
-                loadCurrentOffer={() => {}}
-                loadOffersNearby={() => {}}
+                resetActiveOffer={() => {}}
+                getCurrentOfferAction={() => {}}
+                getOffersNearbyAction={() => {}}
                 authorizationStatus={`NO_AUTH`}
                 updateFavoriteStatus={() => {}}
-                loadCurrentOfferComments={() => {}}
+                getCurrentOfferCommentsAction={() => {}}
               />
             </BrowserRouter>
           </Provider>
@@ -123,11 +127,12 @@ describe(`Room render correctly`, () => {
                 currentOfferComments={[]}
                 idCurrentOffer={6}
                 onHeaderLinkClick={() => {}}
-                loadCurrentOffer={() => {}}
-                loadOffersNearby={() => {}}
+                resetActiveOffer={() => {}}
+                getCurrentOfferAction={() => {}}
+                getOffersNearbyAction={() => {}}
                 authorizationStatus={`NO_AUTH`}
                 updateFavoriteStatus={() => {}}
-                loadCurrentOfferComments={() => {}}
+                getCurrentOfferCommentsAction={() => {}}
               />
             </BrowserRouter>
           </Provider>

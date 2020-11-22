@@ -1,5 +1,5 @@
 import renderer from 'react-test-renderer';
-import {Map} from "./map";
+import Map from "./map";
 import {offers} from "../../mocks/mocks";
 
 it(`Map render correctly`, () => {

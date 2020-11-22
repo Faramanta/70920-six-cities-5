@@ -2,7 +2,6 @@ import {
   ActionType,
   changeCity,
   changeSortingType,
-  changeHoverOfferCardId,
   loadOffers,
   loadOffersNearby,
   loadFavorites,
@@ -25,13 +24,6 @@ describe(`Action creators work correctly`, () => {
     expect(changeSortingType(`Popular`)).toEqual({
       type: ActionType.CHANGE_SORTING_TYPE,
       payload: `Popular`,
-    });
-  });
-
-  it(`Action creator for change hover offer card`, () => {
-    expect(changeHoverOfferCardId(1)).toEqual({
-      type: ActionType.CHANGE_HOVER_OFFER_CARD_ID,
-      payload: 1,
     });
   });
 
