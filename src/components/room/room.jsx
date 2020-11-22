@@ -152,7 +152,7 @@ const Room = ({offer, offersNearby, onHeaderLinkClick, resetActiveOffer, getCurr
 
             <OfferList
               offers={offersNearby}
-              city={offer.city}
+              city={offer.city.name}
               className={`near-places__list`}
               onOfferHover={()=>({})}
               onFavoriteButtonClick={onFavoriteButtonClick}

@@ -43,7 +43,7 @@ const loadData = (state = initialState, action) => {
         result.offersNearby = getNewArray(action.payload, state.offersNearby, index);
       }
 
-      if (state.currentOffer.id === action.payload.id) {
+      if (state.currentOffer && state.currentOffer.id === action.payload.id) {
         result.currentOffer = action.payload;
       }
 

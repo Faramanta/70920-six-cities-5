@@ -15,7 +15,6 @@ import browserHistory from '../../browser-history';
 const App = (props) => {
   const {initialLoad, offers, city} = props;
 
-
   const [isDataLoad, setDataStatus] = React.useState(false);
 
   React.useEffect(() => {
