@@ -59,7 +59,6 @@ export const getNewArray = (elem, array, index) => {
 };
 
 export const handleHeaderLinkClick = (history, authorizationStatus) => {
-  console.log(authorizationStatus);
   if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
     history.push(AppRoute.LOGIN);
     return;
@@ -68,7 +67,6 @@ export const handleHeaderLinkClick = (history, authorizationStatus) => {
 };
 
 export const handleFavoriteButtonClick = (history, authorizationStatus) => {
-  console.log(authorizationStatus);
   if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
     history.push(AppRoute.LOGIN);
   }
