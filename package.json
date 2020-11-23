@@ -60,7 +60,7 @@
       "^@store(.*)$": "<rootDir>/src/store/$1",
       "^@const(.*)$": "<rootDir>/src/const.js",
       "^@props(.*)$": "<rootDir>/src/utils/prop-types.js",
-      "^@utils(.*)$": "<rootDir>/src/utils/$1",
+      "^@utils(.*)$": "<rootDir>/src/utils/$1"
     }
   }
 }
