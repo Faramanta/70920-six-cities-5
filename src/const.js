@@ -27,11 +27,6 @@ export const ReviewLimits = {
   MAX_COUNT_SIMBOLS: 300,
 };
 
-export const FormStatus = {
-  DISABLED: true,
-  ENABLED: false,
-};
-
 export const SortingType = {
   POPULAR: `Popular`,
   LOW_TO_HIGH: `Price: low to high`,
@@ -62,5 +57,3 @@ export const AppRoute = {
   FAVORITES: `/favorites`,
   ROOM: `/offer/`,
 };
-
-export const ERROR_MESSAGE = `Something went wrong. Please try again later.`;

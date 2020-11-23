@@ -1,10 +1,8 @@
-import {connect} from "react-redux";
 import {Link} from "react-router-dom";
-import Header from "@components/header/header";
-import FavoritesList from "@components/favorites/components/favorites-list/favorites-list";
+import Header from "@components/header/header.connect";
+import FavoritesList from "@components/favorites/favorites-list/favorites-list";
 import {AppRoute} from "@const";
 import {OffersPropTypes} from "@props";
-import {getFavoriteOffer} from "@store/api-actions";
 
 const Favorites = ({getFavoriteOfferAction, onHeaderLinkClick, favoriteOffers}) => {
 
@@ -59,7 +57,6 @@ const Favorites = ({getFavoriteOfferAction, onHeaderLinkClick, favoriteOffers}) 
       </footer>
     </div>
   );
-
 };
 
 Favorites.propTypes = {
@@ -68,15 +65,4 @@ Favorites.propTypes = {
   getFavoriteOfferAction: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (({DATA}) => {
-  return {
-    favoriteOffers: DATA.favoriteOffers
-  };
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  getFavoriteOfferAction: () => dispatch(getFavoriteOffer()),
-});
-
-export {Favorites};
-export default connect(mapStateToProps, mapDispatchToProps)(Favorites);
+export default Favorites;

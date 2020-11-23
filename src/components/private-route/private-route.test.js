@@ -1,6 +1,6 @@
 import renderer from 'react-test-renderer';
 import {BrowserRouter} from 'react-router-dom';
-import {PrivateRoute} from "./private-route";
+import PrivateRoute from "./private-route";
 
 describe(`PrivateRoute render correctly`, () => {
   it(`PrivateRoute render correctly when user no auth`, () => {

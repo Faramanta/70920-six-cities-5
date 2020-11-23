@@ -1,4 +1,4 @@
-import ReviewItem from "../components/review-item/review-item";
+import ReviewItem from "@components/review/review-item/review-item";
 import {ReviewsPropTypes} from "@props";
 
 const ReviewList = ({currentOfferComments}) => {

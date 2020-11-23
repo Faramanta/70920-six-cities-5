@@ -1,5 +1,4 @@
 import {Link} from "react-router-dom";
-import {connect} from "react-redux";
 import {AuthorizationStatus, AppRoute} from "@const";
 
 const Header = (props) => {
@@ -46,10 +45,4 @@ Header.propTypes = {
   onHeaderLinkClick: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({USER}) => ({
-  authorizationStatus: USER.authorizationStatus,
-  user: USER.user,
-});
-
-export {Header};
-export default connect(mapStateToProps)(Header);
+export default Header;

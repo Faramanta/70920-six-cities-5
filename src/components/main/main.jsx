@@ -1,9 +1,9 @@
-import Header from "@components/header/header";
-import OfferList from "@components/offer/components/offer-list/offer-list";
-import OfferListEmpty from "@components/offer/components/offer-list-empty/offer-list-empty";
+import Header from "@components/header/header.connect";
+import OfferList from "@components/offer/offer-list/offer-list";
+import OfferListEmpty from "@components/offer/offer-list-empty/offer-list-empty";
 import Map from "@components/map/map";
-import LocationList from "@components/location/components/location-list/location-list";
-import SortingList from "@components/sorting/components/sorting-list/sorting-list";
+import LocationList from "@components/location/location-list/location-list.connect";
+import SortingList from "@components/sorting/sorting-list/sorting-list.connect";
 import {OffersPropTypes} from "@props";
 
 const Main = ({offers, city, onHeaderLinkClick, onFavoriteButtonClick}) => {
@@ -68,7 +68,7 @@ const Main = ({offers, city, onHeaderLinkClick, onFavoriteButtonClick}) => {
 Main.propTypes = {
   city: PropTypes.string.isRequired,
   offers: PropTypes.arrayOf(OffersPropTypes).isRequired,
-  onHeaderLinkClick: PropTypes.func,
+  onHeaderLinkClick: PropTypes.func.isRequired,
   onFavoriteButtonClick: PropTypes.func,
 };
 

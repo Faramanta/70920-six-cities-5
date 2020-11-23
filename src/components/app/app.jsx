@@ -1,15 +1,12 @@
-import {connect} from "react-redux";
-import {BrowserRouter, Switch, Route, Link} from "react-router-dom";
+import {Router as BrowserRouter, Switch, Route, Link} from "react-router-dom";
 import Main from "@components/main/main";
-import SignIn from "@components/sign-in/sign-in";
-import FavoriteList from "@components/favorites/favorites";
-import Room from "@components/room/room";
-import PrivateRoute from "../private-route/private-route";
+import SignIn from "@components/sign-in/sign-in.connect";
+import FavoriteList from "@components/favorites/favorites.connect";
+import Room from "@components/room/room.connect";
+import PrivateRoute from "../private-route/private-route.connect";
 import {OffersPropTypes} from "@props";
-import {sortedOffers} from "../../store/selectors";
 import {AppRoute} from "@const";
 import {handleHeaderLinkClick, handleFavoriteButtonClick} from "@utils/utils";
-import {init} from "./actions/init";
 import browserHistory from '../../browser-history';
 
 const App = (props) => {
@@ -98,20 +95,7 @@ App.propTypes = {
   offers: PropTypes.arrayOf(OffersPropTypes).isRequired,
   city: PropTypes.string.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
-  initialLoad: PropTypes.func.isRequired
+  initialLoad: PropTypes.func
 };
 
-const mapStateToProps = ({DATA, PROCESS, USER}) => ({
-  city: PROCESS.city,
-  cities: PROCESS.cities,
-  reviews: DATA.reviews,
-  offers: sortedOffers({DATA, PROCESS}),
-  authorizationStatus: USER.authorizationStatus,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  initialLoad: () => init(dispatch)
-});
-
-export {App};
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;

@@ -1,7 +1,5 @@
 import {Redirect} from "react-router-dom";
-import {connect} from "react-redux";
-import Header from "@components/header/header";
-import {login} from "../../store/api-actions";
+import Header from "@components/header/header.connect";
 import {AuthorizationStatus, AppRoute} from "@const";
 
 class SignIn extends React.PureComponent {
@@ -84,16 +82,4 @@ SignIn.propTypes = {
   authorizationStatus: PropTypes.string.isRequired
 };
 
-const mapStateToProps = ({USER}) => ({
-  authorizationStatus: USER.authorizationStatus,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onSubmit(authData) {
-    dispatch(login(authData));
-  },
-
-});
-
-export {SignIn};
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+export default SignIn;

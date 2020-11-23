@@ -1,23 +1,22 @@
 import renderer from 'react-test-renderer';
-import Favorites from "./favorites";
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 import {BrowserRouter} from 'react-router-dom';
 import reducer from "@store/redusers/root-reducer";
-import {favoriteOffers} from "../../mocks/mocks";
+import FavoritesList from './favorites-list';
+import {favoriteOffers} from "../../../mocks/mocks";
 
 const store = createStore(reducer);
 
-describe(`Favorites render correctly`, () => {
-  it(`Favorites empty`, () => {
+describe(`FavoritesList render correctly`, () => {
+  it(`FavoritesList empty`, () => {
     const tree = renderer
       .create(
           <Provider store={store}>
             <BrowserRouter>
-              <Favorites
-                favoriteOffers={[]}
-                onHeaderLinkClick={() => {}}
-                getFavoriteOfferAction={() => {}}
+              <FavoritesList
+                favoriteOffersInCity={[]}
+                city={``}
               />
             </BrowserRouter>
           </Provider>
@@ -25,16 +24,14 @@ describe(`Favorites render correctly`, () => {
 
     expect(tree).toMatchSnapshot();
   });
-
-  it(`Favorites not empty`, () => {
+  it(`FavoritesList not empty`, () => {
     const tree = renderer
       .create(
           <Provider store={store}>
             <BrowserRouter>
-              <Favorites
-                favoriteOffers={favoriteOffers}
-                onHeaderLinkClick={() => {}}
-                getFavoriteOfferAction={() => {}}
+              <FavoritesList
+                favoriteOffersInCity={favoriteOffers}
+                city={`Amsterdam`}
               />
             </BrowserRouter>
           </Provider>

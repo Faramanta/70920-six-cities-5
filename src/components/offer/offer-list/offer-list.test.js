@@ -1,25 +1,23 @@
 import renderer from 'react-test-renderer';
+import {BrowserRouter} from 'react-router-dom';
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 import reducer from "@store/redusers/root-reducer";
-import {offers} from "../../mocks/mocks";
-import App from "./app";
+import OfferList from "./offer-list";
+import {offers} from "../../../mocks/mocks";
 
 const store = createStore(reducer);
 
-jest.mock(`../map/map`, () => `Map`);
-
-it(`App render correctly`, () => {
+it(`OfferList render correctly`, () => {
   const tree = renderer
     .create(
         <Provider store={store}>
-          <App
-            offers={offers}
-            city={`Amsterdam`}
-            hoverOfferCardId={1}
-            authorizationStatus={`NO_AUTH`}
-            init={() => {}}
-          />
+          <BrowserRouter>
+            <OfferList
+              offers={offers}
+              onOfferHover={() => {}}
+            />
+          </BrowserRouter>
         </Provider>
     ).toJSON();
 

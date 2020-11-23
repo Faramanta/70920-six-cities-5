@@ -1,6 +1,6 @@
 import renderer from 'react-test-renderer';
 import {BrowserRouter} from 'react-router-dom';
-import {Header} from "./header";
+import Header from "./header";
 import {userData} from "../../mocks/mocks";
 
 describe(`Header render correctly`, () => {

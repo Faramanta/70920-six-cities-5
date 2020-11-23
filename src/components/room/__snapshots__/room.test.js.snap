@@ -506,19 +506,16 @@ exports[`Room render correctly Room when user auth & no comments 1`] = `
                 <button
                   className="reviews__submit form__submit button"
                   disabled={true}
+                  style={
+                    Object {
+                      "background": "",
+                    }
+                  }
                   type="submit"
                 >
                   Submit
                 </button>
               </div>
-              <p
-                style={
-                  Object {
-                    "color": "red",
-                    "fontSize": "16",
-                  }
-                }
-              />
             </form>
           </section>
         </div>
@@ -2839,19 +2836,16 @@ exports[`Room render correctly Room when user no auth & with comments 2`] = `
                 <button
                   className="reviews__submit form__submit button"
                   disabled={true}
+                  style={
+                    Object {
+                      "background": "",
+                    }
+                  }
                   type="submit"
                 >
                   Submit
                 </button>
               </div>
-              <p
-                style={
-                  Object {
-                    "color": "red",
-                    "fontSize": "16",
-                  }
-                }
-              />
             </form>
           </section>
         </div>

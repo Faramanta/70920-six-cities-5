@@ -3,7 +3,7 @@ import {BrowserRouter} from 'react-router-dom';
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 import reducer from "@store/redusers/root-reducer";
-import {Room} from "./room";
+import Room from "./room";
 import {offer, offers, comments} from "../../mocks/mocks";
 
 const store = createStore(reducer);

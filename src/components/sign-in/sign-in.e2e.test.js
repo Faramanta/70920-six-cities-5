@@ -5,7 +5,7 @@ import {Provider} from 'react-redux';
 import {BrowserRouter} from 'react-router-dom';
 import reducer from "@store/redusers/root-reducer";
 import {userAuthData} from "../../mocks/mocks";
-import {SignIn} from "./sign-in";
+import SignIn from "./sign-in";
 
 configure({adapter: new Adapter()});
 

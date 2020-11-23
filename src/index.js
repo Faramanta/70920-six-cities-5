@@ -3,7 +3,7 @@ import {createStore, applyMiddleware} from "redux";
 import {Provider} from "react-redux";
 import thunk from "redux-thunk";
 import {createAPI} from "./services/api";
-import App from "./components/app/app";
+import App from '@components/app/app.connect';
 import rootReducer from "@store/redusers/root-reducer";
 import {requireAuthorization} from "@store/action";
 import {AuthorizationStatus} from "@const";

@@ -19,6 +19,7 @@ describe(`Main render correctly`, () => {
               <Main
                 city={`Amsterdam`}
                 offers={offers}
+                onHeaderLinkClick={() => {}}
               />
             </BrowserRouter>
           </Provider>

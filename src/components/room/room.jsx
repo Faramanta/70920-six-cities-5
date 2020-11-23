@@ -1,12 +1,9 @@
-import {connect} from "react-redux";
-import Header from "@components/header/header";
+import Header from "@components/header/header.connect";
 import ReviewList from "@components/review/review-list/review-list";
-import ReviewNew from "@components/review/components/review-new/review-new";
-import OfferList from "@components/offer/components/offer-list/offer-list";
+import ReviewNew from "@components/review/review-new/review-new.connect";
+import OfferList from "@components/offer/offer-list/offer-list";
 import Map from "@components/map/map";
 import {OffersPropTypes, ReviewsPropTypes} from "@props";
-import {getCurrentOffer, getOffersNearby, changeFavoriteStatus, getCurrentOfferComments} from "@store/api-actions";
-import {loadCurrentOffer} from "@store/action";
 import {AuthorizationStatus} from "@const";
 import {useParams} from 'react-router-dom';
 
@@ -65,7 +62,9 @@ const Room = ({offer, offersNearby, onHeaderLinkClick, resetActiveOffer, getCurr
                   onClick={(evt) => {
                     evt.preventDefault();
                     onFavoriteButtonClick(authorizationStatus);
-                    updateFavoriteStatus(offer.id, offer.isFavorite ? 0 : 1);
+                    if (authorizationStatus === AuthorizationStatus.AUTH) {
+                      updateFavoriteStatus(offer.id, offer.isFavorite ? 0 : 1);
+                    }
                   }}
                 >
                   <svg className="place-card__bookmark-icon" width="31" height="33">
@@ -183,23 +182,4 @@ Room.propTypes = {
   currentOfferComments: PropTypes.arrayOf(ReviewsPropTypes),
 };
 
-const mapStateToProps = ({DATA, PROCESS, USER}) => ({
-  offer: DATA.currentOffer,
-  offersNearby: DATA.offersNearby,
-  cities: PROCESS.cities,
-  city: PROCESS.city,
-  hoverOfferCardId: PROCESS.hoverOfferCardId,
-  authorizationStatus: USER.authorizationStatus,
-  currentOfferComments: DATA.currentOfferComments,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  resetActiveOffer: () => dispatch(loadCurrentOffer(null)),
-  getCurrentOfferAction: (id) => dispatch(getCurrentOffer(id)),
-  getOffersNearbyAction: (id) => dispatch(getOffersNearby(id)),
-  updateFavoriteStatus: (id, favoriteStatus) => dispatch(changeFavoriteStatus(id, favoriteStatus)),
-  getCurrentOfferCommentsAction: (id) => dispatch(getCurrentOfferComments(id)),
-});
-
-export {Room};
-export default connect(mapStateToProps, mapDispatchToProps)(Room);
+export default Room;

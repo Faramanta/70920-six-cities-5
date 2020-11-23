@@ -1,6 +1,6 @@
 import {configure, shallow} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import {Header} from "./header";
+import Header from "./header";
 import {userData} from "../../mocks/mocks";
 
 configure({adapter: new Adapter()});
