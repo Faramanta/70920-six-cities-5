@@ -61,7 +61,6 @@
       "^@const(.*)$": "<rootDir>/src/const.js",
       "^@props(.*)$": "<rootDir>/src/utils/prop-types.js",
       "^@utils(.*)$": "<rootDir>/src/utils/$1",
-      "^@hocs(.*)$": "<rootDir>/src/hocs/$1"
     }
   }
 }
