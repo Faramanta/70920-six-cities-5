@@ -8,6 +8,12 @@ import {OffersPropTypes} from "@props";
 
 const Main = ({offers, city, onHeaderLinkClick, onFavoriteButtonClick}) => {
 
+  const [hoveredOfferCard, setHoveredOfferCard] = React.useState(null);
+
+  const getHoveredOfferCard = (offer) => {
+    setHoveredOfferCard(offer);
+  };
+
   const isOffersEmpty = offers.length === 0;
   const containersOffersEmptyClass = isOffersEmpty ? `cities__places-container--empty` : ``;
   const mainOffersEmptyClass = isOffersEmpty ? `page__main--index-empty` : ``;
@@ -40,13 +46,14 @@ const Main = ({offers, city, onHeaderLinkClick, onFavoriteButtonClick}) => {
                     offers={offers}
                     city={city}
                     className={`cities__places-list tabs__content`}
+                    onOfferHover={getHoveredOfferCard}
                     onFavoriteButtonClick={onFavoriteButtonClick}
                   />
 
                 </section>
                 <div className="cities__right-section">
                   <section className="cities__map map">
-                    <Map offers={offers} city={city} />
+                    <Map offers={offers} city={city} offer={hoveredOfferCard} />
                   </section>
                 </div>
               </>
@@ -61,7 +68,6 @@ const Main = ({offers, city, onHeaderLinkClick, onFavoriteButtonClick}) => {
 Main.propTypes = {
   city: PropTypes.string.isRequired,
   offers: PropTypes.arrayOf(OffersPropTypes).isRequired,
-  hoverOfferCardId: PropTypes.number,
   onHeaderLinkClick: PropTypes.func,
   onFavoriteButtonClick: PropTypes.func,
 };

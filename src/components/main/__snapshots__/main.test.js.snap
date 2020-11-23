@@ -448,6 +448,7 @@ exports[`Main render correctly Main  1`] = `
           >
             <Map
               city="Amsterdam"
+              offer={null}
               offers={
                 Array [
                   Object {

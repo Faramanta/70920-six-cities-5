@@ -7,7 +7,6 @@ describe(`appProcess reduser test`, () => {
     expect(appProcess(void 0, {})).toEqual({
       city: `Paris`,
       sortingType: `Popular`,
-      hoverOfferCardId: 0,
       cities: [`Paris`, `Cologne`, `Brussels`, `Amsterdam`, `Hamburg`, `Dusseldorf`]
     });
   });
@@ -16,7 +15,6 @@ describe(`appProcess reduser test`, () => {
     expect(appProcess({
       city: `Paris`,
       sortingType: `Popular`,
-      hoverOfferCardId: 0,
       cities: [`Paris`, `Cologne`, `Brussels`, `Amsterdam`, `Hamburg`, `Dusseldorf`]
     }, {
       type: ActionType.CHANGE_CITY,
@@ -24,7 +22,6 @@ describe(`appProcess reduser test`, () => {
     })).toEqual({
       city: `Amsterdam`,
       sortingType: `Popular`,
-      hoverOfferCardId: 0,
       cities: [`Paris`, `Cologne`, `Brussels`, `Amsterdam`, `Hamburg`, `Dusseldorf`]
     });
   });
@@ -33,7 +30,6 @@ describe(`appProcess reduser test`, () => {
     expect(appProcess({
       city: `Paris`,
       sortingType: `Popular`,
-      hoverOfferCardId: 0,
       cities: [`Paris`, `Cologne`, `Brussels`, `Amsterdam`, `Hamburg`, `Dusseldorf`]
     }, {
       type: ActionType.CHANGE_SORTING_TYPE,
@@ -41,24 +37,6 @@ describe(`appProcess reduser test`, () => {
     })).toEqual({
       city: `Paris`,
       sortingType: `Price: high to low`,
-      hoverOfferCardId: 0,
-      cities: [`Paris`, `Cologne`, `Brussels`, `Amsterdam`, `Hamburg`, `Dusseldorf`]
-    });
-  });
-
-  it(`Reducer update hover card`, () => {
-    expect(appProcess({
-      city: `Paris`,
-      sortingType: `Popular`,
-      hoverOfferCardId: 0,
-      cities: [`Paris`, `Cologne`, `Brussels`, `Amsterdam`, `Hamburg`, `Dusseldorf`]
-    }, {
-      type: ActionType.CHANGE_HOVER_OFFER_CARD_ID,
-      payload: 1,
-    })).toEqual({
-      city: `Paris`,
-      sortingType: `Popular`,
-      hoverOfferCardId: 1,
       cities: [`Paris`, `Cologne`, `Brussels`, `Amsterdam`, `Hamburg`, `Dusseldorf`]
     });
   });

@@ -8,7 +8,6 @@ const defaultCity = CITIES[0];
 const initialState = {
   city: defaultCity,
   sortingType: SortingType.POPULAR,
-  hoverOfferCardId: 0,
   cities,
 };
 
@@ -21,10 +20,6 @@ const appProcess = (state = initialState, action) => {
     case ActionType.CHANGE_SORTING_TYPE:
       return extend(state, {
         sortingType: action.payload
-      });
-    case ActionType.CHANGE_HOVER_OFFER_CARD_ID:
-      return extend(state, {
-        hoverOfferCardId: action.payload
       });
   }
   return state;

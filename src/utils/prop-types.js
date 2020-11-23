@@ -16,7 +16,7 @@ export const OffersPropTypes = PropTypes.shape({
   ownerAvatar: PropTypes.string.isRequired,
   isSuper: PropTypes.bool.isRequired,
   coordinates: PropTypes.array.isRequired
-}).isRequired;
+});
 
 export const ReviewsPropTypes = PropTypes.shape({
   id: PropTypes.number.isRequired,

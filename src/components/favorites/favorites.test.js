@@ -17,7 +17,7 @@ describe(`Favorites render correctly`, () => {
               <Favorites
                 favoriteOffers={[]}
                 onHeaderLinkClick={() => {}}
-                loadFavorites={() => {}}
+                getFavoriteOfferAction={() => {}}
               />
             </BrowserRouter>
           </Provider>
@@ -34,7 +34,7 @@ describe(`Favorites render correctly`, () => {
               <Favorites
                 favoriteOffers={favoriteOffers}
                 onHeaderLinkClick={() => {}}
-                loadFavorites={() => {}}
+                getFavoriteOfferAction={() => {}}
               />
             </BrowserRouter>
           </Provider>

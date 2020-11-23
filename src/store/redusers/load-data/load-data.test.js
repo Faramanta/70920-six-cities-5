@@ -8,7 +8,7 @@ describe(`loadData reduser test`, () => {
       allOffers: [],
       offersNearby: [],
       favoriteOffers: [],
-      currentOffer: [],
+      currentOffer: null,
       currentOfferComments: []
     });
   });
@@ -48,7 +48,7 @@ describe(`loadData reduser test`, () => {
 
   it(`Reducer load current offer`, () => {
     expect(loadData({
-      currentOffer: [],
+      currentOffer: null,
     }, {
       type: ActionType.LOAD_CURRENT_OFFER,
       payload: offer,

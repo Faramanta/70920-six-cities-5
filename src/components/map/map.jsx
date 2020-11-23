@@ -1,106 +1,87 @@
-import {connect} from "react-redux";
 import leaflet from "leaflet";
 import {OffersPropTypes} from "@props";
 import {MapSettings} from "@const";
 
-class Map extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.mapRef = React.createRef();
-  }
+const Map = (props) => {
+  const {offer, offers, city} = props;
 
-  componentDidMount() {
-    const {offers, city, hoverOfferCardId} = this.props;
+  const mapRef = React.useRef(null);
+  const mapRefNode = React.useRef(null);
 
-    this._currentCity = offers.find((offerItem) => offerItem.city === city);
+  const currentCity = offers.find((offerItem) => offerItem.city === city);
+  const cityCoordinate = [currentCity.cityLocation.latitude, currentCity.cityLocation.longitude];
+  const cityZoom = currentCity.cityLocation.zoom;
 
-    const cityCoordinate = [this._currentCity.cityLocation.latitude, this._currentCity.cityLocation.longitude];
-    const cityZoom = [this._currentCity.cityLocation.zoom];
-
-    this._renderMap(cityCoordinate, cityZoom);
-
-    this._renderMarker(offers, hoverOfferCardId);
-  }
-
-  componentDidUpdate() {
-    const {offers, city, hoverOfferCardId} = this.props;
-
-    if (!this._currentCity) {
-      return;
-    }
-
-    if (this._currentCity.city !== city) {
-      this._currentCity = offers.find((offerItem) => offerItem.city === city);
-
-      if (!this._currentCity) {
-        return;
-      }
-
-      const cityCoordinate = [this._currentCity.cityLocation.latitude, this._currentCity.cityLocation.longitude];
-      const cityZoom = [this._currentCity.cityLocation.zoom];
-
-      this.map.remove();
-
-      this._renderMap(cityCoordinate, cityZoom);
-    }
-
-    this._renderMarker(offers, hoverOfferCardId);
-  }
-
-  _renderMap(cityCoordinates, cityZoom) {
-    this.map = leaflet.map(this.mapRef.current, {
-      center: cityCoordinates,
+  React.useEffect(() => {
+    mapRef.current = leaflet.map(`map`, {
+      center: cityCoordinate,
       zoom: cityZoom,
-      zoomControl: false,
-      marker: true
-    });
-
-    this.map.setView(cityCoordinates, cityZoom);
-
-    // Подключение слоя карты
-    leaflet
+      zoomControl: true,
+      marker: true,
+      layers: [
+        leaflet
       .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
         attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
       })
-      .addTo(this.map);
-  }
+      ]
+    });
 
-  _renderMarker(offers, hoverOfferCardId) {
-    offers
-      .map((offer) => {
-        const markerCoordinate = offer.coordinates;
+    mapRefNode.current = leaflet.layerGroup().addTo(mapRef.current);
+  }, []);
 
-        const icon = leaflet.icon({
-          iconUrl: offer.id === hoverOfferCardId ? MapSettings.HOVER_ICON_URL : MapSettings.ICON_URL,
-          iconSize: MapSettings.ICON_SIZE
-        });
-        leaflet
-          .marker(markerCoordinate, {icon})
-          .addTo(this.map);
+  React.useEffect(() => {
+    mapRef.current.setView(cityCoordinate, cityZoom);
+    mapRefNode.current.clearLayers();
+
+    const icon = leaflet.icon({
+      iconUrl: MapSettings.ICON_URL,
+      iconSize: MapSettings.ICON_SIZE
+    });
+
+    const hoveredIcon = leaflet.icon({
+      iconUrl: MapSettings.HOVER_ICON_URL,
+      iconSize: MapSettings.ICON_SIZE
+    });
+
+    [...offers, offer]
+      .map((offerItem) => {
+
+        if (offerItem !== null) {
+          const markerCoordinate = offerItem.coordinates;
+
+          if (offerItem === offer) {
+            leaflet
+              .marker(markerCoordinate, {icon: hoveredIcon})
+              .addTo(mapRefNode.current);
+
+            return;
+          }
+
+          leaflet
+            .marker(markerCoordinate, {icon})
+            .addTo(mapRefNode.current);
+        }
       });
-  }
+  }, [offer, cityCoordinate]);
 
-  render() {
-    return (
-      <div
-        ref={this.mapRef}
-        id="map"
-        style={{height: `100%`}}
-      ></div>
-    );
-  }
-}
+  return (
+    <div
+      ref={mapRef}
+      id="map"
+      style={{height: `100%`}}
+    ></div>
+  );
+};
 
 Map.propTypes = {
   city: PropTypes.string.isRequired,
   offers: PropTypes.arrayOf(OffersPropTypes).isRequired,
-  hoverOfferCardId: PropTypes.number.isRequired,
+  hoveredOfferCard: OffersPropTypes,
+  offer: PropTypes.oneOfType([
+    PropTypes.object.isRequired,
+    PropTypes.arrayOf(OffersPropTypes)
+  ]),
 };
 
-const mapStateToProps = ({PROCESS}) => ({
-  hoverOfferCardId: PROCESS.hoverOfferCardId,
-});
-
-export {Map};
-export default connect(mapStateToProps)(Map);
+export default Map;
 

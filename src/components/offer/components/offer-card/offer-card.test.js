@@ -11,7 +11,7 @@ describe(`OfferCard render correctly`, () => {
             <OfferCard
               offer={offer}
               isFavorite={false}
-              onOfferCardHover={() => {}}
+              onOfferHover={() => {}}
               updateFavoriteStatus={() => {}}
             />
           </BrowserRouter>
@@ -27,7 +27,7 @@ describe(`OfferCard render correctly`, () => {
             <OfferCard
               offer={offer}
               isFavorite={true}
-              onOfferCardHover={() => {}}
+              onOfferHover={() => {}}
               updateFavoriteStatus={() => {}}
             />
           </BrowserRouter>

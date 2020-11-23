@@ -3,7 +3,7 @@ import {BrowserRouter} from 'react-router-dom';
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 import reducer from "@store/redusers/root-reducer";
-import {OfferList} from "./offer-list";
+import OfferList from "./offer-list";
 import {offers} from "../../../../mocks/mocks";
 
 const store = createStore(reducer);
@@ -15,7 +15,7 @@ it(`OfferList render correctly`, () => {
           <BrowserRouter>
             <OfferList
               offers={offers}
-              changeHoverOfferCardIdAction={() => {}}
+              onOfferHover={() => {}}
             />
           </BrowserRouter>
         </Provider>

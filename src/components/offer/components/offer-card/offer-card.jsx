@@ -6,14 +6,17 @@ import {TypeRoom, AppRoute} from "@const";
 import {changeFavoriteStatus} from "@store/api-actions";
 
 const OfferCard = (props) => {
-  const {offer, onOfferCardHover, onFavoriteButtonClick, updateFavoriteStatus} = props;
+  const {offer, onFavoriteButtonClick, updateFavoriteStatus, onOfferHover, authorizationStatus} = props;
   const favoriteBtnClass = offer.isFavorite ? `place-card__bookmark-button--active` : ``;
   const hotelRating = getRating(offer.rating);
 
   return (
     <article
       className="cities__place-card place-card"
-      onMouseOver={onOfferCardHover}
+      onMouseOver={(evt) => {
+        evt.preventDefault();
+        onOfferHover(offer);
+      }}
     >
       {offer.isPremium &&
         <>
@@ -38,8 +41,8 @@ const OfferCard = (props) => {
           <button
             className={`place-card__bookmark-button ${favoriteBtnClass} button`}
             type="button"
-            onClick={(evt) => {
-              onFavoriteButtonClick(evt);
+            onClick={() => {
+              onFavoriteButtonClick(authorizationStatus);
               updateFavoriteStatus(offer.id, offer.isFavorite ? 0 : 1);
             }}
           >
@@ -66,17 +69,21 @@ const OfferCard = (props) => {
 };
 
 OfferCard.propTypes = {
-  onOfferCardHover: PropTypes.func.isRequired,
+  onOfferHover: PropTypes.func.isRequired,
   onFavoriteButtonClick: PropTypes.func,
   updateFavoriteStatus: PropTypes.func.isRequired,
-  offer: OffersPropTypes
+  offer: OffersPropTypes,
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
+const mapStateToProps = ({USER}) => ({
+  authorizationStatus: USER.authorizationStatus,
+  user: USER.user,
+});
+
 const mapDispatchToProps = (dispatch) => ({
-  updateFavoriteStatus(id, favoriteStatus) {
-    dispatch(changeFavoriteStatus(id, favoriteStatus));
-  },
+  updateFavoriteStatus: (id, favoriteStatus) => dispatch(changeFavoriteStatus(id, favoriteStatus))
 });
 
 export {OfferCard};
-export default connect(null, mapDispatchToProps)(OfferCard);
+export default connect(mapStateToProps, mapDispatchToProps)(OfferCard);
